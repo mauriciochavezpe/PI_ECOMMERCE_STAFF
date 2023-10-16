@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -24,45 +24,45 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
-} from '../constants/productConstants'
+} from "../constants/productConstants";
 
+const URL =
+  "https://zpje4svosl.execute-api.us-east-1.amazonaws.com/dev/products";
 
-const URL ="https://zpje4svosl.execute-api.us-east-1.amazonaws.com/dev/products"
+export const listProducts =
+  (keyword = "", pageNumber = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_LIST_REQUEST });
 
-export const listProducts = (keyword = '', pageNumber = '') => async (
-  dispatch
-) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_REQUEST })
+      const response = await axios(URL); // Use the relative path to your API endpoint
+      const data = await response;
 
-    const response = await axios(URL); // Use the relative path to your API endpoint
-    const data = await response;
-
-    dispatch({
-      type: PRODUCT_LIST_SUCCESS,
-      payload: data.data,
-    })
-  } catch (err) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload:
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message,
-    })
-  }
-}
+      dispatch({
+        type: PRODUCT_LIST_SUCCESS,
+        payload: data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: PRODUCT_LIST_FAIL,
+        payload:
+          err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message,
+      });
+    }
+  };
 
 export const listProductDetails = (id) => async (dispatch) => {
   try {
-    dispatch({ type: PRODUCT_DETAILS_REQUEST })
+    dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/api/products/${id}`)
+    const { data } = await axios.get(`/api/products/${id}`);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data,
-    })
+    });
   } catch (err) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
@@ -70,27 +70,27 @@ export const listProductDetails = (id) => async (dispatch) => {
         err.response && err.response.data.message
           ? err.response.data.message
           : err.message,
-    })
+    });
   }
-}
+};
 
 export const deleteProduct = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_DELETE_REQUEST,
-    })
+    });
 
     const {
       userLogin: { userInfo },
-    } = getState()
+    } = getState();
 
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
-    }
+    };
 
-    const { data } = await axios.delete(`/api/products/${id}`, config)
+    const { data } = await axios.delete(`/api/products/${id}`, config);
 
     dispatch({
       type: PRODUCT_DELETE_SUCCESS,
@@ -98,13 +98,13 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
         message: data,
         id: id,
       },
-    })
+    });
 
     setTimeout(() => {
       dispatch({
         type: PRODUCT_DELETE_CLEAR_MESSAGE,
-      })
-    }, 2500)
+      });
+    }, 2500);
   } catch (err) {
     dispatch({
       type: PRODUCT_DELETE_FAIL,
@@ -112,79 +112,74 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
         err.response && err.response.data.message
           ? err.response.data.message
           : err.message,
-    })
+    });
   }
-}
+};
 
-export const createProduct = () => async (dispatch, getState) => {
-  try {
-    dispatch({
+export const createProduct =
+  () =>
+  async (dispatch, getState) => {
+    try {
+      /**
+     *     dispatch({
       type: PRODUCT_CREATE_REQUEST,
     })
-
-    const {
-      userLogin: { userInfo },
-    } = getState()
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+    
+     */
+    let data = getState().createproduct1;
+      console.log("getState", data);
+      const pay = await axios.post(URL, data);
+      dispatch({
+        type: PRODUCT_CREATE_SUCCESS,
+        payload: pay.data.products,
+      });
+    } catch (err) {
+      dispatch({
+        type: PRODUCT_CREATE_FAIL,
+        payload:
+          err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message,
+      });
     }
-
-    const { data } = await axios.post(`/api/products`, {}, config)
-
-    dispatch({
-      type: PRODUCT_CREATE_SUCCESS,
-      payload: data,
-    })
-  } catch (err) {
-    dispatch({
-      type: PRODUCT_CREATE_FAIL,
-      payload:
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message,
-    })
-  }
-}
+  };
 
 export const updateProduct = (product) => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_UPDATE_REQUEST,
-    })
+    });
 
     const {
       userLogin: { userInfo },
-    } = getState()
+    } = getState();
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.token}`,
       },
-    }
+    };
 
     const { data } = await axios.put(
       `/api/products/${product._id}`,
       product,
       config
-    )
+    );
 
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS,
       payload: data,
-    })
+    });
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data,
-    })
+    });
 
     setTimeout(() => {
-      dispatch({ type: PRODUCT_UPDATE_HIDE_MESSAGE })
-    }, 2500)
+      dispatch({ type: PRODUCT_UPDATE_HIDE_MESSAGE });
+    }, 2500);
   } catch (err) {
     dispatch({
       type: PRODUCT_UPDATE_FAIL,
@@ -192,56 +187,54 @@ export const updateProduct = (product) => async (dispatch, getState) => {
         err.response && err.response.data.message
           ? err.response.data.message
           : err.message,
-    })
+    });
   }
-}
+};
 
-export const createProductReview = (productId, review) => async (
-  dispatch,
-  getState
-) => {
-  try {
-    dispatch({
-      type: PRODUCT_CREATE_REVIEW_REQUEST,
-    })
+export const createProductReview =
+  (productId, review) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_REQUEST,
+      });
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState();
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      await axios.post(`/api/products/${productId}/reviews`, review, config);
+
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_SUCCESS,
+      });
+    } catch (err) {
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload:
+          err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message,
+      });
     }
-
-    await axios.post(`/api/products/${productId}/reviews`, review, config)
-
-    dispatch({
-      type: PRODUCT_CREATE_REVIEW_SUCCESS,
-    })
-  } catch (err) {
-    dispatch({
-      type: PRODUCT_CREATE_REVIEW_FAIL,
-      payload:
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message,
-    })
-  }
-}
+  };
 
 export const listTopProducts = () => async (dispatch) => {
   try {
-    dispatch({ type: PRODUCT_TOP_REQUEST })
+    dispatch({ type: PRODUCT_TOP_REQUEST });
 
     const response = await axios(URL); // Use the relative path to your API endpoint
     const data = await response;
     dispatch({
       type: PRODUCT_TOP_SUCCESS,
       payload: data.data,
-    })
+    });
   } catch (err) {
     dispatch({
       type: PRODUCT_TOP_FAIL,
@@ -249,6 +242,6 @@ export const listTopProducts = () => async (dispatch) => {
         err.response && err.response.data.message
           ? err.response.data.message
           : err.message,
-    })
+    });
   }
-}
+};

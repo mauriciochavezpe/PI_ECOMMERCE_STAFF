@@ -25,23 +25,42 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_HIDE_MESSAGE,
   PRODUCT_UPDATE_RESET,
-} from '../constants/productConstants'
+} from "../constants/productConstants";
+  import axios from "axios";
+
+
+
+
+const actionTypes = {
+  confirm: "CONFIRM",
+  WRITE: "WRITE",
+  PRINT:"PRINT",
+  INCREMENT:"INCREMENT",
+  DECREMENT:"DECREMENT"
+};
+
+
+const URL =
+"https://zpje4svosl.execute-api.us-east-1.amazonaws.com/dev/products";
+
+let dataInicial = 1
+
 
 export const productListReducer = (state = { products: [] }, action) => {
-  const { type, payload } = action
+  const { type, payload } = action;
 
   switch (type) {
     case PRODUCT_LIST_REQUEST:
-      return { loading: true, products: [] }
+      return { loading: true, products: [] };
     case PRODUCT_LIST_SUCCESS:
       return {
         loading: false,
         products: payload.products,
         pages: payload.pages || 1,
-        page: payload.page ||1,
-      }
+        page: payload.page || 1,
+      };
     case PRODUCT_LIST_FAIL:
-      return { loading: false, error: payload }
+      return { loading: false, error: payload };
     case PRODUCT_DELETE_SUCCESS:
       return {
         ...state,
@@ -49,120 +68,141 @@ export const productListReducer = (state = { products: [] }, action) => {
         products: state.products.filter(
           (product) => product._id !== payload.id
         ),
-      }
+      };
     case PRODUCT_DELETE_CLEAR_MESSAGE:
       return {
         ...state,
-        message: '',
-      }
+        message: "",
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const productDetailsReducer = (
   state = { product: { reviews: [] } },
   action
 ) => {
-  const { type, payload } = action
+  const { type, payload } = action;
 
   switch (type) {
     case PRODUCT_DETAILS_REQUEST:
-      return { loading: true, ...state }
+      return { loading: true, ...state };
     case PRODUCT_DETAILS_SUCCESS:
-      return { loading: false, product: payload }
+      return { loading: false, product: payload };
     case PRODUCT_DETAILS_FAIL:
-      return { loading: false, error: payload }
+      return { loading: false, error: payload };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const deleteProductReducer = (state = {}, action) => {
-  const { type, payload } = action
+  const { type, payload } = action;
 
   switch (type) {
     case PRODUCT_DELETE_REQUEST:
-      return { loading: true }
+      return { loading: true };
     case PRODUCT_DELETE_SUCCESS:
-      return { loading: false }
+      return { loading: false };
     case PRODUCT_DELETE_FAIL:
-      return { loading: false, error: payload }
+      return { loading: false, error: payload };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export const productCreateReducer = (state = {}, action) => {
-  const { type, payload } = action
-
+export const productCreateReducer = (state={}, action) => {
+  const { type, payload } = action;
   switch (type) {
     case PRODUCT_CREATE_REQUEST:
-      return { loading: true }
+      return { loading: true };
     case PRODUCT_CREATE_SUCCESS:
-      return { loading: false, success: true, product: payload }
+      return { loading: false, success: true, product: payload };
     case PRODUCT_CREATE_FAIL:
-      return { loading: false, error: payload }
+      return { loading: false, error: payload };
     case PRODUCT_CREATE_RESET:
-      return {}
+      return {};
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const productUpdateReducer = (state = { product: {} }, action) => {
-  const { type, payload } = action
+  const { type, payload } = action;
 
   switch (type) {
     case PRODUCT_UPDATE_REQUEST:
-      return { loading: true }
+      return { loading: true };
     case PRODUCT_UPDATE_SUCCESS:
-      return { loading: false, success: true, product: payload }
+      return { loading: false, success: true, product: payload };
     case PRODUCT_UPDATE_HIDE_MESSAGE:
       return {
         ...state,
         success: false,
-      }
+      };
     case PRODUCT_UPDATE_FAIL:
-      return { loading: false, error: payload }
+      return { loading: false, error: payload };
     case PRODUCT_UPDATE_RESET:
       return {
         ...state,
         product: {},
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const productCreateReviewReducer = (state = {}, action) => {
-  const { type, payload } = action
+  const { type, payload } = action;
 
   switch (type) {
     case PRODUCT_CREATE_REVIEW_REQUEST:
-      return { loading: true }
+      return { loading: true };
     case PRODUCT_CREATE_REVIEW_SUCCESS:
-      return { loading: false, success: true }
+      return { loading: false, success: true };
     case PRODUCT_CREATE_REVIEW_FAIL:
-      return { loading: false, error: payload }
+      return { loading: false, error: payload };
     case PRODUCT_CREATE_REVIEW_RESET:
-      return {}
+      return {};
     default:
-      return state
+      return state;
   }
-}
-
+};
+/*
 export const productTopRatedReducer = (state = { products: [] }, action) => {
-  const { type, payload } = action
-  console.log("dd",type);
+  const { type, payload } = action;
+  console.log("dd", type);
   switch (type) {
     case PRODUCT_TOP_REQUEST:
-      return { loading: true, products: [] }
+      return { loading: true, products: [] };
     case PRODUCT_TOP_SUCCESS:
-      return { loading: false, products: payload.products }
+      return { loading: false, products: payload.products };
     case PRODUCT_TOP_FAIL:
-      return { loading: false, error: payload }
+      return { loading: false, error: payload };
     default:
-      return state
+      return state;
+  }
+};*/
+
+export const createproduct1 = (state = {product:{}}, action)=>{
+  switch (action.type) {
+    case "FILL":
+      return {...state.product,...action.payload}
+    default:
+      return {...state};
   }
 }
+//los reduce reciben 2
+export const test2 = (state = dataInicial, action) => {
+  const { type, payload } = action;
+  console.log("state21", state);
+  switch (type) {
+    case actionTypes.INCREMENT:
+      return state+1
+      case actionTypes.DECREMENT:
+        return state - 1
+    default:
+      return state;
+  }
+};

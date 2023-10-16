@@ -11,11 +11,8 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
-  const { cartItems, toast } = cart;
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
   const logoutHandler = () => {
     dispatch(logout());
   };

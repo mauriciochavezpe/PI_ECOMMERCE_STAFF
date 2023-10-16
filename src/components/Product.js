@@ -1,36 +1,29 @@
 import { Link } from 'react-router-dom'
-import { Card } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import Rating from './Rating'
 import AddToCartBtn from './AddToCartBtn'
 
 const Product = ({ product }) => {
   return (
-    <Card className='my-3 p-3 rounded card-main card-main-sm card-main-md'>
-      <Link to={`/product/${product.id}`}>
-        <Card.Img src={product.image} vatiant='top' alt={product.name} />
+    <Card style={{ width: '18rem' }} className="mb-4">
+      <Link to={`/product/${product.id}`}> 
+      <Card.Img variant="top" src={product.image} alt={product.name} />
       </Link>
       <Card.Body>
-        <Link to={`/product/${product.id}`}>
-          <Card.Title as='div' className='mt-1-sm'>
-            <strong>
-              {product.name.length > 37
-                ? `${product.name.slice(0, 37)}...`
-                : `${product.name}`}
-            </strong>
-          </Card.Title>
-        </Link>
-        <Card.Text as='div'>
-          <Rating
-            value={product.rating || 2}
-            text={`${product.numReviews || 3}  `}
-          />
+        <Card.Title>{product.name}</Card.Title>
+        <Card.Text>
+          {product.description.length > 30 ?
+            `${product.description.slice(0,30)}...` :  
+            `${product.description}`   
+        } 
         </Card.Text>
         <Card.Text as='h5' className='mb-3'>
-          {product.price} {' '}
-          <small>{product.countInStock === 0 && `1`}</small>
+          Precio: S/. {product.price}
         </Card.Text>
-
+        <Rating
+            count={2}
+          />
         <AddToCartBtn disabled={product.countInStock === 0} id={product.id} />
       </Card.Body>
     </Card>
@@ -38,8 +31,7 @@ const Product = ({ product }) => {
 }
 
 Product.propTypes = {
-  product: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
+  product: PropTypes.object.isRequired
 }
 
 export default Product

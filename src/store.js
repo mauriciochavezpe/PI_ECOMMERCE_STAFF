@@ -7,28 +7,15 @@ import {
   productUpdateReducer,
   deleteProductReducer,
   productCreateReviewReducer,
-  productTopRatedReducer,
+  test2,
+  createproduct1
 } from './reducers/productReducers'
-import { cartReducer } from './reducers/cartReducers'
-import {
-  userLoginReducer,
-  userRegisterReducer,
-  userDetailsReducer,
-  userUpdateProfileReducer,
-  userListReducer,
-  userDeleteReducer,
-  userUpdateReducer,
-} from './reducers/userReducers'
-import {
-  orderCreateReducer,
-  orderDetailsReducer,
-  orderPayReducer,
-  orderDeliveredReducer,
-  orderListMyReducer,
-  getOrdersReducer,
-  orderDeleteReducer,
-  ordersListReducer,
-} from './reducers/orderReducers'
+
+
+/*
+const initialState = {
+  test:123
+}*/
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -37,30 +24,15 @@ const reducer = combineReducers({
   productUpdate: productUpdateReducer,
   productDelete: deleteProductReducer,
   productCreateReview: productCreateReviewReducer,
-  productTopRated: productTopRatedReducer,
-  cart: cartReducer,
-  userLogin: userLoginReducer,
-  userRegister: userRegisterReducer,
-  userDetails: userDetailsReducer,
-  userUpdateProfile: userUpdateProfileReducer,
-  userUpdate: userUpdateReducer,
-  userDelete: userDeleteReducer,
-  userList: userListReducer,
-  orderCreate: orderCreateReducer,
-  orderDetails: orderDetailsReducer,
-  orderPay: orderPayReducer,
-  orderDelivered: orderDeliveredReducer,
-  orderMyList: orderListMyReducer,
-  ordersList: ordersListReducer,
-  getOrders: getOrdersReducer,
-  orderDelete: orderDeleteReducer,
+  createproduct1,
+  test2:test2
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : []
 
-const userInfoFromStorage = localStorage.getItem('userInfo')
+ const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
@@ -72,18 +44,10 @@ const paymentMethodStorage = localStorage.getItem('paymentMethod')
   ? JSON.parse(localStorage.getItem('paymentMethod'))
   : {}
 
-const initialState = {
-  cart: {
-    cartItems: cartItemsFromStorage,
-    shippingAddress: shippingAddressFromStorage,
-    paymentMethod: paymentMethodStorage,
-  },
-  userLogin: { userInfo: userInfoFromStorage },
-}
 
 const middleware = [thunkMiddleware]
 
- const store = createStore(reducer, initialState, applyMiddleware(...middleware))
+ const store = createStore(reducer, /*initialState,*/ applyMiddleware(...middleware))
 //const store = createStore(reducer, initialState)
 
 export default store

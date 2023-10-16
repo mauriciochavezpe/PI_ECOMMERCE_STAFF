@@ -7,17 +7,27 @@ import Loader from './layout/Loader'
 import Message from './Message'
 import { listTopProducts } from '../actions/productActions'
 
+import banner1 from "../images/banner1.jpg";
+import banner2 from "../images/banner2.jpg";
+import banner3 from "../images/banner3.jpg";
+
+const generateRandomText = () => {
+  return "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled i"};
+
 const ProductCarousel = () => {
   const dispatch = useDispatch()
   const [error,setError]= useState(null)
   const [loading,setLoading]= useState(null)
-  const productTopRated = useSelector((state) => state.productTopRated)
-  const { count, products } = productTopRated
-  // console.log(products);
 
   useEffect(() => {
     dispatch(listTopProducts())
   }, [dispatch])
+
+  const banners = [
+    { id: 1, image: banner1 },
+    { id: 2, image: banner2 },
+    { id: 3, image: banner3 },
+  ];
 
   return loading ? (
     <Loader />
@@ -27,27 +37,17 @@ const ProductCarousel = () => {
     //   {error}
     // </Message>
   ) : (
-    <Carousel pause='hover' className='mt-2 mx-5'>
-      {products.map((product) => (
-        <Carousel.Item key={product.id}>
-          <Link to={`/product/${product.id}`}>
-            <Image src={product.image} className='width-30' alt={product.name} fluid rounded />
-            <Carousel.Caption className='carousel-caption-sm'>
-              <>
-                <h2>{product.name}</h2>
-      {/*<h5>
-                  <NumberFormat
-                    value={product.price}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                  />{' '}
-                </h5>*/}
-              </>
-            </Carousel.Caption>
-          </Link>
-        </Carousel.Item>
-      ))}
-    </Carousel>
+    <Carousel pause='hover'  >
+    {banners.map((banner) => (
+      <Carousel.Item key={banner.id}>
+        <img
+          className='d-block w-100'
+          src={banner.image}
+          alt={`Banner ${banner.id}`}
+        />
+      </Carousel.Item>
+    ))}
+  </Carousel>
   )
 }
 

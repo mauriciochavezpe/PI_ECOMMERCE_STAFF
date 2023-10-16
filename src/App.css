@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+
+.star-rating {
+  font-size: 1.5rem;
+}
+
+.star {
+  color: #FFD700; /* Color de las estrellas llenas */
+}

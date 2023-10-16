@@ -6,6 +6,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import NotFound from "./components/layout/NotFound";
+import ProductListAdmin from "./components/ProductListAdmin";
 import HomeScreen from "./screens/HomeScreen";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeScreen />} exact/>
         <Route path="/not-found" element={<NotFound />} />
+        <Route path="/admin/products" element={<ProductListAdmin />} />
       </Routes>
       <Footer />
     </HashRouter>
