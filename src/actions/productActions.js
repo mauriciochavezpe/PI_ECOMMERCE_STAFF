@@ -30,7 +30,7 @@ const URL =
   "https://zpje4svosl.execute-api.us-east-1.amazonaws.com/dev/products";
 
 export const listProducts =
-  (keyword = "", pageNumber = "") =>
+  ( ) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -126,13 +126,20 @@ export const createProduct =
     })
     
      */
-    let data = getState().createproduct1;
-      console.log("getState", data);
+    let data = getState().productCreate.product; 
+    console.log("getState", data);
+    data.price = Number(data.price)
+    data.quantity = Number(data.quantity)
+    if(JSON.stringify(data)!=="{}"){
       const pay = await axios.post(URL, data);
+
+      console.log(pay);
+    //  data= {...data, id:pay.data.product.id };
       dispatch({
         type: PRODUCT_CREATE_SUCCESS,
-        payload: pay.data.products,
+        payload: pay.data.product,
       });
+    }
     } catch (err) {
       dispatch({
         type: PRODUCT_CREATE_FAIL,

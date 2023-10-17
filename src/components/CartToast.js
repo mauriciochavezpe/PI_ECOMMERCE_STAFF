@@ -5,10 +5,10 @@ import { Row, Toast, Col } from 'react-bootstrap'
 const CartToast = () => {
   const [show, setShow] = useState(true)
 
-  const cart = useSelector((state) => state.cart)
+  //const cart = useSelector((state) => state.cart)
 
-  const { message } = cart
-
+  //const { message } = cart
+  const message =""
   return (
     <Row>
       <Col xs={6}>

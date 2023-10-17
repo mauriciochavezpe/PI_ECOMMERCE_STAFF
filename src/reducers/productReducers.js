@@ -196,7 +196,7 @@ export const createproduct1 = (state = {product:{}}, action)=>{
 //los reduce reciben 2
 export const test2 = (state = dataInicial, action) => {
   const { type, payload } = action;
-  console.log("state21", state);
+  //console.log("state21", state);
   switch (type) {
     case actionTypes.INCREMENT:
       return state+1

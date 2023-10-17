@@ -10,7 +10,7 @@ import { logout } from "../actions/userActions";
 const Header = () => {
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
+  //const cart = useSelector((state) => state.cart);
 
   const userLogin = useSelector((state) => state.userLogin);
   const logoutHandler = () => {

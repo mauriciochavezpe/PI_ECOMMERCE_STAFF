@@ -12,10 +12,9 @@ import {
 } from './reducers/productReducers'
 
 
-/*
 const initialState = {
-  test:123
-}*/
+  productCreate:{  product: {} }
+}
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -47,7 +46,7 @@ const paymentMethodStorage = localStorage.getItem('paymentMethod')
 
 const middleware = [thunkMiddleware]
 
- const store = createStore(reducer, /*initialState,*/ applyMiddleware(...middleware))
+ const store = createStore(reducer, initialState, applyMiddleware(...middleware))
 //const store = createStore(reducer, initialState)
 
 export default store
