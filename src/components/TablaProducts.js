@@ -8,7 +8,7 @@ const TablaProducts = ({ products }) => {
 
     try {
       const URL =
-        "https://zpje4svosl.execute-api.us-east-1.amazonaws.com/dev/products/" +
+        "https://870avezjq0.execute-api.us-east-1.amazonaws.com/dev/products/" +
         item.id;
       const response = await axios.delete(URL);
       console.log(response.data); // Handle the response as needed
@@ -32,7 +32,7 @@ const TablaProducts = ({ products }) => {
         </tr>
       </thead>
       <tbody>
-        {products.map((item, index) => (
+        {products.length > 0 && products.map((item, index) => (
           <tr key={item.id}>
             <td>{item.name}</td>
             <td>{item.description}</td>

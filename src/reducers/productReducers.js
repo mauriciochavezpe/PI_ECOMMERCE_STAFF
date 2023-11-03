@@ -26,8 +26,7 @@ import {
   PRODUCT_UPDATE_HIDE_MESSAGE,
   PRODUCT_UPDATE_RESET,
 } from "../constants/productConstants";
-  import axios from "axios";
-
+ 
 
 
 
@@ -169,21 +168,6 @@ export const productCreateReviewReducer = (state = {}, action) => {
       return state;
   }
 };
-/*
-export const productTopRatedReducer = (state = { products: [] }, action) => {
-  const { type, payload } = action;
-  console.log("dd", type);
-  switch (type) {
-    case PRODUCT_TOP_REQUEST:
-      return { loading: true, products: [] };
-    case PRODUCT_TOP_SUCCESS:
-      return { loading: false, products: payload.products };
-    case PRODUCT_TOP_FAIL:
-      return { loading: false, error: payload };
-    default:
-      return state;
-  }
-};*/
 
 export const createproduct1 = (state = {product:{}}, action)=>{
   switch (action.type) {
@@ -194,15 +178,14 @@ export const createproduct1 = (state = {product:{}}, action)=>{
   }
 }
 //los reduce reciben 2
-export const test2 = (state = dataInicial, action) => {
+export const createImage = (state = dataInicial, action) => {
   const { type, payload } = action;
   //console.log("state21", state);
   switch (type) {
-    case actionTypes.INCREMENT:
-      return state+1
-      case actionTypes.DECREMENT:
-        return state - 1
+    case "IMG_FULL":
+      return {...state, ...action.payload}
     default:
       return state;
   }
 };
+ 

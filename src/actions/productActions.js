@@ -27,13 +27,14 @@ import {
 } from "../constants/productConstants";
 
 const URL =
-  "https://zpje4svosl.execute-api.us-east-1.amazonaws.com/dev/products";
+  "https://870avezjq0.execute-api.us-east-1.amazonaws.com/dev/products";
 
 export const listProducts =
   ( ) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
+
 
       const response = await axios(URL); // Use the relative path to your API endpoint
       const data = await response;
@@ -117,30 +118,26 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 };
 
 export const createProduct =
-  () =>
+  (data) =>
   async (dispatch, getState) => {
     try {
-      /**
-     *     dispatch({
-      type: PRODUCT_CREATE_REQUEST,
-    })
-    
-     */
-    let data = getState().productCreate.product; 
+     debugger
+    //let data = getState().productCreate.product; 
     console.log("getState", data);
     data.price = Number(data.price)
     data.quantity = Number(data.quantity)
     if(JSON.stringify(data)!=="{}"){
+      delete data.image;
       const pay = await axios.post(URL, data);
 
       console.log(pay);
-    //  data= {...data, id:pay.data.product.id };
       dispatch({
         type: PRODUCT_CREATE_SUCCESS,
         payload: pay.data.product,
       });
     }
     } catch (err) {
+      debugger;
       dispatch({
         type: PRODUCT_CREATE_FAIL,
         payload:

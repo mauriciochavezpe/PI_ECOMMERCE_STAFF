@@ -16,10 +16,8 @@ const HomeScreen = ({ match, history }) => {
 
   const dispatch = useDispatch();
 
-  //const cart = useSelector((state) => state.cart);
   const allStore = useSelector((state) => state);
   console.log("allStore",allStore)
- // const { toast } = cart;
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, pages, page } = productList;
@@ -28,10 +26,6 @@ const HomeScreen = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(listProducts());
-/*
-    if (toast) {
-      window.scrollTo(0, 0);
-    }*/
   }, [dispatch, keyword, pageNumber]);
 
   return (
@@ -62,7 +56,6 @@ const HomeScreen = ({ match, history }) => {
           <Row>
             {products.length > 0 ? (
               products
-                // .filter((product) => product.published)
                 .map((product) => (
                   <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                     <Product product={product} 

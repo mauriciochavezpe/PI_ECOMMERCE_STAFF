@@ -1,22 +1,21 @@
 import React, { useState, useEffect, useReducer } from "react";
 import {  useSelector,useDispatch } from 'react-redux'
-
+import store from '../../src/store'
 import axios from "axios";
+
 import {
   Row,
-  Col,
-  Image,
   Container,
-  Card,
   Form,
   Button,
 } from "react-bootstrap";
 import TablaProducts from "../components/TablaProducts";
-import {createProduct} from "../actions/productActions";
-import { listProducts } from "../actions/productActions";
+import {createProduct,listProducts} from "../actions/productActions";
+import { createProductImage } from "../actions/imgActions";
 
 const ProductScreen = ({ onSubmit }) => {
   const [newValue,setNewValue] = useState('');
+  const [imageData, setImageData] = useState({ extension: '', base64: '' });
 
   const [product, setProduct] = useState({
     name: "",
@@ -25,7 +24,7 @@ const ProductScreen = ({ onSubmit }) => {
     category: "",
     brand: "",
     quantity: "",
-    image: "https://cdn.shopify.com/s/files/1/0632/7880/9324/products/IMG-7325616.jpg?v=1663002895"    ,
+    image: {},
   });
   const handleInputChange2 = (e) => {
     const { name, value } = e.target;
@@ -38,14 +37,25 @@ const ProductScreen = ({ onSubmit }) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
   };
-  const handleFileChange = (e) => {
+  const handleImageUpload = (e) => {
+    debugger;
     const file = e.target.files[0];
-    setProduct({ ...product, image: file });
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const extension = file.name.split('.').pop(); // Obtener la extensión del archivo
+      const base64 = reader.result; // Obtener el valor base64 de la imagen
+      dispatch({type:"IMG_FULL",payload:{"imageFormat":extension,"encodedImage": base64 }})
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+
+   
   };
-  // const [arrList, setarrList] = useState([]);
  
   const allStore = useSelector((state) => state);
-  const product1 = useSelector((state) => state.productCreate.product);
   const productList = useSelector((state) => state.productList);
 
   console.log("allStore",allStore);
@@ -89,9 +99,21 @@ const ProductScreen = ({ onSubmit }) => {
   };
 
   const generarSync = (data)=> {
-    dispatch({type:"PRODUCT_CREATE_SUCCESS",payload:data})
-    dispatch(createProduct())
-    dispatch(listProducts());
+    //dispatch({type:"PRODUCT_CREATE_SUCCESS",payload:data})
+    dispatch(createProduct(data))
+    store.subscribe(() => {
+      const updatedProductCreate = store.getState().productCreate;
+      //creamos un product
+      let sId = updatedProductCreate.product.id; 
+      if(sId){
+        //jalaria el reduer
+        dispatch(createProductImage(sId))
+
+      }
+      // Aquí puedes hacer lo que quieras con el estado actualizado
+      //console.log('Estado productCreate actualizado:', updatedProductCreate);
+    });
+//   dispatch(listProducts());
   }
   return (
     <div>
@@ -172,7 +194,7 @@ const ProductScreen = ({ onSubmit }) => {
             <Form.Control
               type="file"
               name="image"
-              onChange={handleFileChange}
+              onChange={handleImageUpload}
             />
           </Form.Group>
 
