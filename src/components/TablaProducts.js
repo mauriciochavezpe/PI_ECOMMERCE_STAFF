@@ -1,24 +1,18 @@
-import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
+import React, { useState, useEffect, useReducer } from "react";
+import { deleteProduct } from "../actions/productActions";
+import { useSelector, useDispatch } from "react-redux";
 
 const TablaProducts = ({ products }) => {
+  const dispatch = useDispatch();
   const eliminarItem = async (item) => {
     console.log(item);
-
-    try {
-      const URL =
-        "https://870avezjq0.execute-api.us-east-1.amazonaws.com/dev/products/" +
-        item.id;
-      const response = await axios.delete(URL);
-      console.log(response.data); // Handle the response as needed
-      alert(response.data.message);
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(deleteProduct(item.id));
   };
- return (
-    <table>
+  return (
+    <Table striped bordered hover>
       <thead>
         <tr>
           <th>Nombre</th>
@@ -32,31 +26,41 @@ const TablaProducts = ({ products }) => {
         </tr>
       </thead>
       <tbody>
-        {products.length > 0 && products.map((item, index) => (
-          <tr key={item.id}>
-            <td>{item.name}</td>
-            <td>{item.description}</td>
-            <td>{item.price}</td>
-            <td>{item.category}</td>
-            <td>{item.brand}</td>
-            <td>{item.quantity}</td>
-            <img src={item.image} alt={item.nombre} style={{ width: '80px', height: 'auto', padding:'10px' }} />
-       
-            <td>
-              <button
-                className="btn btn-danger"
-                onClick={() => eliminarItem(item)}
-              >
-                Eliminar
-              </button>
-              <Link className="btn btn-info" to={`/detailProduct/${item.id}`}>
-                Ver
-              </Link>
-            </td>
-          </tr>
-        ))}
+        {products.length > 0 &&
+          products.map((item, index) => (
+            <tr key={item.id}>
+              <td>{item.name}</td>
+              <td>{item.description}</td>
+              <td>{item.price}</td>
+              <td>{item.category}</td>
+              <td>{item.brand}</td>
+              <td>{item.quantity}</td>
+              <td>
+              <img
+                src={item.image}
+                alt={item.nombre}
+                style={{ width: "80px", height: "auto", padding: "10px" }}
+              />
+              </td>
+
+              <td>
+                <div className="d-flex justify-content-around">
+                <button
+                  className="btn btn-danger"
+                  onClick={() => eliminarItem(item)}
+                >
+                  Eliminar
+                </button>
+                <Link className="btn btn-info" to={`/detailProduct/${item.id}`}>
+                  Editar
+                </Link>
+                </div>
+                
+              </td>
+            </tr>
+          ))}
       </tbody>
-    </table>
+    </Table>
   );
 };
 

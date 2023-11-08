@@ -1,21 +1,15 @@
 import React, { useState, useEffect, useReducer } from "react";
-import {  useSelector,useDispatch } from 'react-redux'
-import store from '../../src/store'
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
-import {
-  Row,
-  Container,
-  Form,
-  Button,
-} from "react-bootstrap";
+import { Alert, Row, Container, Form, Button } from "react-bootstrap";
 import TablaProducts from "../components/TablaProducts";
-import {createProduct,listProducts} from "../actions/productActions";
-import { createProductImage } from "../actions/imgActions";
+import { createProduct, listProducts } from "../actions/productActions";
 
 const ProductScreen = ({ onSubmit }) => {
-  const [newValue,setNewValue] = useState('');
-  const [imageData, setImageData] = useState({ extension: '', base64: '' });
+  const [mostrarAlerta, setMostrarAlerta] = useState(false);
+  const productDelete = useSelector((state) => state.productDelete); //sacado del store.js
+  const productCreate = useSelector((state) => state.productCreate); //sacado del store.js
+  const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
 
   const [product, setProduct] = useState({
     name: "",
@@ -43,35 +37,31 @@ const ProductScreen = ({ onSubmit }) => {
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      const extension = file.name.split('.').pop(); // Obtener la extensión del archivo
+      const extension = file.name.split(".").pop(); // Obtener la extensión del archivo
       const base64 = reader.result; // Obtener el valor base64 de la imagen
-      dispatch({type:"IMG_FULL",payload:{"imageFormat":extension,"encodedImage": base64 }})
+      dispatch({
+        type: "IMG_FULL",
+        payload: { imageFormat: extension, encodedImage: base64 },
+      });
     };
 
     if (file) {
       reader.readAsDataURL(file);
     }
-
-   
   };
- 
+
   const allStore = useSelector((state) => state);
   const productList = useSelector((state) => state.productList);
 
-  console.log("allStore",allStore);
-  console.log("productList",productList.products);
+  console.log("allStore", allStore);
   const dispatch = useDispatch();
 
- 
   useEffect(() => {
     dispatch(listProducts());
- 
   }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes enviar el formulario o hacer algo con los datos del producto
-    console.log(product)
     generarSync(product);
     /*
     if (
@@ -98,28 +88,51 @@ const ProductScreen = ({ onSubmit }) => {
     });*/
   };
 
-  const generarSync = (data)=> {
-    //dispatch({type:"PRODUCT_CREATE_SUCCESS",payload:data})
-    dispatch(createProduct(data))
-    store.subscribe(() => {
-      const updatedProductCreate = store.getState().productCreate;
-      //creamos un product
-      let sId = updatedProductCreate.product.id; 
-      if(sId){
-        //jalaria el reduer
-        dispatch(createProductImage(sId))
+  const generarSync = (data) => {
+    dispatch(createProduct(data));
 
-      }
-      // Aquí puedes hacer lo que quieras con el estado actualizado
-      //console.log('Estado productCreate actualizado:', updatedProductCreate);
-    });
-//   dispatch(listProducts());
-  }
+    setMostrarAlerta(true);
+    //ocultar luego de 3seg.
+    setTimeout(() => {
+      disabledAlert();
+    }, 4000);
+  };
+  const disabledAlert = () => {
+    setMostrarAlerta(false);
+  };
   return (
     <div>
+      {productCreate.false && mostrarAlerta && (
+        <Alert
+          variant="dangerous"
+          onClose={() => disabledAlert(false)}
+          dismissible
+        >
+          {productCreate.error}
+        </Alert>
+      )}
+      {productCreate.success && mostrarAlerta && (
+        <Alert
+          variant="success"
+          onClose={() => disabledAlert(false)}
+          dismissible
+        >
+          Producto creado exitosamente
+        </Alert>
+      )}
+      {productDelete.loading && (
+        <Alert
+          variant="success"
+          onClose={() => disabledAlert(false)}
+          dismissible
+        >
+          Producto eliminado exitosamente
+        </Alert>
+      )}
+
       <Container>
         <h2>Administrador de productos</h2>
-       
+
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Nombre</Form.Label>
@@ -157,13 +170,18 @@ const ProductScreen = ({ onSubmit }) => {
 
           <Form.Group className="mb-3" controlId="category">
             <Form.Label>Categoría</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Categoría del producto"
-              name="category"
-              value={product.category}
+            <Form.Select
+              aria-label="Default select example"
               onChange={handleInputChange}
-            />
+              value={product.category}
+              name="category"
+            >
+              <option value="">Open this select menu</option>
+              {categoryList.categories.map((e,i) => {
+                return <option key={i} value={e.categoria}>{e.categoria}</option>;
+              })
+              }
+            </Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="brand">
@@ -202,12 +220,11 @@ const ProductScreen = ({ onSubmit }) => {
             Crear Producto
           </Button>
         </Form>
-            
-  <Row>
-    <TablaProducts products={productList.products} /> </Row>
-      </Container>
 
-  
+        <Row>
+          <TablaProducts products={productList.products} />{" "}
+        </Row>
+      </Container>
     </div>
   );
 };

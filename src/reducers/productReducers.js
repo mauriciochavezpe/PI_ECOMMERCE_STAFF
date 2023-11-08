@@ -28,7 +28,9 @@ import {
 } from "../constants/productConstants";
  
 
-
+const initialState = {
+  productos: [] // Tu array de productos inicial
+};
 
 const actionTypes = {
   confirm: "CONFIRM",
@@ -42,7 +44,6 @@ const actionTypes = {
 const URL =
 "https://zpje4svosl.execute-api.us-east-1.amazonaws.com/dev/products";
 
-let dataInicial = 1
 
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -65,8 +66,14 @@ export const productListReducer = (state = { products: [] }, action) => {
         ...state,
         message: payload.message,
         products: state.products.filter(
-          (product) => product._id !== payload.id
+          (product) => product.id !== payload.id
         ),
+      };
+    case PRODUCT_CREATE_SUCCESS:
+      return {
+        ...state,
+        message: payload.message,
+        products: [...state.products,payload],
       };
     case PRODUCT_DELETE_CLEAR_MESSAGE:
       return {
@@ -178,7 +185,7 @@ export const createproduct1 = (state = {product:{}}, action)=>{
   }
 }
 //los reduce reciben 2
-export const createImage = (state = dataInicial, action) => {
+export const createImage = (state = initialState, action) => {
   const { type, payload } = action;
   //console.log("state21", state);
   switch (type) {

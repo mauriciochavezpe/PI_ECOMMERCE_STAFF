@@ -38,10 +38,7 @@ export const createProductImage =
     if(JSON.stringify(body)!=="{}"){
       const pay = await axios.post(sUrl, body);
     console.log(pay);
-      /**dispatch({
-        type: PRODUCT_CREATE_SUCCESS,
-        payload: pay.data.product,
-      });*/
+ 
     }
     } catch (err) {
       dispatch({
