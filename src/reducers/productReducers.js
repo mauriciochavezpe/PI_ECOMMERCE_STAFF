@@ -25,11 +25,22 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_HIDE_MESSAGE,
   PRODUCT_UPDATE_RESET,
+  PRODUCT_DETAILS_FILL
 } from "../constants/productConstants";
  
 
 const initialState = {
-  productos: [] // Tu array de productos inicial
+  productos: [], // Tu array de productos inicial
+  product:{
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    brand: "",
+    quantity: "",
+    image: null,
+    id:null
+  }
 };
 
 const actionTypes = {
@@ -48,7 +59,6 @@ const URL =
 
 export const productListReducer = (state = { products: [] }, action) => {
   const { type, payload } = action;
-
   switch (type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true, products: [] };
@@ -86,7 +96,8 @@ export const productListReducer = (state = { products: [] }, action) => {
 };
 
 export const productDetailsReducer = (
-  state = { product: { reviews: [] } },
+  
+  state = initialState,
   action
 ) => {
   const { type, payload } = action;
@@ -98,7 +109,10 @@ export const productDetailsReducer = (
       return { loading: false, product: payload };
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: payload };
-    default:
+    case PRODUCT_DETAILS_FILL:
+      state.product = payload;
+      return {...state};
+      default:
       return state;
   }
 };

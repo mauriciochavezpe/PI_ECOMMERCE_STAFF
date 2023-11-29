@@ -7,9 +7,16 @@ import { createProduct, listProducts } from "../actions/productActions";
 
 const ProductScreen = ({ onSubmit }) => {
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
+  const [mostrarAlerta1, setMostrarAlerta1] = useState(false);
   const productDelete = useSelector((state) => state.productDelete); //sacado del store.js
   const productCreate = useSelector((state) => state.productCreate); //sacado del store.js
   const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
+  //var {product} = useSelector((state) => state.productDetails); //sacado del store.js
+  //const allStore = useSelector((state) => state);
+  const productList = useSelector((state) => state.productList);
+  //console.log("allStore", allStore);
+  const dispatch = useDispatch();
+
 
   const [product, setProduct] = useState({
     name: "",
@@ -30,6 +37,8 @@ const ProductScreen = ({ onSubmit }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
+   //product={...product, [name]: value}
+      
   };
   const handleImageUpload = (e) => {
     debugger;
@@ -50,11 +59,9 @@ const ProductScreen = ({ onSubmit }) => {
     }
   };
 
-  const allStore = useSelector((state) => state);
-  const productList = useSelector((state) => state.productList);
+ 
 
-  console.log("allStore", allStore);
-  const dispatch = useDispatch();
+
 
   useEffect(() => {
     dispatch(listProducts());
@@ -62,29 +69,29 @@ const ProductScreen = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    generarSync(product);
-    /*
     if (
-      !nombre ||
-      !descripcion ||
-      !(precio > 0) ||
-      !categoria ||
-      !brand ||
-      !(cantidad > 0) ||
-      !imagen
+      !product.name ||
+      !product.description ||
+      !(product.price > 0) ||
+      !product.category ||
+      !product.brand ||
+      !(product.quantity > 0)
     ) {
-      alert("Por favor, completa todos los campos");
+      setMostrarAlerta1(true);
       return;
     }
+    generarSync(product);
+    
+   
     // Resetear el formulario después de enviar
-    setProduct({
+    /*dispatch({
       name: "",
       description: "",
       price: "",
       category: "",
       brand: "",
       quantity: "",
-      image: null,
+      image: {},
     });*/
   };
 
@@ -99,12 +106,22 @@ const ProductScreen = ({ onSubmit }) => {
   };
   const disabledAlert = () => {
     setMostrarAlerta(false);
+    setMostrarAlerta1(false);
   };
   return (
     <div>
+      {mostrarAlerta1 && (
+        <Alert
+          variant="danger"
+          onClose={() => disabledAlert(false)}
+          dismissible
+        >
+          Completar los campos
+        </Alert>
+      )}
       {productCreate.false && mostrarAlerta && (
         <Alert
-          variant="dangerous"
+          variant="danger"
           onClose={() => disabledAlert(false)}
           dismissible
         >

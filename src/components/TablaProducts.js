@@ -1,8 +1,7 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import React, { useState, useEffect, useReducer } from "react";
-import { deleteProduct } from "../actions/productActions";
+import { deleteProduct,updateProduct } from "../actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 
 const TablaProducts = ({ products }) => {
@@ -11,6 +10,14 @@ const TablaProducts = ({ products }) => {
     console.log(item);
     dispatch(deleteProduct(item.id));
   };
+
+  const editarProduct = (item)=>{
+    console.log(item);
+    delete item.createdAt;
+    delete item.updatedAt;
+    dispatch(updateProduct(item))
+  }
+
   return (
     <Table striped bordered hover>
       <thead>
@@ -51,9 +58,15 @@ const TablaProducts = ({ products }) => {
                 >
                   Eliminar
                 </button>
-                <Link className="btn btn-info" to={`/detailProduct/${item.id}`}>
+                <button
+                  className="btn btn-success"
+                  onClick={() => editarProduct(item)}
+                >
                   Editar
-                </Link>
+                </button>
+                {/*<Link className="btn btn-info" to={`/detailProduct/${item.id}`}>
+                  Editar
+          </Link>*/}
                 </div>
                 
               </td>

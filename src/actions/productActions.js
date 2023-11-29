@@ -148,10 +148,13 @@ export const createProduct =
 
 export const updateProduct = (product) => async (dispatch, getState) => {
   try {
+
+    dispatch({type:"PRODUCT_DETAILS_FILL",payload:product});
+/*
     dispatch({
       type: PRODUCT_UPDATE_REQUEST,
     });
-/*
+
     const {
       userLogin: { userInfo },
     } = getState();
@@ -163,7 +166,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-  */
+ 
     const { data } = await axios.put(
       `/api/products/${product._id}`,
       product
@@ -178,7 +181,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data,
     });
-
+ */
     setTimeout(() => {
       dispatch({ type: PRODUCT_UPDATE_HIDE_MESSAGE });
     }, 2500);
