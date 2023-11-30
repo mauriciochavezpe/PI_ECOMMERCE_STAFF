@@ -15,3 +15,26 @@ code {
 .width-30{
   width: 20rem;
 }
+
+.w-10{
+  width: 10rem;
+}
+
+.d{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dFalign{
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.bheight{
+  height: 100%;
+  width: 15rem;
+}
+.h100{
+  height: 100%;
+}

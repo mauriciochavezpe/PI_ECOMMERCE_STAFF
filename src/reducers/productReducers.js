@@ -39,7 +39,7 @@ const initialState = {
     brand: "",
     quantity: "",
     image: null,
-    id:null
+    id:""
   }
 };
 
@@ -155,7 +155,11 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
     case PRODUCT_UPDATE_REQUEST:
       return { loading: true };
     case PRODUCT_UPDATE_SUCCESS:
-      return { loading: false, success: true, product: payload };
+      /*
+      let newProducts= productos.filter(e => e.id != payload.id)
+      newProducts.push(payload)*/
+
+      return { loading: false, success: true, product: payload};
     case PRODUCT_UPDATE_HIDE_MESSAGE:
       return {
         ...state,

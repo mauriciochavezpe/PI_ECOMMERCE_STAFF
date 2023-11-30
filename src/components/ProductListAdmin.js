@@ -5,20 +5,23 @@ import { Alert, Row, Container, Form, Button } from "react-bootstrap";
 import TablaProducts from "../components/TablaProducts";
 import { createProduct, listProducts } from "../actions/productActions";
 
+
+
 const ProductScreen = ({ onSubmit }) => {
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [mostrarAlerta1, setMostrarAlerta1] = useState(false);
   const productDelete = useSelector((state) => state.productDelete); //sacado del store.js
   const productCreate = useSelector((state) => state.productCreate); //sacado del store.js
   const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
-  //var {product} = useSelector((state) => state.productDetails); //sacado del store.js
-  //const allStore = useSelector((state) => state);
+  
+  //AQuí lo llamo
+  var obj = useSelector((state) => state.productDetails); //sacado del store.js
+  //const [product, setProduct] = useState({});
   const productList = useSelector((state) => state.productList);
-  //console.log("allStore", allStore);
   const dispatch = useDispatch();
 
-
-  const [product, setProduct] = useState({
+  
+    const [product, setProduct] = useState({
     name: "",
     description: "",
     price: "",
@@ -26,7 +29,14 @@ const ProductScreen = ({ onSubmit }) => {
     brand: "",
     quantity: "",
     image: {},
+    id:null
   });
+
+  useEffect(() => {
+    setProduct(obj.product);
+    dispatch(listProducts());
+  }, []);
+
   const handleInputChange2 = (e) => {
     const { name, value } = e.target;
     // Validar que solo se ingresen números y un solo punto decimal
@@ -37,11 +47,9 @@ const ProductScreen = ({ onSubmit }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
-   //product={...product, [name]: value}
-      
+    //product={...product, [name]: value}
   };
   const handleImageUpload = (e) => {
-    debugger;
     const file = e.target.files[0];
     const reader = new FileReader();
 
@@ -59,13 +67,7 @@ const ProductScreen = ({ onSubmit }) => {
     }
   };
 
- 
 
-
-
-  useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,10 +83,9 @@ const ProductScreen = ({ onSubmit }) => {
       return;
     }
     generarSync(product);
-    
-   
+
     // Resetear el formulario después de enviar
-    /*dispatch({
+    dispatch({
       name: "",
       description: "",
       price: "",
@@ -92,7 +93,7 @@ const ProductScreen = ({ onSubmit }) => {
       brand: "",
       quantity: "",
       image: {},
-    });*/
+    });
   };
 
   const generarSync = (data) => {
@@ -157,7 +158,7 @@ const ProductScreen = ({ onSubmit }) => {
               type="text"
               placeholder="Nombre del producto"
               name="name"
-              value={product.name}
+              value={product.name ||  ""}
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -168,7 +169,7 @@ const ProductScreen = ({ onSubmit }) => {
               as="textarea"
               placeholder="Descripción del producto"
               name="description"
-              value={product.description}
+              value={product.description || "" }
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -180,7 +181,7 @@ const ProductScreen = ({ onSubmit }) => {
               placeholder="Precio del producto"
               name="price"
               min={1}
-              value={product.price}
+              value={product.price || "" }
               onChange={handleInputChange2}
             />
           </Form.Group>
@@ -190,14 +191,17 @@ const ProductScreen = ({ onSubmit }) => {
             <Form.Select
               aria-label="Default select example"
               onChange={handleInputChange}
-              value={product.category}
+              value={product.category || "" }
               name="category"
             >
               <option value="">Open this select menu</option>
-              {categoryList.categories.map((e,i) => {
-                return <option key={i} value={e.categoria}>{e.categoria}</option>;
-              })
-              }
+              {categoryList.categories.map((e, i) => {
+                return (
+                  <option key={i} value={e.categoria}>
+                    {e.categoria}
+                  </option>
+                );
+              })}
             </Form.Select>
           </Form.Group>
 
@@ -207,7 +211,7 @@ const ProductScreen = ({ onSubmit }) => {
               type="text"
               placeholder="Marca del producto"
               name="brand"
-              value={product.brand}
+              value={product.brand || "" }
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -219,7 +223,7 @@ const ProductScreen = ({ onSubmit }) => {
               placeholder="Cantidad del producto"
               name="quantity"
               min={0}
-              value={product.quantity}
+              value={product.quantity || "" }
               onChange={handleInputChange}
             />
           </Form.Group>

@@ -1,32 +1,34 @@
-import React, { useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, ListGroup, Button, Container } from "react-bootstrap";
+import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
 import Product from "../components/Product";
 import { listProducts } from "../actions/productActions";
 import Spinner from "../components/layout/Spinner";
-// import Message from '../components/Message'
 import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
+import FilterHome from "../components/Filter"
 
 const HomeScreen = ({ match, history }) => {
   const keyword = match?.params?.keyword || "";
-  console.log("12321321");
 
   const pageNumber = match?.params?.pagenumber || 1;
 
   const dispatch = useDispatch();
 
   const allStore = useSelector((state) => state);
-  console.log("allStore",allStore)
+  console.log("allStore", allStore);
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, pages, page } = productList;
+  const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
 
-  console.log(products);
 
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch, keyword, pageNumber]);
+
+  
+
 
   return (
     <>
@@ -35,8 +37,14 @@ const HomeScreen = ({ match, history }) => {
           <ListGroup>
             <ProductCarousel />
           </ListGroup>
+          <Container>
+        <Row>
+              <FilterHome></FilterHome>
+            </Row>
+        </Container>
         </>
       )}
+      
       {loading ? (
         <Spinner />
       ) : error ? (
@@ -46,34 +54,29 @@ const HomeScreen = ({ match, history }) => {
         //  pendiente de carga...
         // </Message>
         <>
-          {keyword && products.length > 0 && (
-            <>
-             
-            </>
-          )}
+          {keyword && products.length > 0 && <></>}
 
           <Container>
-          <Row>
-            {products.length > 0 ? (
-              products
-                .map((product) => (
-                  <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                    <Product product={product} 
-                    />
+       
+            <Row>
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <Col key={product.id} sm={12} md={6} lg={4} xl={3}>
+                    <Product product={product} />
                   </Col>
                 ))
-            ) : (
-              <>
-                <h3 className="mr-3">
-                  <span
-                    style={{ color: "#AAAAAA" }}
-                    className="link"
-                    onClick={() => history.push("/")}
-                  ></span>
-                </h3>
-              </>
-            )}
-          </Row>
+              ) : (
+                <>
+                  <h3 className="mr-3">
+                    <span
+                      style={{ color: "#AAAAAA" }}
+                      className="link"
+                      onClick={() => history.push("/")}
+                    ></span>
+                  </h3>
+                </>
+              )}
+            </Row>
           </Container>
           <Paginate
             pages={pages}

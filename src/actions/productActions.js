@@ -15,24 +15,26 @@ import {
   PRODUCT_CREATE_REVIEW_REQUEST,
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_FAIL,
-  PRODUCT_CREATE_REVIEW_RESET,
   PRODUCT_DELETE_CLEAR_MESSAGE,
-  PRODUCT_UPDATE_REQUEST,
-  PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
-  PRODUCT_UPDATE_HIDE_MESSAGE,
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
 } from "../constants/productConstants";
 
-const URL =
+let URL =
   "https://870avezjq0.execute-api.us-east-1.amazonaws.com/dev/products";
 
 export const listProducts =
-  ( ) =>
+  (filter=null) =>
   async (dispatch) => {
     try {
+      if(filter){
+        URL+=`?category=${filter.category||""}&brand=${filter.brand||""}&name=${filter.name||""}&minPrice=${filter.minPrice||""}&maxPrice=${filter.maxPrice||""}`;
+      }else{
+        URL=URL;
+      }
+
       dispatch({ type: PRODUCT_LIST_REQUEST });
 
 
@@ -113,26 +115,40 @@ export const createProduct =
 
     data.price = Number(data.price)
     data.quantity = Number(data.quantity)
-
+    let sUrl ="";
     if(JSON.stringify(data)!=="{}"){
-      delete data.image;
-      const pay = await axios.post(URL, data);
       
-      if(getState().createImage.imageFormat){
-        let sId = pay.data.product.id;
-        let sUrl = URL+"/"+sId+"/image"
-        let body_ = getState().createImage;
-        delete body_.productos;
-       let dataImg= await axios.post(sUrl, body_);
-        
-        //reescribimos el id de la img
-        pay.data.product.image = dataImg.data.imageUrl;
-        console.log("update",pay.data.product);
+      //validacion si es CREAR o Actualizar
+      if(data.id){
+        sUrl += "/"+data.id 
+        console.log(data);
+        axios.patch(sUrl,data)
       }
-      dispatch({
-        type: PRODUCT_CREATE_SUCCESS,
-        payload: pay.data.product,
-      });
+      else{
+        delete data.image;
+        delete data.id;
+        let pay = await axios.post(URL, data);
+      
+        
+        if(getState().createImage.imageFormat){
+          let sId = pay.data.product.id;
+          sUrl = URL+"/"+sId+"/image"
+          let body_ = getState().createImage;
+          delete body_.productos;
+          delete body_.product;
+         let dataImg= await axios.post(sUrl, body_);
+          
+          //reescribimos el id de la img
+          pay.data.product.image = dataImg.data.imageUrl;
+          console.log("update",pay.data.product);
+        }
+        dispatch({
+          type: PRODUCT_CREATE_SUCCESS,
+          payload: pay.data.product,
+        });
+      }
+     
+     
     } 
     } catch (err) {
       debugger;
@@ -182,9 +198,10 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       payload: data,
     });
  */
+/*
     setTimeout(() => {
       dispatch({ type: PRODUCT_UPDATE_HIDE_MESSAGE });
-    }, 2500);
+    }, 2500);*/
   } catch (err) {
     dispatch({
       type: PRODUCT_UPDATE_FAIL,

@@ -82,7 +82,85 @@ import {
         {
           categoria: "Redes",
         },
-      ]
+      ],
+   
+        brands: [
+          {
+            "brand": "Intel"
+          },
+          {
+            "brand": "AMD"
+          },
+          {
+            "brand": "Nvidia"
+          },
+          {
+            "brand": "Samsung"
+          },
+          {
+            "brand": "Micron"
+          },
+          {
+            "brand": "ASUS"
+          },
+          {
+            "brand": "Gigabyte"
+          },
+          {
+            "brand": "Western Digital"
+          },
+          {
+            "brand": "Seagate"
+          },
+          {
+            "brand": "Corsair"
+          },
+          {
+            "brand": "Kingston"
+          },
+          {
+            "brand": "HP"
+          },
+          {
+            "brand": "Dell"
+          },
+          {
+            "brand": "AOC"
+          },
+          {
+            "brand": "Apple"
+          },
+          {
+            "brand": "Sony"
+          },
+          {
+            "brand": "Panasonic"
+          },
+          {
+            "brand": "LG"
+          },
+          {
+            "brand": "Toshiba"
+          },
+          {
+            "brand": "Lenovo"
+          },
+          {
+            "brand": "MSI"
+          },
+          {
+            "brand": "EVGA"
+          },
+          {
+            "brand": "BenQ"
+          },
+          {
+            "brand": "Hitachi"
+          }
+          // Puedes añadir más marcas si lo deseas
+        ]
+ 
+      
   }
 
  
