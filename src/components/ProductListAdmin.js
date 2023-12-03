@@ -33,9 +33,9 @@ const ProductScreen = ({ onSubmit }) => {
   });
 
   useEffect(() => {
-    setProduct(obj.product);
+   // setProduct(obj.product);
     dispatch(listProducts());
-  }, []);
+  }, [dispatch]);
 
   const handleInputChange2 = (e) => {
     const { name, value } = e.target;
@@ -67,8 +67,6 @@ const ProductScreen = ({ onSubmit }) => {
     }
   };
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
@@ -85,7 +83,7 @@ const ProductScreen = ({ onSubmit }) => {
     generarSync(product);
 
     // Resetear el formulario después de enviar
-    dispatch({
+     setProduct({
       name: "",
       description: "",
       price: "",
