@@ -8,6 +8,7 @@ import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
+  PRODUCT_EDIT_SUCCESS,
   PRODUCT_CREATE_FAIL,
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
@@ -112,24 +113,29 @@ export const createProduct =
   (data) =>
   async (dispatch, getState) => {
     try {
-
+    let payloadTemp = {...data}; //creamos un objeto temporal con los datos que ya hemos recibido
     data.price = Number(data.price)
     data.quantity = Number(data.quantity)
     let sUrl ="";
+    let pay;
+    let bFlag = false; // 1= create| 2=edit 
     if(JSON.stringify(data)!=="{}"){
       
       //validacion si es CREAR o Actualizar
       if(data.id){
-        sUrl += "/"+data.id 
+        sUrl =URL +"/"+data.id 
         console.log(data);
-        axios.patch(sUrl,data)
+        delete data.image;
+        delete data.id;
+        pay = await axios.patch(sUrl,data)
       }
       else{
         delete data.image;
         delete data.id;
-        let pay = await axios.post(URL, data);
-      
-        
+        pay = await axios.post(URL, data);
+        bFlag=true; //creado
+      }
+      let imgNew = ""
         if(getState().createImage.imageFormat){
           let sId = pay.data.product.id;
           sUrl = URL+"/"+sId+"/image"
@@ -137,19 +143,27 @@ export const createProduct =
           delete body_.productos;
           delete body_.product;
          let dataImg= await axios.post(sUrl, body_);
-          
+         imgNew = dataImg.data.imageUrl;
           //reescribimos el id de la img
-          pay.data.product.image = dataImg.data.imageUrl;
+          //pay.data.product.image = dataImg.data.imageUrl;
           console.log("update",pay.data.product);
         }
-        dispatch({
-          type: PRODUCT_CREATE_SUCCESS,
-          payload: pay.data.product,
-        });
+        if(bFlag){
+          if(imgNew) pay.data.product.image = imgNew;
+          dispatch({
+            type: PRODUCT_CREATE_SUCCESS,
+            payload: pay.data.product,
+          });
+        }else{
+          pay.data.product["image"] = imgNew!="" ? imgNew :  payloadTemp["image"];
+          dispatch({
+            type: PRODUCT_EDIT_SUCCESS,
+            payload: pay.data.product,
+          });
+        }
       }
      
      
-    } 
     } catch (err) {
       debugger;
       dispatch({

@@ -25,7 +25,8 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_HIDE_MESSAGE,
   PRODUCT_UPDATE_RESET,
-  PRODUCT_DETAILS_FILL
+  PRODUCT_DETAILS_FILL,
+  PRODUCT_EDIT_SUCCESS
 } from "../constants/productConstants";
  
 
@@ -84,6 +85,13 @@ export const productListReducer = (state = { products: [] }, action) => {
         ...state,
         message: payload.message,
         products: [...state.products,payload],
+      };
+    case PRODUCT_EDIT_SUCCESS:
+      let newProducts = state.products.filter(e=>e.id !== payload.id).concat(payload)
+      return {
+        ...state,
+        message: payload.message,
+        products: newProducts,
       };
     case PRODUCT_DELETE_CLEAR_MESSAGE:
       return {
