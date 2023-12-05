@@ -8,6 +8,10 @@ import {
   
   const dataInit = {
     categories:[
+       
+        {
+          categoria: "",
+        },
         {
           categoria: "ACCESORIOS COMPUTACIÓN",
         },
@@ -69,6 +73,12 @@ import {
    
         brands: [
           {
+            "brand": "",
+          },
+          {
+            "brand": "GENERICO",
+          },
+          {
             "brand": "Intel"
           },
           {
@@ -88,6 +98,9 @@ import {
           },
           {
             "brand": "Gigabyte"
+          },
+          {
+            "brand": "LOGITECH"
           },
           {
             "brand": "Western Digital"
