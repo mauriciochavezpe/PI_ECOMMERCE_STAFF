@@ -1,13 +1,20 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Nav } from "react-bootstrap";
 import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
 import { listProducts } from "../actions/productActions";
+
+import { changeLoading } from "../store/slice/product";
+import { Modal } from "./Modal";
+import TodoModal  from "./Todomodal";
 
 const FilterHome = () => {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
+
+  var loading = useSelector((state) => state.product.loading);
+  console.log("newReduxtools", loading);
+
   const [filter, setFilter] = useState({
     name: "",
     brand: "",
@@ -31,11 +38,15 @@ const FilterHome = () => {
       }
     });
 
+    //añadimos un filtro como obj
     dispatch(listProducts(obj));
   };
 
+  const onTestRedux = () => {
+    dispatch(changeLoading(!loading));
+  };
   return (
-    <div>
+    <>
       <h2>Filtros</h2>
       <Form onSubmit={handleSubmit1}>
         <Row className="dFalign">
@@ -48,7 +59,18 @@ const FilterHome = () => {
                 onChange={handleInputChange}
               >
                 {/* Opciones de categoría */}
-                {categoryList.categories.map((e, i) => {
+                {/* {categoryList.categories.map((e, i) => { */}
+                {[
+                  {
+                    categoria: "",
+                  },
+                  {
+                    categoria: "ACCESORIOS COMPUTACIÓN",
+                  },
+                  {
+                    categoria: "IMPRESORAS",
+                  },
+                ].map((e, i) => {
                   return (
                     <option key={i} value={e.categoria}>
                       {e.categoria}
@@ -67,7 +89,19 @@ const FilterHome = () => {
                 onChange={handleInputChange}
               >
                 {/* Opciones de categoría */}
-                {categoryList.brands.map((e, i) => {
+                {/* {categoryList.brands.map((e, i) => { */}
+
+                {[
+                  {
+                    categoria: "",
+                  },
+                  {
+                    categoria: "ACCESORIOS COMPUTACIÓN",
+                  },
+                  {
+                    categoria: "IMPRESORAS",
+                  },
+                ].map((e, i) => {
                   return (
                     <option key={i} value={e.brand}>
                       {e.brand}
@@ -118,10 +152,18 @@ const FilterHome = () => {
             <Button className="bheight" variant="primary" type="submit">
               Aplicar
             </Button>
+            <Button className="bheight" variant="success" onClick={onTestRedux}>
+              Aplicar2
+            </Button>
           </Col>
         </Row>
       </Form>
-    </div>
+      {!!loading && 
+        <Modal>
+          <TodoModal/>
+        </Modal>
+      }
+    </>
   );
 };
 

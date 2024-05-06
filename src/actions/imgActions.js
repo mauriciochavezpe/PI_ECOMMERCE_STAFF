@@ -26,27 +26,23 @@ import {
   PRODUCT_TOP_FAIL,
 } from "../constants/productConstants";
 
-const URL =
-  "https://870avezjq0.execute-api.us-east-1.amazonaws.com/dev/products";
+const URL = process.env.REACT_APP_URL_ALL + "/products";
 
-export const createProductImage =
-  (sId) =>
-  async (dispatch, getState) => {
-    try {
-    let body =getState().createImage;
-    let sUrl = URL+"/"+sId+"/image"
-    if(JSON.stringify(body)!=="{}"){
+export const createProductImage = (sId) => async (dispatch, getState) => {
+  try {
+    let body = getState().createImage;
+    let sUrl = URL + "/" + sId + "/image";
+    if (JSON.stringify(body) !== "{}") {
       const pay = await axios.post(sUrl, body);
-    console.log(pay);
- 
+      console.log(pay);
     }
-    } catch (err) {
-      dispatch({
-        type: PRODUCT_CREATE_FAIL,
-        payload:
-          err.response && err.response.data.message
-            ? err.response.data.message
-            : err.message,
-      });
-    }
+  } catch (err) {
+    dispatch({
+      type: PRODUCT_CREATE_FAIL,
+      payload:
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
+    });
+  }
 };

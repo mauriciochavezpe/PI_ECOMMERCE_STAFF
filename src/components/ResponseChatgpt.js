@@ -3,7 +3,7 @@ import axios from "axios"
 
 const ResponseChagpt = (props)=>{
 const { state, setState } = props;
-const sURL ="https://870avezjq0.execute-api.us-east-1.amazonaws.com/dev/chat"
+const sURL = process.env.REACT_APP_URL_ALL+"/chat"
     debugger;
     useEffect(async () =>{
     let obj = {"question":state.question}

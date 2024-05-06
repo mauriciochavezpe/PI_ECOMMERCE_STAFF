@@ -1,50 +1,47 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
 import Product from "../components/Product";
-import { listProducts } from "../actions/productActions";
+//import { listProducts } from "../actions/productActions";
+import { getAllProducts } from "../store/slice/product";
+
 import Spinner from "../components/layout/Spinner";
 import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
-import FilterHome from "../components/Filter"
+import FilterHome from "../components/Filter";
 
 const HomeScreen = ({ match, history }) => {
-  const keyword = match?.params?.keyword || "";
+  // const keyword = match?.params?.keyword || "";
 
-  const pageNumber = match?.params?.pagenumber || 1;
+  // const pageNumber = match?.params?.pagenumber || 1;
 
-  const dispatch = useDispatch();
-
-  const allStore = useSelector((state) => state);
+  const allStore = useSelector((state) => state.product);
   console.log("allStore", allStore);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(true);
+  // const allStore = useSelector((state) => state);
 
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products, pages, page } = productList;
+  const productList = useSelector((state) => state.product.products);
+  // const { loading, error, products, pages, page } = productList;
   const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
 
-
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch, keyword, pageNumber]);
-
-  
-
+    // dispatch(listProducts());
+    dispatch(getAllProducts());
+  }, [dispatch]);
 
   return (
     <>
-      {!keyword && (
-        <>
-          <ListGroup>
-            <ProductCarousel />
-          </ListGroup>
-          <Container>
+      <ListGroup>
+        <ProductCarousel />
+      </ListGroup>
+      <Container>
         <Row>
-              <FilterHome></FilterHome>
-            </Row>
-        </Container>
-        </>
-      )}
-      
+          <FilterHome></FilterHome>
+        </Row>
+      </Container>
+
       {loading ? (
         <Spinner />
       ) : error ? (
@@ -54,13 +51,13 @@ const HomeScreen = ({ match, history }) => {
         //  pendiente de carga...
         // </Message>
         <>
-          {keyword && products.length > 0 && <></>}
-
           <Container>
-       
             <Row>
-              {products.length > 0 ? (
-                products.map((product) => (
+              {
+              productList.length > 0 ? (
+                // {products.length > 0 ? (
+                // products.map((product) => (
+                  productList.map((product) => (
                   <Col key={product.id} sm={12} md={6} lg={4} xl={3}>
                     <Product product={product} />
                   </Col>
@@ -78,11 +75,11 @@ const HomeScreen = ({ match, history }) => {
               )}
             </Row>
           </Container>
-          <Paginate
+          {/* <Paginate
             pages={pages}
             page={page}
             keyword={keyword ? keyword : ""}
-          />
+          /> */}
         </>
       )}
     </>

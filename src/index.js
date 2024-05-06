@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { Provider } from 'react-redux'
 import './bootstrap.css'
-import store from './store'
-//import 'bootstrap/dist/css/bootstrap.min.css';
+//import store from './store'
+import store from './store/index'
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';

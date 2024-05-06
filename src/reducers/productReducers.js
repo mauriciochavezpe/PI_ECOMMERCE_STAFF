@@ -7,10 +7,7 @@ import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
-  PRODUCT_CREATE_FAIL,
-  PRODUCT_TOP_REQUEST,
-  PRODUCT_TOP_SUCCESS,
-  PRODUCT_TOP_FAIL,
+  PRODUCT_CREATE_FAIL, 
   PRODUCT_CREATE_RESET,
   PRODUCT_CREATE_REVIEW_REQUEST,
   PRODUCT_CREATE_REVIEW_SUCCESS,
@@ -41,7 +38,8 @@ const initialState = {
     quantity: "",
     image: null,
     id:""
-  }
+  },
+  loading: true
 };
 
 const actionTypes = {
@@ -104,7 +102,6 @@ export const productListReducer = (state = { products: [] }, action) => {
 };
 
 export const productDetailsReducer = (
-  
   state = initialState,
   action
 ) => {

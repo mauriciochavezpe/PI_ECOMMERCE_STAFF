@@ -6,7 +6,6 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
-  PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_EDIT_SUCCESS,
   PRODUCT_CREATE_FAIL,
@@ -23,8 +22,7 @@ import {
   PRODUCT_TOP_FAIL,
 } from "../constants/productConstants";
 
-let URL =
-  "https://870avezjq0.execute-api.us-east-1.amazonaws.com/dev/products";
+var URL = process.env.REACT_APP_URL_ALL+"/products";
 
 export const listProducts =
   (filter=null) =>
@@ -61,7 +59,10 @@ export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/api/products/${id}`);
+    let sURL = URL+"/"+id;
+    console.log(sURL);
+    const { data } = await axios.get(`${sURL}`);
+    console.log(data);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data,

@@ -28,7 +28,7 @@ class ActionProvider {
   };
 
    async handleHello(message=""){
-    let sURL ="https://870avezjq0.execute-api.us-east-1.amazonaws.com/dev/chat"
+    let sURL = process.env.REACT_APP_URL_ALL+"/chat"
     let obj = {"question":message}
     let pay = await axios.post(sURL,obj)
     console.log(pay.data.response);

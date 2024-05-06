@@ -5,7 +5,8 @@ import { Carousel, Image } from 'react-bootstrap'
 import NumberFormat from 'react-number-format'
 import Loader from './layout/Loader'
 import Message from './Message'
-import { listTopProducts } from '../actions/productActions'
+//import { listTopProducts } from '../actions/productActions'
+import { getAllProducts } from "../store/slice/product";
 
 import banner1 from "../images/banner1.jpg";
 import banner2 from "../images/banner2.jpg";
@@ -20,7 +21,9 @@ const ProductCarousel = () => {
   const [loading,setLoading]= useState(null)
 
   useEffect(() => {
-    dispatch(listTopProducts())
+    // dispatch(listTopProducts())
+    dispatch(getAllProducts(""));
+
   }, [dispatch])
 
   const banners = [
