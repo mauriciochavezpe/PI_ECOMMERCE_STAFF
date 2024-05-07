@@ -4,34 +4,16 @@ import { Card, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import Rating from "./Rating";
 import AddToCartBtn from "./AddToCartBtn";
-import { listProductDetails } from "../actions/productActions";
-import { Modal } from "./Modal";
 
-const Product = ({ product }) => {
+const Product = ({ product, onToggle, isOpen }) => {
   const dispatch = useDispatch();
-  const productDetails = useSelector((state) => state.productDetails);
-  console.log("productDetails", productDetails);
-  const { loading, products } = productDetails;
-
-  var test1 = async (id) => {
-    console.log("dasdasd " + id);
-
-    //dispatch(listProductDetails(id));
-    // llamar al modulo create-portal ("modals")
-
-  };
-
-  /* useEffect(() => {
-    test1()
-  }, []);*/
 
   return (
     <>
       <Card style={{ width: "18rem" }} className="mb-4">
-        {/* <Link to={`/product/${product.id}`}> */}
         <Card.Img
           onClick={() => {
-            test1(product.id);
+            onToggle()
           }}
           variant="top"
           style={{ height: "18rem", cursor: "pointer" }}
@@ -53,11 +35,6 @@ const Product = ({ product }) => {
           <AddToCartBtn disabled={product.countInStock === 0} id={product.id} />
         </Card.Body>
       </Card>
-      {!loading && (
-        <Modal>
-          <div> test </div>
-        </Modal>
-      )}
     </>
   );
 };

@@ -10,7 +10,7 @@ const oauth2 = ()=>{
     const urlencoded = new URLSearchParams();
     urlencoded.append("grant_type", "authorization_code");
     urlencoded.append("code", "e422b5db-ab4f-4a5d-9e5a-ac08f3e8f4e8"); // GENERADO POR EL LOGIN
-    urlencoded.append("redirect_uri", "http://localhost:8000/logged_in.html");
+    urlencoded.append("redirect_uri", "https://pi-1-ecommerce-2023.vercel.app/");
     urlencoded.append("client_id", process.env.REACT_APP_client_id);
     urlencoded.append("client_secret", process.env.REACT_APP_client_secret);
     

@@ -4,16 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
 import { listProducts } from "../actions/productActions";
 
-import { changeLoading } from "../store/slice/product";
 import { Modal } from "./Modal";
-import TodoModal  from "./Todomodal";
+import TodoModal  from "./TodoModal";
 
 const FilterHome = () => {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
 
-  var loading = useSelector((state) => state.product.loading);
-  console.log("newReduxtools", loading);
+  var {loadingModal} = useSelector((state) => state.product);
+  console.log("newReduxtools", loadingModal);
 
   const [filter, setFilter] = useState({
     name: "",
@@ -40,10 +39,6 @@ const FilterHome = () => {
 
     //añadimos un filtro como obj
     dispatch(listProducts(obj));
-  };
-
-  const onTestRedux = () => {
-    dispatch(changeLoading(!loading));
   };
   return (
     <>
@@ -152,13 +147,13 @@ const FilterHome = () => {
             <Button className="bheight" variant="primary" type="submit">
               Aplicar
             </Button>
-            <Button className="bheight" variant="success" onClick={onTestRedux}>
+            {/* <Button className="bheight" variant="success" onClick={onTestRedux}>
               Aplicar2
-            </Button>
+            </Button> */}
           </Col>
         </Row>
       </Form>
-      {!!loading && 
+      {!!loadingModal && 
         <Modal>
           <TodoModal/>
         </Modal>

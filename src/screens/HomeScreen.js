@@ -2,32 +2,31 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
 import Product from "../components/Product";
-//import { listProducts } from "../actions/productActions";
-import { getAllProducts } from "../store/slice/product";
-
+import { getAllProducts, addProduct,changeLoadingModal } from "../store/slice/sliceProduct";
+import { Modal } from "../components/Modal";
+import TodoModal from "../components/TodoModal";
 import Spinner from "../components/layout/Spinner";
-import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
 import FilterHome from "../components/Filter";
 
-const HomeScreen = ({ match, history }) => {
-  // const keyword = match?.params?.keyword || "";
-
-  // const pageNumber = match?.params?.pagenumber || 1;
-
-  const allStore = useSelector((state) => state.product);
-  console.log("allStore", allStore);
+const HomeScreen = ({  history }) => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(true);
-  // const allStore = useSelector((state) => state);
 
-  const productList = useSelector((state) => state.product.products);
-  // const { loading, error, products, pages, page } = productList;
-  const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
+  const { loading, loadingModal, products, error, product } = useSelector(
+    (state) => state.product
+  );
+  
+  const onToggle = (id) => {
+    console.log("id", id);
+    // dispatch(addProduct(obj));
+    dispatch(changeLoadingModal(id));
+    console.log(product);
+    // dispatch(changeLoadingModal({obj,loadingModal}));
+
+
+  };
 
   useEffect(() => {
-    // dispatch(listProducts());
     dispatch(getAllProducts());
   }, [dispatch]);
 
@@ -47,19 +46,17 @@ const HomeScreen = ({ match, history }) => {
       ) : error ? (
         <Spinner />
       ) : (
-        // <Message variant='danger' dismissible={false}>
-        //  pendiente de carga...
-        // </Message>
         <>
           <Container>
             <Row>
-              {
-              productList.length > 0 ? (
-                // {products.length > 0 ? (
-                // products.map((product) => (
-                  productList.map((product) => (
+              {products.length > 0 ? (
+                products.map((product) => (
                   <Col key={product.id} sm={12} md={6} lg={4} xl={3}>
-                    <Product product={product} />
+                    <Product
+                      product={product}
+                      onToggle={()=>{onToggle(product.id)}}
+                      isOpen={loadingModal}
+                    />
                   </Col>
                 ))
               ) : (
@@ -75,11 +72,12 @@ const HomeScreen = ({ match, history }) => {
               )}
             </Row>
           </Container>
-          {/* <Paginate
-            pages={pages}
-            page={page}
-            keyword={keyword ? keyword : ""}
-          /> */}
+          {loadingModal && (
+            <Modal>
+              <TodoModal onToggle={onToggle} isOpen={loadingModal} ></TodoModal>
+            </Modal>
+          )}
+          
         </>
       )}
     </>

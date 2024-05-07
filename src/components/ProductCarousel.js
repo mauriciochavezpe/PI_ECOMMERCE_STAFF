@@ -6,7 +6,7 @@ import NumberFormat from 'react-number-format'
 import Loader from './layout/Loader'
 import Message from './Message'
 //import { listTopProducts } from '../actions/productActions'
-import { getAllProducts } from "../store/slice/product";
+import { getAllProducts } from "../store/slice/sliceProduct";
 
 import banner1 from "../images/banner1.jpg";
 import banner2 from "../images/banner2.jpg";
@@ -36,9 +36,7 @@ const ProductCarousel = () => {
     <Loader />
   ) : error ? (
     <Loader />
-    // <Message variant='danger' dismissible={false}>
-    //   {error}
-    // </Message>
+ 
   ) : (
     <Carousel pause='hover'  >
     {banners.map((banner) => (
