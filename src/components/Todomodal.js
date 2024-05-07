@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Card, Button ,Modal} from "react-bootstrap";
-function TodoModal({onToggle, isOpen}) {
+const TodoModal=({onToggle, isOpen})=> {
   
   const  product  = useSelector(
     (state) => state.product.product
@@ -36,4 +36,4 @@ function TodoModal({onToggle, isOpen}) {
   );
 }
 
-export {TodoModal};
+export default TodoModal;
