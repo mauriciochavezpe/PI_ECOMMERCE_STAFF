@@ -36,4 +36,4 @@ function TodoModal({onToggle, isOpen}) {
   );
 }
 
-export default TodoModal;
+export {TodoModal};

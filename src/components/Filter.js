@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
 import { listProducts } from "../actions/productActions";
-
-import { Modal } from "./Modal";
-import TodoModal  from "./TodoModal";
+ 
 
 const FilterHome = () => {
   const dispatch = useDispatch();
@@ -153,11 +151,7 @@ const FilterHome = () => {
           </Col>
         </Row>
       </Form>
-      {!!loadingModal && 
-        <Modal>
-          <TodoModal/>
-        </Modal>
-      }
+     
     </>
   );
 };

@@ -4,7 +4,7 @@ import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
 import Product from "../components/Product";
 import { getAllProducts, addProduct,changeLoadingModal } from "../store/slice/sliceProduct";
 import { Modal } from "../components/Modal";
-import TodoModal from "../components/TodoModal";
+import {TodoModal} from "../components/TodoModal";
 import Spinner from "../components/layout/Spinner";
 import ProductCarousel from "../components/ProductCarousel";
 import FilterHome from "../components/Filter";
@@ -18,10 +18,8 @@ const HomeScreen = ({  history }) => {
   
   const onToggle = (id) => {
     console.log("id", id);
-    // dispatch(addProduct(obj));
     dispatch(changeLoadingModal(id));
     console.log(product);
-    // dispatch(changeLoadingModal({obj,loadingModal}));
 
 
   };
