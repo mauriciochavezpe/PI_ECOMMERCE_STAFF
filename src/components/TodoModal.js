@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Button, Modal } from "react-bootstrap";
-import PropTypes from "prop-types";
 
 const TodoModal = ({ onToggle, isOpen }) => {
   const product = useSelector((state) => state.product.product);
