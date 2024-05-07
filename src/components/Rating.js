@@ -18,11 +18,7 @@ const Rating = ({ count  }) => {
 
   return <div className="star-rating">{stars}</div>;
 }
-/*
-Rating.defaultProps = {
-  isSmall: true,
-  my: 'my-3',
-}*/
+ 
 
 Rating.propTypes = {
   value: PropTypes.number,
