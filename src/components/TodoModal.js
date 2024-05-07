@@ -37,10 +37,5 @@ const TodoModal = ({ onToggle, isOpen }) => {
     </Modal>
   );
 };
-
-TodoModal.propTypes = {
-  onToggle: PropTypes.object.isRequired,
-  isOpen: PropTypes.object.isRequired,
-};
-
+ 
 export default TodoModal;
