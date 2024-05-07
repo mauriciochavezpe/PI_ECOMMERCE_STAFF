@@ -30,8 +30,8 @@ const toggleChatbot = () => {
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/admin/products" element={<ProductListAdmin />} />
       </Routes>
-      <ChatbotComponet onToggle={toggleChatbot} isOpen={chatbotOpen}/>
       <Footer />
+      <ChatbotComponet onToggle={toggleChatbot} isOpen={chatbotOpen}/>
     </HashRouter>
     
   );
