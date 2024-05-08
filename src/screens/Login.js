@@ -10,17 +10,20 @@ const Login = () => {
 
   // Obtener el valor del parámetro "code"
   const code = urlObj.searchParams.get("code");
+  console.log(code);
+  debugger;
   let objCurrent = {};
-  if (code &&  !localStorage.getItem("TOKEN_COGNITO")  ) {
-
-    objCurrent.code = code;
-  }else{
-    let data = localStorage.getItem("TOKEN_COGNITO");
-    objCurrent = JSON.parse(data);
-    objCurrent.code = code;
+  if (!code) {
+    if (!localStorage.getItem("TOKEN_COGNITO")) {
+      objCurrent.code = code;
+    } else {
+      let data = localStorage.getItem("TOKEN_COGNITO");
+      objCurrent = JSON.parse(data);
+      objCurrent.code = code;
+    }
+    localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
+    window.location.href = window.location.origin;
   }
-  localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-  window.location.href = window.location.origin;
   return (
     <>
       <p>login</p>
