@@ -20,11 +20,7 @@ const toggleChatbot = () => {
   console.log("click");
   setChatbotOpen(!chatbotOpen);
 };
-{/* <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-      </Switch>
-    </Router> */}
+ 
 
     return(
       <Router>

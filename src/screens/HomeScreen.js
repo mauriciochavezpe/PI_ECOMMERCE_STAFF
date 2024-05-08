@@ -17,10 +17,7 @@ const HomeScreen = ({  history }) => {
   );
   
   const onToggle = (id) => {
-    console.log("id", id);
     dispatch(changeLoadingModal(id));
-    console.log(product);
-
 
   };
 

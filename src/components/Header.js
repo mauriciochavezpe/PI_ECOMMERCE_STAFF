@@ -6,8 +6,8 @@ import { oauth2, authorizateCode } from "../util/oAuth";
 
 const Header = () => {
   const dispatch = useDispatch();
-  //const cart = useSelector((state) => state.cart);
-
+  const { isLogin } = useSelector((state) => state.userLogin);
+  console.log("isLogin", isLogin);
   //Cargamos las variables
 
   const handleSelect = (oEvent) => {
@@ -40,12 +40,25 @@ const Header = () => {
             <Nav onSelect={handleSelect}>
               <Nav.Link href="home">Home</Nav.Link>
               <Nav.Link href="Contacto">Contacto</Nav.Link>
-              <Nav.Link eventKey="3" href="">
-                Ingresar
-              </Nav.Link>
+              {!isLogin ? (
+                <Nav.Link eventKey="3" href="">
+                  Ingresar
+                </Nav.Link>
+              ) : (
+                <NavDropdown title="Ingresar" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="/admin/orders">
+                    Perfil
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Salir
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )}
+
               {/* <Nav.Link eventKey="4" href="">
                 TEST oAuth2
               </Nav.Link> */}
+
               {/* <NavDropdown title="Ingresar" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/admin/orders">Perfil</NavDropdown.Item>
                 <NavDropdown.Item onClick={logoutHandler}>

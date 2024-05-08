@@ -13,7 +13,7 @@ const Login = () => {
   console.log(code);
   debugger;
   let objCurrent = {};
-  if (!code) {
+  if (code) {
     if (!localStorage.getItem("TOKEN_COGNITO")) {
       objCurrent.code = code;
     } else {

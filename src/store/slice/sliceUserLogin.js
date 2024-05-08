@@ -5,14 +5,13 @@ const initialState = {
   userData: {},
   isLogin:false,
   loading: false,
-  loadingModal: false,
   error: "",
   value: 0,
 };
 
 var url = process.env.REACT_APP_URL_ALL + "/user";
 export const getMyUser = createAsyncThunk(
-    "user/getMyUser",
+    "userLogin/getMyUser",
     async () => {
     let config = {
         method:"GET",
@@ -23,60 +22,47 @@ export const getMyUser = createAsyncThunk(
     }
       const response = await axios.request(config); // Use the relative path to your API endpoint
       const data = await response;
-      return data.data;
+      return data;
     }
   );
 
 const productSlice = createSlice({
-  name: "user",
+  name: "userLogin",
   initialState,
   reducers: {
     //actions
-
     isLogin(state, action) {
       state.isLogin = action.payload;
     },
     addFilter(state, action) {
       console.log(action.payload);
-      state.filter = action.payload;
+      state.value = action.payload;
     },
-    changeLoadingModal(state, action) {
-      // state.loadingModal = !action.payload.loadingModal;
-      // state.loadingModal = !action.payload.loadingModal;
-      // if (typeof action.payload == String) {
-        let aObj = state.products.filter((e) => e.id === action.payload);
-        if (aObj.length == 1) {
-          state.product = aObj[0];
-        }
-      // }
-      state.loadingModal = !state.loadingModal;
-
-      console.log(action.payload);
-    },
+   
     addProduct(state, action) {
       state.product = action.payload;
     },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(getAllProducts.pending, (state, action) => {
+    builder.addCase(getMyUser.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(getAllProducts.fulfilled, (state, action) => {
+    builder.addCase(getMyUser.fulfilled, (state, action) => {
       // Add user to the state array
-      state.products = action.payload.products;
+      state.products = action.payload.user;
+      state.isLogin = true;
       state.loading = false;
     });
 
-    builder.addCase(getAllProducts.rejected, (state, action) => {
+    builder.addCase(getMyUser.rejected, (state, action) => {
       // Add user to the state array
       //state.products.push(action.payload);
-      console.log("Error", action);
       state.error = JSON.stringify(action);
     });
   },
 });
 
-export const { changeLoading, addFilter, changeLoadingModal, addProduct } =
+export const { changeLoading, addFilter, changeLoadingModal } =
   productSlice.actions;
 export default productSlice.reducer;
