@@ -62,7 +62,7 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               )}
-              <NavDropdown title="Ingresar" id="basic-nav-dropdown">
+              <NavDropdown title="" id="basic-nav-dropdown">
                   <NavDropdown.Item onClick={onUpdateMyUser}>
                     Perfil
                   </NavDropdown.Item>

@@ -50,6 +50,7 @@ const productSlice = createSlice({
     });
     builder.addCase(getMyUser.fulfilled, (state, action) => {
       // Add user to the state array
+      debugger;
       state.products = action.payload.user;
       state.isLogin = true;
       state.loading = false;
