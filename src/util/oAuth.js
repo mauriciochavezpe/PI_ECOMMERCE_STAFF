@@ -5,6 +5,7 @@ const redirect_uri = process.env.REACT_APP_redirect_uri;
 const response_type = process.env.REACT_APP_response_type;
 
 const oauth2 = () => {
+  let dataAPI = JSON.parse(localStorage.getItem("TOKEN_COGNITO")).code;
   const myHeaders = new Headers();
   myHeaders.append("Accept", "application/json");
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -12,7 +13,7 @@ const oauth2 = () => {
 
   const urlencoded = new URLSearchParams();
   urlencoded.append("grant_type", "authorization_code");
-  urlencoded.append("code", "e422b5db-ab4f-4a5d-9e5a-ac08f3e8f4e8"); // GENERADO POR EL LOGIN
+  urlencoded.append("code", dataAPI); // GENERADO POR EL LOGIN
   urlencoded.append("redirect_uri", redirect_uri);
   urlencoded.append("client_id", client_id);
   urlencoded.append("client_secret", client_secret);
@@ -31,7 +32,7 @@ const oauth2 = () => {
     .then((response) => response.text())
     .then((result) => {
       let x = JSON.parse(result);
-      localStorage.setItem("TOKEN_COGNITO", JSON.stringify({oauth2:x.id_token, code :""}));
+      localStorage.setItem("TOKEN_COGNITO", JSON.stringify({oauth2:x.id_token, code :dataAPI}));
     })
     .catch((error) => console.error(error));
 };

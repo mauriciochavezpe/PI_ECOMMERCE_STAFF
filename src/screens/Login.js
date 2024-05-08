@@ -11,7 +11,7 @@ const Login = () => {
   // Obtener el valor del parámetro "code"
   const code = urlObj.searchParams.get("code");
   let objCurrent = {};
-  if (code &&  localStorage.getItem("TOKEN_COGNITO")  ) {
+  if (code &&  !localStorage.getItem("TOKEN_COGNITO")  ) {
 
     objCurrent.code = code;
   }else{
