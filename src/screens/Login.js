@@ -1,7 +1,10 @@
 import React from "react";
+import { getMyUser } from "../store/slice/sliceUserLogin";
+import { useDispatch } from "react-redux";
+
 const Login = () => {
   //https://pi-1-ecommerce-2023-mauriciochavezpes-projects.vercel.app/?code=7bbd404e-7395-4a05-8f64-d1d197054888
-
+  const dispatch = useDispatch()
   // Obtener la URL actual
   const url = window.location.href;
 
@@ -23,7 +26,12 @@ const Login = () => {
     }
     localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
     window.location.href = window.location.origin;
+    
+    dispatch(getMyUser())
+  
   }
+
+
   return (
     <>
       <p>login</p>
