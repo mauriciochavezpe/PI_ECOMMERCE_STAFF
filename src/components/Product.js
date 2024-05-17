@@ -4,16 +4,33 @@ import { Card, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import Rating from "./Rating";
 import AddToCartBtn from "./AddToCartBtn";
+import { addItemToShop } from "../store/slice/sliceOrder";
 
-const Product = ({ product, onToggle, isOpen }) => {
+const Product = ({ product, onToggle }) => {
+  var { products } = useSelector((state) => state.productSlice);
+  var { orderItemsSelected } = useSelector((state) => state.orderSlice);
   const dispatch = useDispatch();
+
+  const AddToCartHandler = async (id) => {
+
+    console.log("Los artículos han sido agregados al carrito");
+    const productId = id;
+    const productToAdd = products.find((product) => product.id === productId);
+
+    const existingProductIndex = orderItemsSelected.findIndex(
+      (product) => product.id === productId
+    );
+
+    await dispatch(addItemToShop({ existingProductIndex, productToAdd }));
+  };
+
 
   return (
     <>
       <Card style={{ width: "18rem" }} className="mb-4">
         <Card.Img
           onClick={() => {
-            onToggle()
+            onToggle();
           }}
           variant="top"
           style={{ height: "18rem", cursor: "pointer" }}
@@ -32,7 +49,11 @@ const Product = ({ product, onToggle, isOpen }) => {
             Precio: S/. {product.price}
           </Card.Text>
           <Rating count={2} />
-          <AddToCartBtn disabled={product.countInStock === 0} id={product.id} />
+          <AddToCartBtn
+            disabled={product.countInStock === 0}
+            id={product.id}
+            addToCartHandler={AddToCartHandler}
+          />
         </Card.Body>
       </Card>
     </>

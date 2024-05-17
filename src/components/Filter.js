@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
 import { listProducts } from "../actions/productActions";
+import { getMyUser } from "../store/slice/sliceUserLogin";
  
 
 const FilterHome = () => {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
 
-  var {loadingModal} = useSelector((state) => state.product);
+  var {loadingModal} = useSelector((state) => state.productSlice);
   console.log("newReduxtools", loadingModal);
 
   const [filter, setFilter] = useState({
@@ -19,6 +20,10 @@ const FilterHome = () => {
     minPrice: "",
     maxPrice: "",
   });
+
+  const onTestRedux= (item)=>{
+    dispatch(getMyUser())
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -145,7 +150,7 @@ const FilterHome = () => {
             <Button className="bheight" variant="primary" type="submit">
               Aplicar
             </Button>
-            {/* <Button className="bheight" variant="success" onClick={onTestRedux}>
+            {/* <Button className="" variant="success" onClick={onTestRedux}>
               Aplicar2
             </Button> */}
           </Col>

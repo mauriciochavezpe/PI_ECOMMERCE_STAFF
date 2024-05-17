@@ -1,15 +1,16 @@
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown, Button } from "react-bootstrap";
 import logo from "../images/logo.png";
 import { logout } from "../actions/userActions";
 import { oauth2, authorizateCode } from "../util/oAuth";
+import { FaShoppingCart } from "react-icons/fa";
+import CartSidebar from "./CartSidebar";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { isLogin,userData } = useSelector((state) => state.userLogin);
-  console.log("isLogin", isLogin);
-  console.log("userData", userData);
-  //Cargamos las variables
+  const { isLogin, userData } = useSelector((state) => state.userLogin);
+  const [show, setShow] = useState(false);
 
   const handleSelect = (oEvent) => {
     console.log(oEvent);
@@ -20,12 +21,10 @@ const Header = () => {
       oauth2();
     }
   };
-  const onUpdateMyUser=()=>{
 
-  }
-  const onLogout=()=>{
-
-  }
+  const onUpdateMyUser = () => {};
+  const onLogout = () => {};
+  const handleCartClick = () => {};
 
   const userLogin = useSelector((state) => state.userLogin);
   const logoutHandler = () => {
@@ -45,44 +44,33 @@ const Header = () => {
             className="justify-content-end"
           >
             <Nav onSelect={handleSelect}>
-              <Nav.Link href="home">Home</Nav.Link>
-              <Nav.Link href="Contacto">Contacto</Nav.Link>
-              {!isLogin ? (
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/Contacto">Contacto</Nav.Link>
+              {isLogin ? (
                 <Nav.Link eventKey="3" href="">
                   Ingresar
                 </Nav.Link>
-                
               ) : (
                 <NavDropdown title="Ingresar" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="/admin/orders">
+                  <NavDropdown.Item href="/user/myprofile">
                     Perfil
                   </NavDropdown.Item>
                   <NavDropdown.Item onClick={logoutHandler}>
-                    Salir
+                    {isLogin ? "Ingresar" : "Salir"}
                   </NavDropdown.Item>
                 </NavDropdown>
               )}
-              <NavDropdown title="" id="basic-nav-dropdown">
-                  <NavDropdown.Item onClick={onUpdateMyUser}>
-                    Perfil
-                  </NavDropdown.Item>
-                  <NavDropdown.Item onClick={onLogout}>
-                    Salir
-                  </NavDropdown.Item>
-                </NavDropdown>
-
-              {/* <Nav.Link eventKey="4" href="">
-                TEST oAuth2
-              </Nav.Link> */}
-
-              {/* <NavDropdown title="Ingresar" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/admin/orders">Perfil</NavDropdown.Item>
-                <NavDropdown.Item onClick={logoutHandler}>
-                  Salir
-                </NavDropdown.Item>
-              </NavDropdown> */}
             </Nav>
+            <Button variant="outline-primary" onClick={() => setShow(!show)}>
+              <FaShoppingCart />
+            </Button>
           </Navbar.Collapse>
+          {show && (
+            <CartSidebar
+              show={show}
+              onHide={() => setShow(!show)}
+            />
+          )}
         </Container>
       </Navbar>
     </header>

@@ -73,3 +73,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 https://www.youtube.com/watch?v=YGXXITnXvYU&list=PL_kr51suci7UQAxHOF2GitkM5WrOBPcpf&index=6
 
 https://fredrikoseberg.github.io/react-chatbot-kit-docs/
+
+
+# día 1 
+- me falta valdiar el token
+
+https://stackoverflow.com/questions/70129328/redux-toolkit-async-thunk-cannot-read-properties-of-undefined

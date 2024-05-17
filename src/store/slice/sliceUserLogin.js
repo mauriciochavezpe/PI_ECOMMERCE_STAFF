@@ -3,34 +3,70 @@ import axios from "axios";
 
 const initialState = {
   userData: {},
-  isLogin:false,
-  loading: false,
+  userDataTemp: {},
+  isLogin: false,
+  loading: true,
   error: "",
   value: 0,
 };
 
 var url = process.env.REACT_APP_URL_ALL + "/user";
-export const getMyUser = createAsyncThunk(
-    "userLogin/getMyUser",
-    async () => {
+export const getMyUser = createAsyncThunk("userLogin/getMyUser", async () => {
+  let config = {
+    method: "GET",
+    url,
+    headers: {
+      Authorization:
+        "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+    },
+  };
+  const response = await axios.request(config); // Use the relative path to your API endpoint
+  const data = await response;
+  return data;
+});
+export const updateMyUser = createAsyncThunk(
+  "userLogin/updateMyUser",
+  async (action) => {
     let config = {
-        method:"GET",
-        url,
-        headers:{
-            "Authorization": JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2
-        }
-    }
-      const response = await axios.request(config); // Use the relative path to your API endpoint
-      const data = await response;
-      return data;
-    }
-  );
+      method: "PATCH",
+      url,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+      data: action,
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+export const deleteMyUser = createAsyncThunk(
+  "userLogin/deleteMyUser",
+  async (action) => {
+    let config = {
+      method: "DELETE",
+      url,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
 
 const productSlice = createSlice({
   name: "userLogin",
   initialState,
   reducers: {
     //actions
+    updateMyuserData(state, action) {
+      let aUserDataUpdate = action.payload;
+      state.userData[aUserDataUpdate.key] = aUserDataUpdate.value;
+    },
     isLogin(state, action) {
       state.isLogin = action.payload;
     },
@@ -38,7 +74,7 @@ const productSlice = createSlice({
       console.log(action.payload);
       state.value = action.payload;
     },
-   
+
     addProduct(state, action) {
       state.product = action.payload;
     },
@@ -50,8 +86,9 @@ const productSlice = createSlice({
     });
     builder.addCase(getMyUser.fulfilled, (state, action) => {
       // Add user to the state array
-      debugger;
-      state.products = action.payload.user;
+      console.log("estamos por aquí");
+      state.userData = action.payload.data.user;
+      state.userDataTemp = action.payload.data.user;
       state.isLogin = true;
       state.loading = false;
     });
@@ -59,11 +96,50 @@ const productSlice = createSlice({
     builder.addCase(getMyUser.rejected, (state, action) => {
       // Add user to the state array
       //state.products.push(action.payload);
+      state.loading = true;
+      state.error = JSON.stringify(action);
+    });
+    //updateMyUser
+    builder.addCase(updateMyUser.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updateMyUser.fulfilled, (state, action) => {
+      // Add user to the state array
+      console.log("estamos por aquí");
+      state.userData = action.payload.data.user;
+      state.userDataTemp = action.payload.data.user;
+      state.isLogin = true;
+      state.loading = false;
+    });
+
+    builder.addCase(updateMyUser.rejected, (state, action) => {
+      // Add user to the state array
+      //state.products.push(action.payload);
+      state.loading = true;
+      state.error = JSON.stringify(action);
+    });
+    //DELETEMyUser
+    builder.addCase(deleteMyUser.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteMyUser.fulfilled, (state, action) => {
+      console.log("estamos por aquí DELETE");
+      state.isLogin = true;
+      state.loading = false;
+    });
+
+    builder.addCase(deleteMyUser.rejected, (state, action) => {
+      // Add user to the state array
+      state.loading = true;
       state.error = JSON.stringify(action);
     });
   },
 });
 
-export const { changeLoading, addFilter, changeLoadingModal } =
-  productSlice.actions;
+export const {
+  changeLoading,
+  addFilter,
+  changeLoadingModal,
+  updateMyuserData,
+} = productSlice.actions;
 export default productSlice.reducer;

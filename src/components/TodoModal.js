@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Card, Button, Modal } from "react-bootstrap";
 
 const TodoModal = ({ onToggle, isOpen }) => {
-  const product = useSelector((state) => state.product.product);
+  const product = useSelector((state) => state.productSlice.product);
 
   console.log(product);
   return (

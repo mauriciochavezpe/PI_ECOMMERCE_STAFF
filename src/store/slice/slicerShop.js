@@ -4,18 +4,27 @@ import axios from "axios";
 const initialState = {
   products: [], // Tu array de productos inicial
   product: [],
+  // {
+  // name: "",
+  // description: "",
+  // price: "",
+  // category: "",
+  // brand: "",
+  // quantity: "",
+  // image: null,
+  // id:""
+  // },
   filter: "",
   loading: false,
   loadingModal: false,
   error: "",
   value: 0,
-  ItemSelected: [],
 };
 
 var URL = process.env.REACT_APP_URL_ALL + "/products";
 
 export const getAllProducts = createAsyncThunk(
-  "productSlice/getAllProducts",
+  "product/getAllProducts",
   async (filter) => {
     if (filter) {
       URL += `?category=${filter.category || ""}&brand=${
@@ -31,42 +40,11 @@ export const getAllProducts = createAsyncThunk(
 );
 
 const productSlice = createSlice({
-  name: "productSlice",
+  name: "product",
   initialState,
   reducers: {
     //actions
-    deleteItemToShop(state, action) {
-      console.log("aaa");
-      let id = action.payload;
-      let arrFilter = state.ItemSelected.filter((product) => product.id != id);
-      state.ItemSelected = arrFilter;
-    },
-    addItemToShop2(state, action) {
-      const productId = action.payload;
-      const productToAdd = state.products.find(
-        (product) => product.id === productId
-      );
-      const existingProductIndex = state.ItemSelected.findIndex(
-        (product) => product.id === productId
-      );
 
-      if (existingProductIndex === -1) {
-        state.ItemSelected.push({
-          ...productToAdd,
-          qtySelect: 1,
-        });
-      } else {
-        state.ItemSelected = state.ItemSelected.map((product, index) => {
-          if (index === existingProductIndex) {
-            return {
-              ...product,
-              qtySelect: product.qtySelect + 1,
-            };
-          }
-          return product;
-        });
-      }
-    },
     changeLoading(state, action) {
       console.log(action.payload);
       // state.loading = action.payload;
@@ -77,10 +55,13 @@ const productSlice = createSlice({
       state.filter = action.payload;
     },
     changeLoadingModal(state, action) {
-      let aObj = state.products.filter((e) => e.id === action.payload);
-      if (aObj.length == 1) {
-        state.product = aObj[0];
-      }
+      // state.loadingModal = !action.payload.loadingModal;
+      // state.loadingModal = !action.payload.loadingModal;
+      // if (typeof action.payload == String) {
+        let aObj = state.products.filter((e) => e.id === action.payload);
+        if (aObj.length == 1) {
+          state.product = aObj[0];
+        }
       // }
       state.loadingModal = !state.loadingModal;
 
@@ -110,12 +91,6 @@ const productSlice = createSlice({
   },
 });
 
-export const {
-  changeLoading,
-  addFilter,
-  changeLoadingModal,
-  addProduct,
-  addItemToShop2,
-  deleteItemToShop,
-} = productSlice.actions;
+export const { changeLoading, addFilter, changeLoadingModal, addProduct } =
+  productSlice.actions;
 export default productSlice.reducer;

@@ -3,40 +3,120 @@ import axios from "axios";
 
 const initialState = {
   orders: [], // Tu array de productos inicial
-  
   loading: false,
   loadingModal: false,
   error: "",
-  value: 0,
+  value: 1110,
+  order: {},
+  orderItemsSelected: [],
+  showDetail: false,
+  successCreate: null,
 };
 
-var URL = process.env.REACT_APP_URL_ALL + "/products";
+var url = process.env.REACT_APP_URL_ALL + "/orders";
 
-export const getAllProducts = createAsyncThunk(
-  "product/getAllProducts",
-  async (filter) => {
-    if (filter) {
-      URL += `?category=${filter.category || ""}&brand=${
-        filter.brand || ""
-      }&name=${filter.name || ""}&minPrice=${filter.minPrice || ""}&maxPrice=${
-        filter.maxPrice || ""
-      }`;
-    }
-    const response = await axios(URL); // Use the relative path to your API endpoint
+export const getAllOrders = createAsyncThunk(
+  "orderSlice/getAllOrders",
+  async () => {
+    let config = {
+      method: "GET",
+      url,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
     const data = await response;
-    return data.data;
+    return data;
   }
 );
 
-const productSlice = createSlice({
-  name: "order",
+export const getOrderbyID = createAsyncThunk(
+  "orderSlice/getOrderbyID",
+  async (id) => {
+    url += "/" + id;
+    let config = {
+      method: "GET",
+      url,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+
+export const createOrder = createAsyncThunk(
+  "orderSlice/createOrder",
+  async (body) => {
+    let config = {
+      method: "POST",
+      url,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+      data: body,
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+
+const orderSlice = createSlice({
+  name: "orderSlice",
   initialState,
   reducers: {
+    payOrder(state, action) {
+      console.log(action);
+    },
     //actions
+    addItemToShop(state, action) {
+      const { existingProductIndex, productToAdd } = action.payload;
+      if (existingProductIndex === -1) {
+        state.orderItemsSelected.push({
+          ...productToAdd,
+          qtySelect: 1,
+        });
+      } else {
+        state.orderItemsSelected = state.orderItemsSelected.map(
+          (product, index) => {
+            if (index === existingProductIndex) {
+              return {
+                ...product,
+                qtySelect: product.qtySelect + 1,
+              };
+            }
+            return product;
+          }
+        );
+      }
+    },
+    changeQuanty(state, action) {
+      let { productId, quantity } = action.payload;
+      const existingProductIndex = state.orderItemsSelected.findIndex(
+        (product) => product.id === productId
+      );
 
+      state.orderItemsSelected = state.orderItemsSelected.map(
+        (product, index) => {
+          if (index === existingProductIndex) {
+            return {
+              ...product,
+              qtySelect: Number(quantity),
+            };
+          }
+          return product;
+        }
+      );
+    },
     changeLoading(state, action) {
       console.log(action.payload);
-      // state.loading = action.payload;
       state = { ...state, loading: action.payload };
     },
     addFilter(state, action) {
@@ -44,10 +124,10 @@ const productSlice = createSlice({
       state.filter = action.payload;
     },
     changeLoadingModal(state, action) {
-        let aObj = state.products.filter((e) => e.id === action.payload);
-        if (aObj.length == 1) {
-          state.product = aObj[0];
-        }
+      let aObj = state.products.filter((e) => e.id === action.payload);
+      if (aObj.length == 1) {
+        state.product = aObj[0];
+      }
       state.loadingModal = !state.loadingModal;
 
       console.log(action.payload);
@@ -58,24 +138,70 @@ const productSlice = createSlice({
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(getAllProducts.pending, (state, action) => {
+    builder.addCase(getAllOrders.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(getAllProducts.fulfilled, (state, action) => {
+    builder.addCase(getAllOrders.fulfilled, (state, action) => {
       // Add user to the state array
-      state.products = action.payload.products;
+      state.orders = action.payload.data.orders;
       state.loading = false;
     });
 
-    builder.addCase(getAllProducts.rejected, (state, action) => {
+    builder.addCase(getAllOrders.rejected, (state, action) => {
       // Add user to the state array
-      //state.products.push(action.payload);
+      state.loading = false;
       console.log("Error", action);
       state.error = JSON.stringify(action);
+    });
+    //get My ID
+    builder.addCase(getOrderbyID.pending, (state, action) => {
+      // state.loading = true;
+      state.showDetail = false;
+    });
+    builder.addCase(getOrderbyID.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.order = action.payload.data.order;
+      console.log(state.order);
+      state.showDetail = true;
+    });
+
+    builder.addCase(getOrderbyID.rejected, (state, action) => {
+      // Add user to the state array
+      state.loading = false;
+      console.log("Error", action);
+      state.error = JSON.stringify(action);
+      state.showDetail = false;
+    });
+
+    //Create order
+    builder.addCase(createOrder.pending, (state, action) => {
+      // state.loading = true;
+      state.showDetail = false;
+    });
+    builder.addCase(createOrder.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.order = action.payload.data.order;
+      state.successCreate = true;
+      console.log(state.order);
+    });
+
+    builder.addCase(createOrder.rejected, (state, action) => {
+      // Add user to the state array
+      state.loading = false;
+      console.log("Error", action);
+      state.error = JSON.stringify(action);
+      state.showDetail = false;
     });
   },
 });
 
-export const { changeLoading, addFilter, changeLoadingModal, addProduct } =
-  productSlice.actions;
-export default productSlice.reducer;
+export const {
+  changeLoading,
+  addFilter,
+  changeLoadingModal,
+  addProduct,
+  addItemToShop,
+  changeQuanty,
+  payOrder,
+} = orderSlice.actions;
+export default orderSlice.reducer;

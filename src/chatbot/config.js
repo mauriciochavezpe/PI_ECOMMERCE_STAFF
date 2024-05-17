@@ -12,9 +12,12 @@ const config = {
   customStyles: {
     botMessageBox: {
       backgroundColor: '#376B7E',
+      fontsize:8
     },
     chatButton: {
       backgroundColor: '#5ccc9d',
+      fontsize:8
+
     },
   },
   widgets: [
