@@ -47,13 +47,13 @@ const Header = () => {
             <Nav>
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Contacto">Contacto</Nav.Link>
-              {isLogin ? (
+              {/* {!isLogin ? ( */}
                 <Nav.Link eventKey="3" href="">
                   Ingresar
                 </Nav.Link>
-              ) : (
-                <NavDropdown title="Ingresar" id="basic-nav-dropdown">
-                  {isLogin && (
+              {/* ) : ( */}
+                <NavDropdown title="Ingresar2" id="basic-nav-dropdown">
+                  {!isLogin && (
                     <NavDropdown.Item href="/user/myprofile">
                       Perfil
                     </NavDropdown.Item>
@@ -64,7 +64,7 @@ const Header = () => {
                   </NavDropdown.Item>
 
                 </NavDropdown>
-              )}
+              {/* )} */}
             </Nav>
             <Button variant="outline-primary" onClick={() => setShow(!show)}>
               <FaShoppingCart />
