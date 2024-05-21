@@ -18,7 +18,7 @@ const Login = () => {
   const code = urlObj.searchParams.get("code");
   debugger;
   console.log("adadasdsadasd", code);
-  
+
   const initAuth2 = (code) => {
     console.log("dasdadas");
     let objCurrent = {};
@@ -30,12 +30,12 @@ const Login = () => {
         objCurrent = JSON.parse(data);
         objCurrent.code = code;
       }
-      localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-      oauth2();
+      if (!objCurrent.oauth2) {
+        localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
+        oauth2();
+      }
     }
   };
-
-
 
   useEffect(() => {
     initAuth2(code);
