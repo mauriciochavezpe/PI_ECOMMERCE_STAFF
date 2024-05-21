@@ -1,4 +1,5 @@
 import { isLogin } from "../store/slice/sliceUserLogin";
+import { useDispatch } from "react-redux";
 
 const apiKey = process.env.REACT_APP_API_URL;
 const client_id = process.env.REACT_APP_client_id;
@@ -7,6 +8,8 @@ const redirect_uri = process.env.REACT_APP_redirect_uri;
 const response_type = process.env.REACT_APP_response_type;
 
 const oauth2 = () => {
+  const dispatch = useDispatch();
+
   let dataAPI = JSON.parse(localStorage.getItem("TOKEN_COGNITO")).code;
   const myHeaders = new Headers();
   myHeaders.append("Accept", "application/json");
@@ -38,7 +41,7 @@ const oauth2 = () => {
         "TOKEN_COGNITO",
         JSON.stringify({ oauth2: x.id_token, code: dataAPI })
       );
-      isLogin(true);
+      dispatch(isLogin(true));
     })
     .catch((error) => console.error(error));
 };
@@ -52,6 +55,7 @@ const logout = () => {
   let sURL =
     "https://pi-be-customers-domain.auth.us-east-1.amazoncognito.com/logout?client_id=5qg08jljj96u9flssf4ibvgab4&logout_uri=https://pi-1-ecommerce-2023.vercel.app";
   console.log(sURL);
+  localStorage.removeItem("TOKEN_COGNITO");
   window.location.href = sURL;
 };
 
