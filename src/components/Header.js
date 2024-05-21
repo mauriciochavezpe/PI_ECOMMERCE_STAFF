@@ -53,7 +53,7 @@ const Header = () => {
                 </Nav.Link>
               {/* ) : ( */}
                 <NavDropdown title="Ingresar" id="basic-nav-dropdown">
-                  {!isLogin && (
+                  {isLogin && (
                     <NavDropdown.Item href="/user/myprofile">
                       Perfil
                     </NavDropdown.Item>
