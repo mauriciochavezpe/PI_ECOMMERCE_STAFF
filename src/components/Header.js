@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navbar, Nav, Container, NavDropdown, Button } from "react-bootstrap";
 import logo from "../images/logo.png";
 import { logout } from "../actions/userActions";
-import { oauth2, authorizateCode } from "../util/oAuth";
+import { oauth2, authorizateCode, logout } from "../util/oAuth";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
 
@@ -26,6 +26,10 @@ const Header = () => {
   const handleCartClick = () => {};
 
   const userLogin = useSelector((state) => state.userLogin);
+  const logoutHandler2 = (oEvent) => {
+    logout();
+
+  }
   const logoutHandler = (oEvent) => {
     console.log("hola", oEvent.target.text);
     let txt = oEvent.target.text;
@@ -59,10 +63,13 @@ const Header = () => {
               ) : (
                 <NavDropdown title="Ingresar" id="basic-nav-dropdown">
                   <NavDropdown.Item href="/user/myprofile">
-                    Perfil 1
+                    Perfil 
                   </NavDropdown.Item>
                   <NavDropdown.Item onClick={logoutHandler}>
                     {!isLogin ? "Ingresar" : "Salir"}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={logoutHandler2}>
+                    Salir                 
                   </NavDropdown.Item>
                 </NavDropdown>
               )}

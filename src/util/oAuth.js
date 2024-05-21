@@ -32,12 +32,22 @@ const oauth2 = () => {
     .then((response) => response.text())
     .then((result) => {
       let x = JSON.parse(result);
-      localStorage.setItem("TOKEN_COGNITO", JSON.stringify({oauth2:x.id_token, code :dataAPI}));
+      localStorage.setItem(
+        "TOKEN_COGNITO",
+        JSON.stringify({ oauth2: x.id_token, code: dataAPI })
+      );
     })
     .catch((error) => console.error(error));
 };
 const authorizateCode = () => {
   let sURL = `https://pi-be-customers-domain.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`;
+  console.log(sURL);
+  window.location.href = sURL;
+};
+
+const logout = () => {
+  let sURL =
+    "https://pi-be-customers-domain.auth.us-east-1.amazoncognito.com/logout?client_id=5qg08jljj96u9flssf4ibvgab4&logout_uri=https://pi-1-ecommerce-2023.vercel.app";
   console.log(sURL);
   window.location.href = sURL;
 };
