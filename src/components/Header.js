@@ -8,24 +8,16 @@ import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
 
 const Header = () => {
-  const { isLogin, userData } = useSelector((state) => state.userLogin);
+  const { isLogin } = useSelector((state) => state.userLogin);
   useEffect(() => {}, [isLogin]);
   const [show, setShow] = useState(false);
 
-  const handleSelect = (oEvent) => {
-    console.log("asdasdsadads");
-    if (oEvent == 3) {
-    }
-    if (oEvent == 4) {
-      // oauth2();
-    }
-  };
+ 
 
   const onUpdateMyUser = () => {};
   const onLogout = () => {};
   const handleCartClick = () => {};
 
-  const userLogin = useSelector((state) => state.userLogin);
   const logoutHandler2 = (oEvent) => {};
   const logoutHandler = (oEvent) => {
     console.log("hola", oEvent.target.text);
@@ -39,6 +31,7 @@ const Header = () => {
     // dispatch(login());
   };
 
+ 
   return (
     <header>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -51,7 +44,7 @@ const Header = () => {
             id="basic-navbar-nav"
             className="justify-content-end"
           >
-            <Nav onSelect={handleSelect}>
+            <Nav>
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Contacto">Contacto</Nav.Link>
               {isLogin ? (
@@ -65,12 +58,11 @@ const Header = () => {
                       Perfil
                     </NavDropdown.Item>
                   )}
+
                   <NavDropdown.Item onClick={logoutHandler}>
                     {!isLogin ? "Ingresar" : "Salir"}
                   </NavDropdown.Item>
-                  {/* <NavDropdown.Item onClick={logoutHandler2}>
-                    Salir                 
-                  </NavDropdown.Item> */}
+
                 </NavDropdown>
               )}
             </Nav>
