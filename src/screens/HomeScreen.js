@@ -37,10 +37,7 @@ const HomeScreen = ({  history }) => {
       objCurrent.code = code;
     }
     localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-    oauth2();
-    //wait
-    // dispatch(getMyUser());
-
+    // oauth2();
   }
   console.log("isLogin", isLogin);
   console.log("userData", userData);
