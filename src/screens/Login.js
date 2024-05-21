@@ -18,6 +18,7 @@ const Login = () => {
   const code = urlObj.searchParams.get("code");
   debugger;
   let objCurrent = {};
+  console.log("adadasdsadasd", code);
   if (code) {
     if (!localStorage.getItem("TOKEN_COGNITO")) {
       objCurrent.code = code;
@@ -27,7 +28,7 @@ const Login = () => {
       objCurrent.code = code;
     }
     localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-    // oauth2();
+    oauth2();
     //wait
     // dispatch(getMyUser());
 
