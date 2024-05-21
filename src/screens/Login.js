@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { getMyUser } from "../store/slice/sliceUserLogin";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   //https://pi-1-ecommerce-2023-mauriciochavezpes-projects.vercel.app/?code=7bbd404e-7395-4a05-8f64-d1d197054888
   const dispatch = useDispatch();
+  const { isLogin, value } = useSelector((state) => state.userLogin);
+
   // Obtener la URL actual
   const url = window.location.href;
 
@@ -13,7 +15,6 @@ const Login = () => {
 
   // Obtener el valor del parámetro "code"
   const code = urlObj.searchParams.get("code");
-  console.log(code);
   debugger;
   let objCurrent = {};
   if (code) {
@@ -30,9 +31,11 @@ const Login = () => {
     window.location.href = window.location.origin;
   }
 
+  useEffect(() => {}, [isLogin]);
+
   return (
     <>
-      <p>login</p>
+      <p>{isLogin ? "Estas logeado" : "no estas logeado"}</p>
     </>
   );
 };

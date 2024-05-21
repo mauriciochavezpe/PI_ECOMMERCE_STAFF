@@ -8,17 +8,16 @@ import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
 
 const Header = () => {
-  const dispatch = useDispatch();
   const { isLogin, userData } = useSelector((state) => state.userLogin);
+  useEffect(() => {}, [isLogin]);
   const [show, setShow] = useState(false);
 
   const handleSelect = (oEvent) => {
-    console.log(oEvent);
+    console.log("asdasdsadads");
     if (oEvent == 3) {
-      authorizateCode();
     }
     if (oEvent == 4) {
-      oauth2();
+      // oauth2();
     }
   };
 
@@ -27,8 +26,15 @@ const Header = () => {
   const handleCartClick = () => {};
 
   const userLogin = useSelector((state) => state.userLogin);
-  const logoutHandler = () => {
-    dispatch(logout());
+  const logoutHandler = (oEvent) => {
+    console.log("hola", oEvent.target.text);
+    let txt = oEvent.target.text;
+    if (txt == "Ingresar") {
+      authorizateCode();
+    } else {
+    }
+
+    // dispatch(login());
   };
 
   return (
@@ -53,10 +59,10 @@ const Header = () => {
               ) : (
                 <NavDropdown title="Ingresar" id="basic-nav-dropdown">
                   <NavDropdown.Item href="/user/myprofile">
-                    Perfil
+                    Perfil 1
                   </NavDropdown.Item>
                   <NavDropdown.Item onClick={logoutHandler}>
-                    {isLogin ? "Ingresar" : "Salir"}
+                    {!isLogin ? "Ingresar" : "Salir"}
                   </NavDropdown.Item>
                 </NavDropdown>
               )}
@@ -65,12 +71,7 @@ const Header = () => {
               <FaShoppingCart />
             </Button>
           </Navbar.Collapse>
-          {show && (
-            <CartSidebar
-              show={show}
-              onHide={() => setShow(!show)}
-            />
-          )}
+          {show && <CartSidebar show={show} onHide={() => setShow(!show)} />}
         </Container>
       </Navbar>
     </header>

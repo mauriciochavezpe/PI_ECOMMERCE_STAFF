@@ -86,10 +86,11 @@ const productSlice = createSlice({
     });
     builder.addCase(getMyUser.fulfilled, (state, action) => {
       // Add user to the state array
-      console.log("estamos por aquí");
       state.userData = action.payload.data.user;
       state.userDataTemp = action.payload.data.user;
       state.isLogin = true;
+      state.value = 100;
+      console.log("Estuvimos por aquí");
       state.loading = false;
     });
 

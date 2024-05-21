@@ -37,7 +37,9 @@ const oauth2 = () => {
     .catch((error) => console.error(error));
 };
 const authorizateCode = () => {
-  window.location.href = `https://pi-be-customers-domain.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`;
+  let sURL = `https://pi-be-customers-domain.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`;
+  console.log(sURL);
+  window.location.href = sURL;
 };
 
 export { oauth2, authorizateCode };

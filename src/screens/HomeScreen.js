@@ -8,6 +8,8 @@ import TodoModal from "../components/TodoModal";
 import Spinner from "../components/layout/Spinner";
 import ProductCarousel from "../components/ProductCarousel";
 import FilterHome from "../components/Filter";
+import { oauth2 } from "../util/oAuth";
+
 
 const HomeScreen = ({  history }) => {
   const dispatch = useDispatch();
@@ -35,7 +37,7 @@ const HomeScreen = ({  history }) => {
       objCurrent.code = code;
     }
     localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-    // oauth2();
+    oauth2();
     //wait
     // dispatch(getMyUser());
 
