@@ -26,16 +26,14 @@ const Header = () => {
   const handleCartClick = () => {};
 
   const userLogin = useSelector((state) => state.userLogin);
-  const logoutHandler2 = (oEvent) => {
-    logout();
-
-  }
+  const logoutHandler2 = (oEvent) => {};
   const logoutHandler = (oEvent) => {
     console.log("hola", oEvent.target.text);
     let txt = oEvent.target.text;
     if (txt == "Ingresar") {
       authorizateCode();
     } else {
+      logout();
     }
 
     // dispatch(login());
@@ -62,15 +60,17 @@ const Header = () => {
                 </Nav.Link>
               ) : (
                 <NavDropdown title="Ingresar" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="/user/myprofile">
-                    Perfil 
-                  </NavDropdown.Item>
+                  {isLogin && (
+                    <NavDropdown.Item href="/user/myprofile">
+                      Perfil
+                    </NavDropdown.Item>
+                  )}
                   <NavDropdown.Item onClick={logoutHandler}>
                     {!isLogin ? "Ingresar" : "Salir"}
                   </NavDropdown.Item>
-                  <NavDropdown.Item onClick={logoutHandler2}>
+                  {/* <NavDropdown.Item onClick={logoutHandler2}>
                     Salir                 
-                  </NavDropdown.Item>
+                  </NavDropdown.Item> */}
                 </NavDropdown>
               )}
             </Nav>
