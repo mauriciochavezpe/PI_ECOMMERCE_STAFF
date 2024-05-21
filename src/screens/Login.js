@@ -17,24 +17,29 @@ const Login = () => {
   // Obtener el valor del parámetro "code"
   const code = urlObj.searchParams.get("code");
   debugger;
-  let objCurrent = {};
   console.log("adadasdsadasd", code);
-  if (code) {
-    if (!localStorage.getItem("TOKEN_COGNITO")) {
-      objCurrent.code = code;
-    } else {
-      let data = localStorage.getItem("TOKEN_COGNITO");
-      objCurrent = JSON.parse(data);
-      objCurrent.code = code;
+  
+  const initAuth2 = (code) => {
+    console.log("dasdadas");
+    let objCurrent = {};
+    if (code) {
+      if (!localStorage.getItem("TOKEN_COGNITO")) {
+        objCurrent.code = code;
+      } else {
+        let data = localStorage.getItem("TOKEN_COGNITO");
+        objCurrent = JSON.parse(data);
+        objCurrent.code = code;
+      }
+      localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
+      oauth2();
     }
-    localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-    oauth2();
-    //wait
-    // dispatch(getMyUser());
+  };
 
-  }
 
-  useEffect(() => {}, [isLogin]);
+
+  useEffect(() => {
+    initAuth2(code);
+  }, [isLogin, initAuth2]);
 
   return (
     <>
