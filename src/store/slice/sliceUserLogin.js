@@ -67,7 +67,7 @@ const productSlice = createSlice({
       let aUserDataUpdate = action.payload;
       state.userData[aUserDataUpdate.key] = aUserDataUpdate.value;
     },
-    isLogin(state, action) {
+    IsLogin(state, action) {
       state.isLogin = action.payload;
       state.value = 100;
     },
@@ -142,6 +142,6 @@ export const {
   updateMyuserData,
   addFilter,
   addProduct,
-  isLogin,
+  IsLogin,
 } = productSlice.actions;
 export default productSlice.reducer;

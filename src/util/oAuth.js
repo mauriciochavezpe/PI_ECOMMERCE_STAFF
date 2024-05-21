@@ -1,4 +1,4 @@
-import { isLogin } from "../store/slice/sliceUserLogin";
+import { IsLogin } from "../store/slice/sliceUserLogin";
 import { useDispatch } from "react-redux";
 
 const apiKey = process.env.REACT_APP_API_URL;
@@ -7,7 +7,7 @@ const client_secret = process.env.REACT_APP_client_secret;
 const redirect_uri = process.env.REACT_APP_redirect_uri;
 const response_type = process.env.REACT_APP_response_type;
 
-const oauth2 = () => {
+const Oauth2 = () => {
   const dispatch = useDispatch();
 
   let dataAPI = JSON.parse(localStorage.getItem("TOKEN_COGNITO")).code;
@@ -41,7 +41,7 @@ const oauth2 = () => {
         "TOKEN_COGNITO",
         JSON.stringify({ oauth2: x.id_token, code: dataAPI })
       );
-      dispatch(isLogin(true));
+      dispatch(IsLogin(true));
     })
     .catch((error) => console.error(error));
 };
@@ -59,4 +59,4 @@ const logout = () => {
   window.location.href = sURL;
 };
 
-export { oauth2, authorizateCode,logout };
+export { Oauth2, authorizateCode, logout };

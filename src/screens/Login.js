@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { getMyUser } from "../store/slice/sliceUserLogin";
 import { useDispatch, useSelector } from "react-redux";
-import { oauth2 } from "../util/oAuth";
+import { Oauth2 } from "../util/oAuth";
 
 const Login = () => {
   //https://pi-1-ecommerce-2023-mauriciochavezpes-projects.vercel.app/?code=7bbd404e-7395-4a05-8f64-d1d197054888
@@ -31,7 +31,7 @@ const Login = () => {
         objCurrent.code = code;
       }
       localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-      oauth2();
+      Oauth2();
     }
   };
 
