@@ -52,4 +52,4 @@ const logout = () => {
   window.location.href = sURL;
 };
 
-export { oauth2, authorizateCode };
+export { oauth2, authorizateCode,logout };
