@@ -1,3 +1,5 @@
+import { isLogin } from "../store/slice/sliceUserLogin";
+
 const apiKey = process.env.REACT_APP_API_URL;
 const client_id = process.env.REACT_APP_client_id;
 const client_secret = process.env.REACT_APP_client_secret;
@@ -36,6 +38,7 @@ const oauth2 = () => {
         "TOKEN_COGNITO",
         JSON.stringify({ oauth2: x.id_token, code: dataAPI })
       );
+      isLogin(true);
     })
     .catch((error) => console.error(error));
 };

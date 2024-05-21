@@ -69,6 +69,7 @@ const productSlice = createSlice({
     },
     isLogin(state, action) {
       state.isLogin = action.payload;
+      state.value = 100;
     },
     addFilter(state, action) {
       console.log(action.payload);
@@ -138,9 +139,9 @@ const productSlice = createSlice({
 });
 
 export const {
-  changeLoading,
-  addFilter,
-  changeLoadingModal,
   updateMyuserData,
+  addFilter,
+  addProduct,
+  isLogin,
 } = productSlice.actions;
 export default productSlice.reducer;
