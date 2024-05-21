@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navbar, Nav, Container, NavDropdown, Button } from "react-bootstrap";
 import logo from "../images/logo.png";
-import { logout } from "../actions/userActions";
+// import { logout } from "../actions/userActions";
 import { oauth2, authorizateCode, logout } from "../util/oAuth";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
