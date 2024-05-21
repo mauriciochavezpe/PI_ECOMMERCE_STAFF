@@ -20,12 +20,11 @@ const HomeScreen = ({  history }) => {
 
   
 
-  const url = window.location.href;
+  // const url = window.location.href;
 
-  const urlObj = new URL(url);
+  // const urlObj = new URL(url);
 
-  const code = urlObj.searchParams.get("code");
-  console.log("code",code);
+  // const code = urlObj.searchParams.get("code");
 
   let objCurrent = {};
   if (code) {
@@ -37,7 +36,6 @@ const HomeScreen = ({  history }) => {
       objCurrent.code = code;
     }
     localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-    // oauth2();
   }
   console.log("isLogin", isLogin);
   console.log("userData", userData);
