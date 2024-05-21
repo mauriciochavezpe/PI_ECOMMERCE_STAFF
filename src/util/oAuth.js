@@ -9,11 +9,11 @@ const oauth2 = () => {
   const myHeaders = new Headers();
   myHeaders.append("Accept", "application/json");
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append("Cookie", "XSRF-TOKEN=12655a01-df6f-4f31-b42d-ecc90eea063a");
+  // myHeaders.append("Cookie", "XSRF-TOKEN=12655a01-df6f-4f31-b42d-ecc90eea063a");
 
   const urlencoded = new URLSearchParams();
   urlencoded.append("grant_type", "authorization_code");
-  urlencoded.append("code", dataAPI); // GENERADO POR EL LOGIN
+  urlencoded.append("code", dataAPI.trim()); // GENERADO POR EL LOGIN
   urlencoded.append("redirect_uri", redirect_uri);
   urlencoded.append("client_id", client_id);
   urlencoded.append("client_secret", client_secret);
