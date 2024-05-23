@@ -20,11 +20,11 @@ const HomeScreen = ({  history }) => {
 
   
 
-  // const url = window.location.href;
+  const url = window.location.href;
 
-  // const urlObj = new URL(url);
+  const urlObj = new URL(url);
 
-  // const code = urlObj.searchParams.get("code");
+  const code = urlObj.searchParams.get("code");
 
   let objCurrent = {};
   if (code) {

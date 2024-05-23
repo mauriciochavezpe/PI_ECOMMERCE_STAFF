@@ -14,7 +14,7 @@ const ResponseChagpt = (props) => {
       sURL,
       headers: {
         "Content-type": "application/json",
-        "Authorization":
+        Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
       },
       data: obj,

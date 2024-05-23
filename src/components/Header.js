@@ -48,9 +48,9 @@ const Header = () => {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Contacto">Contacto</Nav.Link>
               {/* {!isLogin ? ( */}
-                <Nav.Link eventKey="3" href="">
-                  Ingresar
-                </Nav.Link>
+                {/* <Nav.Link eventKey="3" href=""> */}
+                  {/* Ingresar */}
+                {/* </Nav.Link> */}
               {/* ) : ( */}
                 <NavDropdown title="Ingresar" id="basic-nav-dropdown">
                   {isLogin && (

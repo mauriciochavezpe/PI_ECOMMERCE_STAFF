@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getMyUser } from "../store/slice/sliceUserLogin";
+import { getMyUser } from "../store/slice/sliceUserLogin"; 
 import { useDispatch, useSelector } from "react-redux";
 import { oauth2 } from "../util/oAuth";
 

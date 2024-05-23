@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useState } from "react";
-// import { HashRouter, Route, Routes } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -26,7 +25,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<HomeScreen />} />
+        <Route exact path="/" element={<HomeScreen />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/not-found" element={<NotFound />} />
