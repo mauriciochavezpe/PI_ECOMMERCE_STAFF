@@ -39,7 +39,7 @@ const Login = () => {
 
   useEffect(() => {
     initAuth2(code);
-  }, [initAuth2]);
+  }, []);
 
   return (
     <>

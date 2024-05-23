@@ -47,7 +47,7 @@ const HomeScreen = ({  history }) => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
