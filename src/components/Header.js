@@ -12,8 +12,6 @@ const Header = () => {
   useEffect(() => {}, [isLogin]);
   const [show, setShow] = useState(false);
 
- 
-
   const onUpdateMyUser = () => {};
   const onLogout = () => {};
   const handleCartClick = () => {};
@@ -28,10 +26,8 @@ const Header = () => {
       logout();
     }
 
-    // dispatch(login());
   };
 
- 
   return (
     <header>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -48,22 +44,21 @@ const Header = () => {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Contacto">Contacto</Nav.Link>
               {/* {!isLogin ? ( */}
-                {/* <Nav.Link eventKey="3" href=""> */}
-                  {/* Ingresar */}
-                {/* </Nav.Link> */}
+              {/* <Nav.Link eventKey="3" href=""> */}
+              {/* Ingresar */}
+              {/* </Nav.Link> */}
               {/* ) : ( */}
-                <NavDropdown title="Ingresar" id="basic-nav-dropdown">
-                  {isLogin && (
-                    <NavDropdown.Item href="/user/myprofile">
-                      Perfil
-                    </NavDropdown.Item>
-                  )}
-
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    {!isLogin ? "Ingresar" : "Salir"}
+              <NavDropdown title="Ingresar" id="basic-nav-dropdown">
+                {isLogin && (
+                  <NavDropdown.Item href="/user/myprofile">
+                    Perfil
                   </NavDropdown.Item>
+                )}
 
-                </NavDropdown>
+                <NavDropdown.Item onClick={logoutHandler}>
+                  {!isLogin ? "Ingresar" : "Salir"}
+                </NavDropdown.Item>
+              </NavDropdown>
               {/* )} */}
             </Nav>
             <Button variant="outline-primary" onClick={() => setShow(!show)}>

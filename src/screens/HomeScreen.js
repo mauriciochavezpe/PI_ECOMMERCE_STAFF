@@ -20,25 +20,25 @@ const HomeScreen = ({  history }) => {
 
   
 
-  const url = window.location.href;
+  // const url = window.location.href;
 
-  const urlObj = new URL(url);
+  // const urlObj = new URL(url);
 
-  const code = urlObj.searchParams.get("code");
+  // const code = urlObj.searchParams.get("code");
 
-  let objCurrent = {};
-  if (code) {
-    if (!localStorage.getItem("TOKEN_COGNITO")) {
-      objCurrent.code = code;
-    } else {
-      let data = localStorage.getItem("TOKEN_COGNITO");
-      objCurrent = JSON.parse(data);
-      objCurrent.code = code;
-    }
-    localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-  }
-  console.log("isLogin", isLogin);
-  console.log("userData", userData);
+  // let objCurrent = {};
+  // if (code) {
+  //   if (!localStorage.getItem("TOKEN_COGNITO")) {
+  //     objCurrent.code = code;
+  //   } else {
+  //     let data = localStorage.getItem("TOKEN_COGNITO");
+  //     objCurrent = JSON.parse(data);
+  //     objCurrent.code = code;
+  //   }
+  //   localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
+  // }
+  // console.log("isLogin", isLogin);
+  // console.log("userData", userData);
 
   const onToggle = (id) => {
     dispatch(changeLoadingModal(id));
