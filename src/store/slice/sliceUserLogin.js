@@ -6,6 +6,7 @@ const initialState = {
   userDataTemp: {},
   isLogin: false,
   loading: true,
+  isUserAdmin:false,
   error: "",
   value: 0,
 };

@@ -6,7 +6,7 @@ import logo from "../images/logo.png";
 import { oauth2, authorizateCode, logout } from "../util/oAuth";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
-import { persistor } from '../store/store';
+import { persistor } from '../store/';
 
 const Header = () => {
   const { isLogin } = useSelector((state) => state.userLogin);
