@@ -6,28 +6,21 @@ import logo from "../images/logo.png";
 import { oauth2, authorizateCode, logout } from "../util/oAuth";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
-import { persistor } from '../store/';
+import { persistor } from "../store/";
 
 const Header = () => {
   const { isLogin } = useSelector((state) => state.userLogin);
   useEffect(() => {}, [isLogin]);
   const [show, setShow] = useState(false);
 
-  const onUpdateMyUser = () => {};
-  const onLogout = () => {};
-  const handleCartClick = () => {};
-
-  const logoutHandler2 = (oEvent) => {};
   const logoutHandler = (oEvent) => {
-    console.log("hola", oEvent.target.text);
     let txt = oEvent.target.text;
     if (txt == "Ingresar") {
       authorizateCode();
     } else {
       logout();
-      persistor.purge()
+      persistor.purge();
     }
-
   };
 
   return (
@@ -52,9 +45,19 @@ const Header = () => {
               {/* ) : ( */}
               <NavDropdown title="Ingresar" id="basic-nav-dropdown">
                 {isLogin && (
-                  <NavDropdown.Item href="/user/myprofile">
-                    Perfil
-                  </NavDropdown.Item>
+                  <>
+                    <NavDropdown.Item href="/user/myprofile">
+                      Perfil
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Item href="/order/myorders">
+                      Mis Ordenes
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Item href="/order/createOrder">
+                      Crear orden
+                    </NavDropdown.Item>
+                  </>
                 )}
 
                 <NavDropdown.Item onClick={logoutHandler}>
