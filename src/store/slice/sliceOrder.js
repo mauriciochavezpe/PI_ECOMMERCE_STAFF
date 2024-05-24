@@ -35,10 +35,10 @@ export const getAllOrders = createAsyncThunk(
 export const getOrderbyID = createAsyncThunk(
   "orderSlice/getOrderbyID",
   async (id) => {
-    url += "/" + id;
+    let sPath =  url + "/" + id;
     let config = {
       method: "GET",
-      url,
+      url:sPath,
       headers: {
         Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
