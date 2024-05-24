@@ -161,7 +161,16 @@ const orderSlice = createSlice({
     builder.addCase(getOrderbyID.fulfilled, (state, action) => {
       // Add user to the state array
       state.order = action.payload.data.order;
-      console.log(state.order);
+      console.log(state.order.bill);
+      const handleDownload = (url) => {
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "order_bill.pdf");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+      handleDownload(state.order.bill);
       state.showDetail = true;
     });
 
