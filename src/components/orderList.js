@@ -12,7 +12,7 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 };
 
-const OrderList = ({ orders, handleShowDetail }) => {
+const OrderList = ({ orders, handleShowDetail,handleCancelOrder }) => {
   return (
     <div>
       <h3>Lista de Órdenes</h3>
@@ -48,6 +48,12 @@ const OrderList = ({ orders, handleShowDetail }) => {
                   onClick={() => handleShowDetail(order)}
                 >
                   Ver Detalle
+                </Button>
+                <Button
+                  variant="cancel"
+                  onClick={() => handleCancelOrder(order)}
+                >
+                  Cancelar
                 </Button>
               </td>
             </tr>

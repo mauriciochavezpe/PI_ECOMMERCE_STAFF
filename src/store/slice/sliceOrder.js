@@ -11,6 +11,8 @@ const initialState = {
   orderItemsSelected: [],
   showDetail: false,
   successCreate: null,
+  statusOrder:"",
+  successEvent:false,
 };
 
 var url = process.env.REACT_APP_URL_ALL + "/orders";
@@ -56,6 +58,25 @@ export const createOrder = createAsyncThunk(
     let config = {
       method: "POST",
       url,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+      data: body,
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+
+export const cancelOrder = createAsyncThunk(
+  "orderSlice/cancelOrder",
+  async (id) => {
+    let sPath = url + "/" + id + "/cancel"
+    let config = {
+      method: "PATCH",
+      url:sPath,
       headers: {
         Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
@@ -201,6 +222,26 @@ const orderSlice = createSlice({
       state.error = JSON.stringify(action);
       state.showDetail = false;
     });
+    //cancel order
+    builder.addCase(cancelOrder.pending, (state, action) => {
+      // state.loading = true;
+      state.showDetail = false;
+    });
+    builder.addCase(cancelOrder.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.statusOrder = action.payload.data.message;
+      state.successEvent = true;
+      // console.log(state.);
+    });
+
+    builder.addCase(cancelOrder.rejected, (state, action) => {
+      // Add user to the state array
+      state.loading = false;
+      console.log("Error", action);
+      state.error = JSON.stringify(action);
+      state.showDetail = false;
+    });
+
   },
 });
 

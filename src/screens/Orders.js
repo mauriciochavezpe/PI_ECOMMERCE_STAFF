@@ -22,13 +22,18 @@ const Orders = () => {
 
     console.log(order);
   };
+  const handleCancelOrder = (item) => {
+    dispatch(cancelOrder(item.id));
+
+    console.log(order);
+  };
 
   return (
     <>
       {loading ? (
         <Spinner />
       ) : (
-        <OrderList orders={orders} handleShowDetail={handleShowDetail} />
+        <OrderList orders={orders} handleShowDetail={handleShowDetail} handleCancelOrder={handleCancelOrder} />
       )}
     </>
   );
