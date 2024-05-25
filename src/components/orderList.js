@@ -12,6 +12,14 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 };
 
+const formatterBadge = (sText)=>{
+   let obj =  {
+      "pending":"secondary",
+      "canceled":"danger",
+      // "pending":"primary",
+    }
+    return obj[sText] || "primary";
+}
 const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
   return (
     <div>
@@ -35,7 +43,7 @@ const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
             <tr key={order.id}>
               <td>{order.id}</td>
               <td>
-                <Badge variant="info">{order.status}</Badge>
+                <Badge variant="info">{formatterBadge(order.status)}</Badge>
               </td>
               <td>{order.email}</td>
               <td>S/. {order.totalPrice}</td>
