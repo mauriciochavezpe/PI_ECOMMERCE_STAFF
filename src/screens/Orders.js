@@ -22,6 +22,7 @@ const Orders = () => {
 
     console.log(order);
   };
+  
   const handleCancelOrder = (item) => {
     dispatch(cancelOrder(item.id));
 

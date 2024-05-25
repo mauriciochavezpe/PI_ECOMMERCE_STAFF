@@ -81,7 +81,6 @@ export const cancelOrder = createAsyncThunk(
         Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
       },
-      data: body,
     };
     const response = await axios.request(config); // Use the relative path to your API endpoint
     const data = await response;
