@@ -12,14 +12,14 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 };
 
-const formatterBadge = (sText)=>{
-   let obj =  {
-      "pending":"secondary",
-      "canceled":"danger",
-      // "pending":"primary",
-    }
-    return obj[sText] || "primary";
-}
+const formatterBadge = (sText) => {
+  let obj = {
+    pending: "secondary",
+    canceled: "danger",
+    // "pending":"primary",
+  };
+  return obj[sText] || "primary";
+};
 const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
   return (
     <div>
@@ -57,12 +57,14 @@ const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
                 >
                   Ver Detalle
                 </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => handleCancelOrder(order)}
-                >
-                  Cancelar
-                </Button>
+                {order.status == "pending" && (
+                  <Button
+                    variant="danger"
+                    onClick={() => handleCancelOrder(order)}
+                  >
+                    Cancelar
+                  </Button>
+                )}
               </td>
             </tr>
           ))}
