@@ -43,7 +43,7 @@ const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
             <tr key={order.id}>
               <td>{order.id}</td>
               <td>
-                <Badge variant="info">{formatterBadge(order.status)}</Badge>
+                <Badge variant={formatterBadge(order.status)}>{order.status}</Badge>
               </td>
               <td>{order.email}</td>
               <td>S/. {order.totalPrice}</td>
