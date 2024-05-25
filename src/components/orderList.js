@@ -12,7 +12,7 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 };
 
-const OrderList = ({ orders, handleShowDetail,handleCancelOrder }) => {
+const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
   return (
     <div>
       <h3>Lista de Órdenes</h3>

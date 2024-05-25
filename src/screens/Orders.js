@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import OrderList from "../components/orderList";
-import { getAllOrders, getOrderbyID } from "../store/slice/sliceOrder";
+import { getAllOrders, getOrderbyID,cancelOrder } from "../store/slice/sliceOrder";
 import Spinner from "../components/layout/Spinner";
 
 const Orders = () => {
