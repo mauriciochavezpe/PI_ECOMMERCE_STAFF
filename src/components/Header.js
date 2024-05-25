@@ -63,6 +63,9 @@ const Header = () => {
                 <NavDropdown.Item onClick={logoutHandler}>
                   {!isLogin ? "Ingresar" : "Salir"}
                 </NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutHandler}>
+                  {!isLogin ? "Usuario admininistrador" : "Salir"}
+                </NavDropdown.Item>
               </NavDropdown>
               {/* )} */}
             </Nav>
