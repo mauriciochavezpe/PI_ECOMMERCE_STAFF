@@ -50,7 +50,7 @@ const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
                   Ver Detalle
                 </Button>
                 <Button
-                  variant="cancel"
+                  variant="danger"
                   onClick={() => handleCancelOrder(order)}
                 >
                   Cancelar
