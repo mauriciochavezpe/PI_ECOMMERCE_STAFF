@@ -14,7 +14,7 @@ const Header = () => {
 
   const logoutHandler = (oEvent) => {
     let txt = oEvent.target.text;
-    if (txt == "Ingresar") {
+    if (txt == "Cliente") {
       authorizateCode();
     } else if(txt== "Usuario admininistrador") {
       authorizateCodeAdmin()
@@ -39,11 +39,6 @@ const Header = () => {
             <Nav>
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Contacto">Contacto</Nav.Link>
-              {/*  ( */}
-              {/* <Nav.Link eventKey="3" href=""> */}
-              {/* Ingresar */}
-              {/* </Nav.Link> */}
-              {/* ) : ( */}
               <NavDropdown title="Ingresar" id="basic-nav-dropdown">
                 {isLogin && (
                   <>
@@ -64,9 +59,9 @@ const Header = () => {
                 <NavDropdown.Item onClick={logoutHandler}>
                   Cliente
                 </NavDropdown.Item>
-                <NavDropdown.Item onClick={logoutHandler}>
+                {/* <NavDropdown.Item onClick={logoutHandler}>
                   Usuario admininistrador
-                </NavDropdown.Item>
+                </NavDropdown.Item> */}
                 {isUserAdmin ||
                   (isLogin && (
                     <NavDropdown.Item onClick={logoutHandler}>
