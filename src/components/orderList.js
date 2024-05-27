@@ -39,7 +39,10 @@ const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          {
+          orders.sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+        }).map((order) => (
             <tr key={order.id}>
               <td>{order.id}</td>
               <td>
