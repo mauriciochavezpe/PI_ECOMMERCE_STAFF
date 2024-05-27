@@ -164,6 +164,9 @@ const orderSlice = createSlice({
     builder.addCase(getAllOrders.fulfilled, (state, action) => {
       // Add user to the state array
       state.orders = action.payload.data.orders;
+      state.orders.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    });
       state.loading = false;
     });
 
