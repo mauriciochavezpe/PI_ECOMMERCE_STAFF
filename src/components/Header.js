@@ -8,7 +8,7 @@ import CartSidebar from "./CartSidebar";
 import { persistor } from "../store/";
 
 const Header = () => {
-  const { isLogin } = useSelector((state) => state.userLogin);
+  const { isLogin,isUserAdmin  } = useSelector((state) => state.userLogin);
   useEffect(() => {}, [isLogin]);
   const [show, setShow] = useState(false);
 
