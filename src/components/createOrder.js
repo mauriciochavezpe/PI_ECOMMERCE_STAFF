@@ -51,7 +51,7 @@ const OrderCreate = () => {
           <Col md={3} className="p-2">
             <h2 className="mb-4">Crear Orden</h2>
             <Form onSubmit={handleSubmit} className="order-form">
-              <Form.Group controlId="formName">
+             {/* <Form.Group controlId="formName">
                 <Form.Label>Nombre</Form.Label>
                 <Form.Control
                   type="text"
@@ -97,9 +97,8 @@ const OrderCreate = () => {
                   <option value="">Seleccione un método de pago</option>
                   <option value="efectivo">Efectivo</option>
                   <option value="tarjeta">Tarjeta de Crédito/Débito</option>
-                  {/* Agrega aquí más opciones de métodos de pago si es necesario */}
                 </Form.Control>
-              </Form.Group>
+              </Form.Group> */ }
               <Table striped bordered className="product-table">
                 <thead>
                   <tr>

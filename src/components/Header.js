@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navbar, Nav, Container, NavDropdown, Button } from "react-bootstrap";
 import logo from "../images/logo.png";
-// import { logout } from "../actions/userActions";
-import { oauth2, authorizateCode, logout } from "../util/oAuth";
+import {  authorizateCode,authorizateCodeAdmin, logout } from "../util/oAuth";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
 import { persistor } from "../store/";
@@ -17,6 +16,8 @@ const Header = () => {
     let txt = oEvent.target.text;
     if (txt == "Ingresar") {
       authorizateCode();
+    } else if(txt== "Usuario admininistrador") {
+      authorizateCodeAdmin()
     } else {
       logout();
       persistor.purge();
@@ -38,7 +39,7 @@ const Header = () => {
             <Nav>
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Contacto">Contacto</Nav.Link>
-              {/* {!isLogin ? ( */}
+              {/*  ( */}
               {/* <Nav.Link eventKey="3" href=""> */}
               {/* Ingresar */}
               {/* </Nav.Link> */}
@@ -61,11 +62,17 @@ const Header = () => {
                 )}
 
                 <NavDropdown.Item onClick={logoutHandler}>
-                  {!isLogin ? "Ingresar" : "Salir"}
+                  "Cliente"
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={logoutHandler}>
-                  {!isLogin ? "Usuario admininistrador" : "Salir"}
+                  "Usuario admininistrador"
                 </NavDropdown.Item>
+                {isUserAdmin ||
+                  (isLogin && (
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      "Salir"
+                    </NavDropdown.Item>
+                  ))}
               </NavDropdown>
               {/* )} */}
             </Nav>

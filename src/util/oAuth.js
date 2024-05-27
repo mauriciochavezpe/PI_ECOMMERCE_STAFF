@@ -6,6 +6,8 @@ const client_id = process.env.REACT_APP_client_id;
 const client_secret = process.env.REACT_APP_client_secret;
 const redirect_uri = process.env.REACT_APP_redirect_uri;
 const response_type = process.env.REACT_APP_response_type;
+const url_customer = process.env.REACT_APP_URL_OAUTH_CUSTOMER;
+const url_staff = process.env.REACT_APP_URL_OAUTH_STAFF;
 
 const oauth2 = () => {
   // const dispatch = useDispatch();
@@ -14,7 +16,6 @@ const oauth2 = () => {
   const myHeaders = new Headers();
   myHeaders.append("Accept", "application/json");
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  // myHeaders.append("Cookie", "XSRF-TOKEN=12655a01-df6f-4f31-b42d-ecc90eea063a");
 
   const urlencoded = new URLSearchParams();
   urlencoded.append("grant_type", "authorization_code");
@@ -29,9 +30,9 @@ const oauth2 = () => {
     body: urlencoded,
     redirect: "follow",
   };
-
+  let url = "";
   fetch(
-    "https://pi-be-customers-domain.auth.us-east-1.amazoncognito.com/oauth2/token",
+    url_customer+"/oauth2/token",
     requestOptions
   )
     .then((response) => response.text())
@@ -47,6 +48,11 @@ const oauth2 = () => {
 };
 const authorizateCode = () => {
   let sURL = `https://pi-be-customers-domain.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`;
+  console.log(sURL);
+  window.location.href = sURL;
+};
+const authorizateCodeAdmin = () => {
+  let sURL = `https://pi-be-staff-domain.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`;
   console.log(sURL);
   window.location.href = sURL;
 };
