@@ -62,15 +62,15 @@ const Header = () => {
                 )}
 
                 <NavDropdown.Item onClick={logoutHandler}>
-                  "Cliente"
+                  Cliente
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={logoutHandler}>
-                  "Usuario admininistrador"
+                  Usuario admininistrador
                 </NavDropdown.Item>
                 {isUserAdmin ||
                   (isLogin && (
                     <NavDropdown.Item onClick={logoutHandler}>
-                      "Salir"
+                      Salir
                     </NavDropdown.Item>
                   ))}
               </NavDropdown>
