@@ -9,7 +9,6 @@ const initialState = {
   isUserAdmin:false,
   error: "",
   value: 0,
-  is
 };
 
 var url = process.env.REACT_APP_URL_ALL + "/user";
