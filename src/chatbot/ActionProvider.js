@@ -26,7 +26,7 @@ class ActionProvider {
   };
 
   async handleHello(message = "") {
-    let sURL = process.env.REACT_APP_URL_ALL + "/chat";
+    let sURL = process.env.REACT_APP_URL_STAFF + "/chat";
     let obj = { question: message };
     /*let config = {
       method: "POST",

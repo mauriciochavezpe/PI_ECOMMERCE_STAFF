@@ -15,7 +15,7 @@ const initialState = {
   successEvent:false,
 };
 
-var url = process.env.REACT_APP_URL_ALL + "/orders";
+var url = process.env.REACT_APP_URL_STAFF + "/orders";
 
 export const getAllOrders = createAsyncThunk(
   "orderSlice/getAllOrders",

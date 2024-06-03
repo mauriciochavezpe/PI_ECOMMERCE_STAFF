@@ -3,7 +3,7 @@ import axios from "axios";
 
 const ResponseChagpt = (props) => {
   const { state, setState } = props;
-  const sURL = process.env.REACT_APP_URL_ALL + "/chat";
+  const sURL = process.env.REACT_APP_URL_STAFF + "/chat";
   debugger;
   useEffect(async () => {
     let obj = { question: state.question };

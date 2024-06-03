@@ -22,7 +22,7 @@ import {
   PRODUCT_TOP_FAIL,
 } from "../constants/productConstants";
 
-var URL = process.env.REACT_APP_URL_ALL+"/products";
+var URL = process.env.REACT_APP_URL_STAFF+"/products";
 
 export const listProducts =
   (filter=null) =>

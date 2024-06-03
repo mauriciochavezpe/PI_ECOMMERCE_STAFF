@@ -21,7 +21,7 @@ const initialState = {
   value: 0,
 };
 
-var URL = process.env.REACT_APP_URL_ALL + "/products";
+var URL = process.env.REACT_APP_URL_STAFF + "/products";
 
 export const getAllProducts = createAsyncThunk(
   "product/getAllProducts",

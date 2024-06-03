@@ -12,7 +12,7 @@ const initialState = {
   ItemSelected: [],
 };
 
-var URL = process.env.REACT_APP_URL_ALL + "/products";
+var URL = process.env.REACT_APP_URL_STAFF + "/products";
 
 export const getAllProducts = createAsyncThunk(
   "productSlice/getAllProducts",

@@ -26,7 +26,7 @@ import {
   PRODUCT_TOP_FAIL,
 } from "../constants/productConstants";
 
-const URL = process.env.REACT_APP_URL_ALL + "/products";
+const URL = process.env.REACT_APP_URL_STAFF + "/products";
 
 export const createProductImage = (sId) => async (dispatch, getState) => {
   try {

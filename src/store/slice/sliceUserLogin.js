@@ -11,7 +11,7 @@ const initialState = {
   value: 0,
 };
 
-var url = process.env.REACT_APP_URL_ALL + "/user";
+var url = process.env.REACT_APP_URL_STAFF + "/user";
 export const getMyUser = createAsyncThunk("userLogin/getMyUser", async () => {
   let config = {
     method: "GET",
