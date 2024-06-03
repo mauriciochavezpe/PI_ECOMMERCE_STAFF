@@ -3,8 +3,10 @@ import store from "../store/index";
 
 const apiKey = process.env.REACT_APP_API_URL;
 const client_id = process.env.REACT_APP_client_id;
+const client_id_STAFF = process.env.REACT_APP_client_id_STAFF;
 const client_secret = process.env.REACT_APP_client_secret;
 const redirect_uri = process.env.REACT_APP_redirect_uri;
+const redirect_uri_STAFF = process.env.REACT_APP_redirect_uri_STAFF;
 const response_type = process.env.REACT_APP_response_type;
 const url_customer = process.env.REACT_APP_URL_OAUTH_CUSTOMER;
 const url_staff = process.env.REACT_APP_URL_OAUTH_STAFF;
@@ -52,7 +54,7 @@ const authorizateCode = () => {
   window.location.href = sURL;
 };
 const authorizateCodeAdmin = () => {
-  let sURL = `https://pi-be-staff-domain.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`;
+  let sURL = `https://pi-be-staff-domain.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=${client_id_STAFF}&redirect_uri=${redirect_uri_STAFF}&response_type=${response_type}`;
   console.log(sURL);
   window.location.href = sURL;
 };
