@@ -2,22 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navbar, Nav, Container, NavDropdown, Button } from "react-bootstrap";
 import logo from "../images/logo.png";
-import {  authorizateCode,authorizateCodeAdmin, logout } from "../util/oAuth";
+import { authorizateCode, authorizateCodeAdmin, logout } from "../util/oAuth";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "./CartSidebar";
 import { persistor } from "../store/";
 
 const Header = () => {
-  const { isLogin,isUserAdmin  } = useSelector((state) => state.userLogin);
+  const { isLogin, isUserAdmin } = useSelector((state) => state.userLogin);
   useEffect(() => {}, [isLogin]);
   const [show, setShow] = useState(false);
 
   const logoutHandler = (oEvent) => {
     let txt = oEvent.target.text;
-    if (txt == "Cliente") {
+    /*if (txt == "Cliente") {
       authorizateCode();
-    } else if(txt== "Usuario admininistrador") {
-      authorizateCodeAdmin()
+    } else */
+    if (txt == "Usuario admininistrador") {
+      authorizateCodeAdmin();
     } else {
       logout();
       persistor.purge();
@@ -56,12 +57,12 @@ const Header = () => {
                   </>
                 )}
 
-                <NavDropdown.Item onClick={logoutHandler}>
-                  Cliente
-                </NavDropdown.Item>
                 {/* <NavDropdown.Item onClick={logoutHandler}>
-                  Usuario admininistrador
+                  Cliente
                 </NavDropdown.Item> */}
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Usuario admininistrador
+                </NavDropdown.Item>
                 {isUserAdmin ||
                   (isLogin && (
                     <NavDropdown.Item onClick={logoutHandler}>
