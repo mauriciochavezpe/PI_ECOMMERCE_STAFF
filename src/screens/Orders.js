@@ -6,7 +6,8 @@ import {
   getAllOrders,
   getOrderbyID,
   cancelOrder,
-  updateOrder,
+  updatedOrder,
+
 } from "../store/slice/sliceOrder";
 import Spinner from "../components/layout/Spinner";
 
@@ -34,7 +35,7 @@ const Orders = () => {
     console.log(order);
   };
   const handleUpdateOrder = (item) => {
-    dispatch(updateOrder(item.id));
+    dispatch(updatedOrder(item.id));
 
     console.log(order);
   };

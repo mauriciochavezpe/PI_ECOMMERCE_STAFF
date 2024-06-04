@@ -23,11 +23,15 @@ const formatterBadge = (sText) => {
   };
   return obj[sText] || "primary";
 };
-const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
+const OrderList = ({ orders, handleShowDetail, handleCancelOrder,handleUpdateOrder, downloadReports }) => {
   return (
     <div>
       <h3>Lista de Órdenes</h3>
-
+      <div className="flex">
+        <Button variant="primary" onClick={() => downloadReports()}>
+          Obtener reporte
+        </Button>
+      </div>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -42,8 +46,7 @@ const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
           </tr>
         </thead>
         <tbody>
-          {
-          orders.map((order) => (
+          {orders.map((order) => (
             <tr key={order.id}>
               <td>{order.id}</td>
               <td>
@@ -62,12 +65,20 @@ const OrderList = ({ orders, handleShowDetail, handleCancelOrder }) => {
                   Ver Detalle
                 </Button>
                 {order.status == "pending" && (
+                  <>
+                  <Button
+                    variant="seconds"
+                    onClick={() => handleUpdateOrder(order)}
+                  >
+                    Actualizar
+                  </Button>
                   <Button
                     variant="danger"
                     onClick={() => handleCancelOrder(order)}
                   >
                     Cancelar
                   </Button>
+                  </>
                 )}
               </td>
             </tr>
