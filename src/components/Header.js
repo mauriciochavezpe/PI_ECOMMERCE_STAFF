@@ -50,10 +50,11 @@ const Header = () => {
                     <NavDropdown.Item href="/order/myorders">
                       Ordenes
                     </NavDropdown.Item>
+                    {/* <Route path="/admin/products" element={<ProductListAdmin />} /> */}
 
-                    {/* <NavDropdown.Item href="/order/createOrder">
-                      Crear orden
-                    </NavDropdown.Item> */}
+                    <NavDropdown.Item href="/products">
+                      Productos
+                    </NavDropdown.Item>
                   </>
                 )}
 

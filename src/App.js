@@ -29,7 +29,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/not-found" element={<NotFound />} />
-        <Route path="/admin/products" element={<ProductListAdmin />} />
+        <Route path="/products" element={<ProductListAdmin />} />
         <Route path="/user/myprofile" element={<Myprofile />} />
         <Route path="/order/myorders" element={<Orders />} />
         <Route path="/order/createOrder" element={<OrderCreate />} />
