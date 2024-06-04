@@ -48,11 +48,11 @@ const oauth2 = () => {
     })
     .catch((error) => console.error(error));
 };
-const authorizateCode = () => {
-  let sURL = `https://pi-be-customers-domain.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`;
-  console.log(sURL);
-  window.location.href = sURL;
-};
+// const authorizateCode = () => {
+//   let sURL = `https://pi-be-customers-domain.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}`;
+//   console.log(sURL);
+//   window.location.href = sURL;
+// };
 const authorizateCodeAdmin = () => {
   let sURL = `https://pi-be-staff-domain.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=${client_id_STAFF}&redirect_uri=${redirect_uri_STAFF}&response_type=${response_type}`;
   console.log(sURL);
@@ -61,12 +61,11 @@ const authorizateCodeAdmin = () => {
 
 const logout = () => {
   let sURL =
-    `https://pi-be-staff-domain.auth.us-east-1.amazoncognito.com/logout?client_id=${client_id_STAFF}&logout_uri=https://pi-ecommerce-staff.vercel.app`;
+  "https://pi-be-staff-domain.auth.us-east-1.amazoncognito.com/logout?client_id=7f6jgel88lnmruiondssh8qjjc&logout_uri=https://pi-ecommerce-staff.vercel.app"
   console.log(sURL);
   localStorage.removeItem("TOKEN_COGNITO");
   window.location.href = sURL;
 };
-
  
 
-export { oauth2, authorizateCode, logout,authorizateCodeAdmin };
+export { oauth2,   logout,authorizateCodeAdmin };
