@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import OrderList from "../components/orderList";
-import { getAllOrders, getOrderbyID,cancelOrder } from "../store/slice/sliceOrder";
+import {
+  getAllOrders,
+  getOrderbyID,
+  cancelOrder,
+  updateOrder,
+} from "../store/slice/sliceOrder";
 import Spinner from "../components/layout/Spinner";
 
 const Orders = () => {
@@ -15,7 +20,6 @@ const Orders = () => {
 
   useEffect(() => {
     dispatch(getAllOrders());
-    
   }, [dispatch]);
 
   const handleShowDetail = (item) => {
@@ -23,9 +27,14 @@ const Orders = () => {
 
     console.log(order);
   };
-  
+
   const handleCancelOrder = (item) => {
     dispatch(cancelOrder(item.id));
+
+    console.log(order);
+  };
+  const handleUpdateOrder = (item) => {
+    dispatch(updateOrder(item.id));
 
     console.log(order);
   };
@@ -35,7 +44,12 @@ const Orders = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <OrderList orders={orders} handleShowDetail={handleShowDetail} handleCancelOrder={handleCancelOrder} />
+        <OrderList
+          orders={orders}
+          handleShowDetail={handleShowDetail}
+          handleCancelOrder={handleCancelOrder}
+          handleUpdateOrder={handleUpdateOrder}
+        />
       )}
     </>
   );

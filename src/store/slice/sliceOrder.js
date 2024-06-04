@@ -87,6 +87,23 @@ export const cancelOrder = createAsyncThunk(
     return data;
   }
 );
+export const updatedOrder = createAsyncThunk(
+  "orderSlice/updatedOrder",
+  async (id) => {
+    let sPath = url + "/" + id
+    let config = {
+      method: "PATCH",
+      url:sPath,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
 
 const orderSlice = createSlice({
   name: "orderSlice",
@@ -237,6 +254,26 @@ const orderSlice = createSlice({
     });
 
     builder.addCase(cancelOrder.rejected, (state, action) => {
+      // Add user to the state array
+      state.loading = false;
+      console.log("Error", action);
+      state.error = JSON.stringify(action);
+      state.showDetail = false;
+    });
+
+    //updateORder
+     builder.addCase(updatedOrder.pending, (state, action) => {
+      // state.loading = true;
+      state.showDetail = false;
+    });
+    builder.addCase(updatedOrder.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.statusOrder = action.payload.data.message;
+      state.successEvent = true;
+      // console.log(state.);
+    });
+
+    builder.addCase(updatedOrder.rejected, (state, action) => {
       // Add user to the state array
       state.loading = false;
       console.log("Error", action);

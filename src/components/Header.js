@@ -48,12 +48,12 @@ const Header = () => {
                     </NavDropdown.Item>
 
                     <NavDropdown.Item href="/order/myorders">
-                      Mis Ordenes
+                      Ordenes
                     </NavDropdown.Item>
 
-                    <NavDropdown.Item href="/order/createOrder">
+                    {/* <NavDropdown.Item href="/order/createOrder">
                       Crear orden
-                    </NavDropdown.Item>
+                    </NavDropdown.Item> */}
                   </>
                 )}
 
