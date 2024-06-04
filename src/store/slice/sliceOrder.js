@@ -11,8 +11,9 @@ const initialState = {
   orderItemsSelected: [],
   showDetail: false,
   successCreate: null,
-  statusOrder:"",
-  successEvent:false,
+  statusOrder: "",
+  successEvent: false,
+  isDownloadFile:false
 };
 
 var url = process.env.REACT_APP_URL_STAFF + "/orders";
@@ -37,10 +38,10 @@ export const getAllOrders = createAsyncThunk(
 export const getOrderbyID = createAsyncThunk(
   "orderSlice/getOrderbyID",
   async (id) => {
-    let sPath =  url + "/" + id;
+    let sPath = url + "/" + id;
     let config = {
       method: "GET",
-      url:sPath,
+      url: sPath,
       headers: {
         Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
@@ -73,10 +74,10 @@ export const createOrder = createAsyncThunk(
 export const cancelOrder = createAsyncThunk(
   "orderSlice/cancelOrder",
   async (id) => {
-    let sPath = url + "/" + id + "/cancel"
+    let sPath = url + "/" + id + "/cancel";
     let config = {
       method: "PATCH",
-      url:sPath,
+      url: sPath,
       headers: {
         Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
@@ -90,10 +91,27 @@ export const cancelOrder = createAsyncThunk(
 export const updatedOrder = createAsyncThunk(
   "orderSlice/updatedOrder",
   async (id) => {
-    let sPath = url + "/" + id
+    let sPath = url + "/" + id;
     let config = {
       method: "PATCH",
-      url:sPath,
+      url: sPath,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+export const downloadReports = createAsyncThunk(
+  "orderSlice/downloadReports",
+  async () => {
+    let sPath = process.env.REACT_APP_URL_STAFF + "/reports/orders/excel";
+    let config = {
+      method: "GET",
+      url: sPath,
       headers: {
         Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
@@ -183,7 +201,7 @@ const orderSlice = createSlice({
       state.orders = action.payload.data.orders;
       state.orders.sort((a, b) => {
         return new Date(b.createdAt) - new Date(a.createdAt);
-    });
+      });
       state.loading = false;
     });
 
@@ -262,7 +280,7 @@ const orderSlice = createSlice({
     });
 
     //updateORder
-     builder.addCase(updatedOrder.pending, (state, action) => {
+    builder.addCase(updatedOrder.pending, (state, action) => {
       // state.loading = true;
       state.showDetail = false;
     });
@@ -281,6 +299,38 @@ const orderSlice = createSlice({
       state.showDetail = false;
     });
 
+
+    //downloadFiles
+    builder.addCase(downloadReports.pending, (state, action) => {
+      // state.loading = true;
+      state.showDetail = false;
+      state.isDownloadFile = false;
+    });
+    builder.addCase(downloadReports.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.statusOrder = action.payload.data.message;
+      state.successEvent = true;
+      state.isDownloadFile = true;
+      const handleDownload = (url) => {
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "order_bill.pdf");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+      handleDownload(state.order.bill);
+      // console.log(state.);
+    });
+
+    builder.addCase(downloadReports.rejected, (state, action) => {
+      // Add user to the state array
+      state.loading = false;
+      console.log("Error", action);
+      state.error = JSON.stringify(action);
+      state.showDetail = false;
+      state.isDownloadFile = false;
+    });
   },
 });
 

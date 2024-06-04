@@ -7,6 +7,7 @@ import {
   getOrderbyID,
   cancelOrder,
   updatedOrder,
+  downloadReports
 
 } from "../store/slice/sliceOrder";
 import Spinner from "../components/layout/Spinner";
@@ -39,6 +40,11 @@ const Orders = () => {
 
     console.log(order);
   };
+  const downloadReports = (item) => {
+    dispatch(downloadReports());
+
+    console.log(order);
+  };
 
   return (
     <>
@@ -50,6 +56,7 @@ const Orders = () => {
           handleShowDetail={handleShowDetail}
           handleCancelOrder={handleCancelOrder}
           handleUpdateOrder={handleUpdateOrder}
+          downloadReports={downloadReports}
         />
       )}
     </>
