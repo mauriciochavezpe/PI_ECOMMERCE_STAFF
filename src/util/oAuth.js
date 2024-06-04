@@ -34,7 +34,7 @@ const oauth2 = () => {
   };
   let url = "";
   fetch(
-    url_customer+"/oauth2/token",
+    url_staff+"/oauth2/token",
     requestOptions
   )
     .then((response) => response.text())
