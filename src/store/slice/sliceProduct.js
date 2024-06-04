@@ -32,7 +32,7 @@ export const getAllProducts = createAsyncThunk(
 
 export const deleteProducts = createAsyncThunk(
   "userLogin/deleteProducts",
-  async (action) => {
+  async (id) => {
     let sPath = URL + +"/" + id;
     let config = {
       method: "DELETE",
@@ -51,11 +51,9 @@ export const deleteProducts = createAsyncThunk(
 export const createProducts = createAsyncThunk(
   "orderSlice/createProducts",
   async (body) => {
-    let sPath = URL + +"/" + id;
-
     let config = {
       method: "POST",
-      url:sPath,
+      url: URL,
       headers: {
         Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
@@ -71,9 +69,10 @@ export const createProducts = createAsyncThunk(
 export const updateProducts = createAsyncThunk(
   "orderSlice/updateProducts",
   async (body) => {
+    let sPath = URL + "/" + body.id;
     let config = {
       method: "POST",
-      url,
+      url: sPath,
       headers: {
         Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
@@ -89,11 +88,11 @@ export const updateProducts = createAsyncThunk(
 export const createImg = createAsyncThunk(
   "orderSlice/createImg",
   async (body) => {
-    let sPath = URL + +"/" + id + "/image"
+    let sPath = URL + +"/" + body.id + "/image";
 
     let config = {
       method: "POST",
-      url:sPath,
+      url: sPath,
       headers: {
         Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
@@ -105,7 +104,6 @@ export const createImg = createAsyncThunk(
     return data;
   }
 );
-
 
 const productSlice = createSlice({
   name: "productSlice",

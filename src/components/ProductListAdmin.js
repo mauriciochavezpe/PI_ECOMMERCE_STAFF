@@ -9,12 +9,12 @@ import {
 import { getAllProducts, deleteProducts,updateProducts } from "../store/slice/sliceProduct";
 
 const ProductScreen = ({ onSubmit }) => {
-  const [mostrarAlerta, setMostrarAlerta] = useState(false);
-  const [mostrarAlerta1, setMostrarAlerta1] = useState(false);
   
   const { loading, loadingModal, products, error } = useSelector(
     (state) => state.productSlice
   );
+  const [mostrarAlerta, setMostrarAlerta] = useState(false);
+  const [mostrarAlerta1, setMostrarAlerta1] = useState(false);
   const dispatch = useDispatch();
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
