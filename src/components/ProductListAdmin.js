@@ -2,17 +2,19 @@ import React, { useState, useEffect, useReducer } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Alert, Row, Container, Form, Button, Table } from "react-bootstrap";
+import { createProduct, deleteProduct } from "../actions/productActions";
 import {
-  createProduct,
-  deleteProduct,
-} from "../actions/productActions";
-import { getAllProducts, deleteProducts,updateProducts } from "../store/slice/sliceProduct";
+  getAllProducts,
+  deleteProducts,
+  updateProducts,
+} from "../store/slice/sliceProduct";
 
-const ProductScreen = ({ onSubmit }) => {
+const ProductScreen = () => {
   
   const { loading, loadingModal, products, error } = useSelector(
     (state) => state.productSlice
   );
+
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [mostrarAlerta1, setMostrarAlerta1] = useState(false);
   const dispatch = useDispatch();
@@ -27,7 +29,7 @@ const ProductScreen = ({ onSubmit }) => {
 
   useEffect(() => {
     // setProduct(obj.product);
-    dispatch(getAllProducts());
+    dispatch(getAllProducts(""));
   }, []);
 
   const handleInputChange2 = (e) => {
