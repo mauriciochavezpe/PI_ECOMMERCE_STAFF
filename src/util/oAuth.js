@@ -4,11 +4,11 @@ import store from "../store/index";
 const apiKey = process.env.REACT_APP_API_URL;
 const client_id = process.env.REACT_APP_client_id;
 const client_id_STAFF = process.env.REACT_APP_client_id_STAFF;
-const client_secret = process.env.REACT_APP_client_secret;
+const client_secret = process.env.REACT_APP_client_secret_STAFF;
 const redirect_uri = process.env.REACT_APP_redirect_uri;
 const redirect_uri_STAFF = process.env.REACT_APP_redirect_uri_STAFF;
 const response_type = process.env.REACT_APP_response_type;
-const url_customer = process.env.REACT_APP_URL_OAUTH_CUSTOMER;
+// const url_customer = process.env.REACT_APP_URL_OAUTH_CUSTOMER;
 const url_staff = process.env.REACT_APP_URL_OAUTH_STAFF;
 
 const oauth2 = () => {
@@ -22,8 +22,8 @@ const oauth2 = () => {
   const urlencoded = new URLSearchParams();
   urlencoded.append("grant_type", "authorization_code");
   urlencoded.append("code", dataAPI.trim()); // GENERADO POR EL LOGIN
-  urlencoded.append("redirect_uri", redirect_uri);
-  urlencoded.append("client_id", client_id);
+  urlencoded.append("redirect_uri", redirect_uri_STAFF);
+  urlencoded.append("client_id", client_id_STAFF);
   urlencoded.append("client_secret", client_secret);
 
   const requestOptions = {
