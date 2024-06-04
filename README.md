@@ -79,3 +79,6 @@ https://fredrikoseberg.github.io/react-chatbot-kit-docs/
 - me falta valdiar el token
 
 https://stackoverflow.com/questions/70129328/redux-toolkit-async-thunk-cannot-read-properties-of-undefined
+
+
+https://pi-ecommerce-staff.vercel.app/
