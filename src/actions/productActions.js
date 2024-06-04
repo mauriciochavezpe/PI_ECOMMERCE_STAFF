@@ -22,20 +22,23 @@ import {
   PRODUCT_TOP_FAIL,
 } from "../constants/productConstants";
 
-var URL = process.env.REACT_APP_URL_STAFF+"/products";
+var URL = process.env.REACT_APP_URL_STAFF + "/products";
 
 export const listProducts =
-  (filter=null) =>
+  (filter = null) =>
   async (dispatch) => {
     try {
-      if(filter){
-        URL+=`?category=${filter.category||""}&brand=${filter.brand||""}&name=${filter.name||""}&minPrice=${filter.minPrice||""}&maxPrice=${filter.maxPrice||""}`;
-      }else{
-        URL=URL;
+      if (filter) {
+        URL += `?category=${filter.category || ""}&brand=${
+          filter.brand || ""
+        }&name=${filter.name || ""}&minPrice=${
+          filter.minPrice || ""
+        }&maxPrice=${filter.maxPrice || ""}`;
+      } else {
+        URL = URL;
       }
 
       dispatch({ type: PRODUCT_LIST_REQUEST });
-
 
       const response = await axios(URL); // Use the relative path to your API endpoint
       const data = await response;
@@ -59,7 +62,7 @@ export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    let sURL = URL+"/"+id;
+    let sURL = URL + "/" + id;
     console.log(sURL);
     const { data } = await axios.get(`${sURL}`);
     console.log(data);
@@ -83,8 +86,8 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     dispatch({
       type: PRODUCT_DELETE_REQUEST,
     });
- 
-    const  data  = await axios.delete(`${URL}/${id}`);
+
+    const data = await axios.delete(`${URL}/${id}`);
     console.log(data);
     dispatch({
       type: PRODUCT_DELETE_SUCCESS,
@@ -110,78 +113,72 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   }
 };
 
-export const createProduct =
-  (data) =>
-  async (dispatch, getState) => {
-    try {
-    let payloadTemp = {...data}; //creamos un objeto temporal con los datos que ya hemos recibido
-    data.price = Number(data.price)
-    data.quantity = Number(data.quantity)
-    let sUrl ="";
+export const createProduct = (data) => async (dispatch, getState) => {
+  try {
+    let payloadTemp = { ...data }; //creamos un objeto temporal con los datos que ya hemos recibido
+    data.price = Number(data.price);
+    data.quantity = Number(data.quantity);
+    let sUrl = "";
     let pay;
-    let bFlag = false; // 1= create| 2=edit 
-    if(JSON.stringify(data)!=="{}"){
-      
+    let bFlag = false; // 1= create| 2=edit
+    if (JSON.stringify(data) !== "{}") {
       //validacion si es CREAR o Actualizar
-      if(data.id){
-        sUrl =URL +"/"+data.id 
+      if (data.id) {
+        sUrl = URL + "/" + data.id;
         console.log(data);
         delete data.image;
         delete data.id;
-        pay = await axios.patch(sUrl,data)
-      }
-      else{
+        pay = await axios.patch(sUrl, data);
+      } else {
         delete data.image;
         delete data.id;
         pay = await axios.post(URL, data);
-        bFlag=true; //creado
+        bFlag = true; //creado
       }
-      let imgNew = ""
-        if(getState().createImage.imageFormat){
-          let sId = pay.data.product.id;
-          sUrl = URL+"/"+sId+"/image"
-          let body_ = getState().createImage;
-          delete body_.productos;
-          delete body_.product;
-         let dataImg= await axios.post(sUrl, body_);
-         imgNew = dataImg.data.imageUrl;
-          //reescribimos el id de la img
-          //pay.data.product.image = dataImg.data.imageUrl;
-          console.log("update",pay.data.product);
-        }
-        if(bFlag){
-          if(imgNew) pay.data.product.image = imgNew;
-          dispatch({
-            type: PRODUCT_CREATE_SUCCESS,
-            payload: pay.data.product,
-          });
-        }else{
-          pay.data.product["image"] = imgNew!="" ? imgNew :  payloadTemp["image"];
-          dispatch({
-            type: PRODUCT_EDIT_SUCCESS,
-            payload: pay.data.product,
-          });
-        }
+      let imgNew = "";
+      if (getState().createImage.imageFormat) {
+        let sId = pay.data.product.id;
+        sUrl = URL + "/" + sId + "/image";
+        let body_ = getState().createImage;
+        delete body_.productos;
+        delete body_.product;
+        let dataImg = await axios.post(sUrl, body_);
+        imgNew = dataImg.data.imageUrl;
+        //reescribimos el id de la img
+        //pay.data.product.image = dataImg.data.imageUrl;
+        console.log("update", pay.data.product);
       }
-     
-     
-    } catch (err) {
-      debugger;
-      dispatch({
-        type: PRODUCT_CREATE_FAIL,
-        payload:
-          err.response && err.response.data.message
-            ? err.response.data.message
-            : err.message,
-      });
+      if (bFlag) {
+        if (imgNew) pay.data.product.image = imgNew;
+        dispatch({
+          type: PRODUCT_CREATE_SUCCESS,
+          payload: pay.data.product,
+        });
+      } else {
+        pay.data.product["image"] =
+          imgNew != "" ? imgNew : payloadTemp["image"];
+        dispatch({
+          type: PRODUCT_EDIT_SUCCESS,
+          payload: pay.data.product,
+        });
+      }
     }
-  };
+  } catch (err) {
+    debugger;
+    dispatch({
+      type: PRODUCT_CREATE_FAIL,
+      payload:
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
+    });
+  }
+};
 
 export const updateProduct = (product) => async (dispatch, getState) => {
   try {
-
-    dispatch({type:"PRODUCT_DETAILS_FILL",payload:product});
-/*
+    dispatch({ type: "PRODUCT_DETAILS_FILL", payload: product });
+    /*
     dispatch({
       type: PRODUCT_UPDATE_REQUEST,
     });
@@ -213,7 +210,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       payload: data,
     });
  */
-/*
+    /*
     setTimeout(() => {
       dispatch({ type: PRODUCT_UPDATE_HIDE_MESSAGE });
     }, 2500);*/
@@ -234,7 +231,7 @@ export const createProductReview =
       dispatch({
         type: PRODUCT_CREATE_REVIEW_REQUEST,
       });
-/*
+      /*
       const {
         userLogin: { userInfo },
       } = getState();

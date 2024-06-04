@@ -30,6 +30,83 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
+export const deleteProducts = createAsyncThunk(
+  "userLogin/deleteProducts",
+  async (action) => {
+    let sPath = URL + +"/" + id;
+    let config = {
+      method: "DELETE",
+      url: sPath,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+
+export const createProducts = createAsyncThunk(
+  "orderSlice/createProducts",
+  async (body) => {
+    let sPath = URL + +"/" + id;
+
+    let config = {
+      method: "POST",
+      url:sPath,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+      data: body,
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+
+export const updateProducts = createAsyncThunk(
+  "orderSlice/updateProducts",
+  async (body) => {
+    let config = {
+      method: "POST",
+      url,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+      data: body,
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+
+export const createImg = createAsyncThunk(
+  "orderSlice/createImg",
+  async (body) => {
+    let sPath = URL + +"/" + id + "/image"
+
+    let config = {
+      method: "POST",
+      url:sPath,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+      data: body,
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+
+
 const productSlice = createSlice({
   name: "productSlice",
   initialState,

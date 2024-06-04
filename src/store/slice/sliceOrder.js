@@ -306,21 +306,25 @@ const orderSlice = createSlice({
       state.showDetail = false;
       state.isDownloadFile = false;
     });
+    
     builder.addCase(downloadReports.fulfilled, (state, action) => {
       // Add user to the state array
       state.statusOrder = action.payload.data.message;
       state.successEvent = true;
       state.isDownloadFile = true;
+    
       const handleDownload = (url) => {
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", "order_bill.pdf");
+        link.setAttribute("download", "order_bill.xlsx");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
       };
+    
+      
       handleDownload(state.order.bill);
-      // console.log(state.);
+    
     });
 
     builder.addCase(downloadReports.rejected, (state, action) => {

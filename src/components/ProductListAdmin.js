@@ -1,59 +1,45 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Alert, Row, Container, Form, Button,Table } from "react-bootstrap";
-import TablaProducts from "../components/TablaProducts";
-import { createProduct, listProducts,deleteProduct } from "../actions/productActions";
+import { Alert, Row, Container, Form, Button, Table } from "react-bootstrap";
+import {
+  createProduct,
+  deleteProduct,
+} from "../actions/productActions";
+import { getAllProducts, deleteProducts,updateProducts } from "../store/slice/sliceProduct";
 
 const ProductScreen = ({ onSubmit }) => {
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [mostrarAlerta1, setMostrarAlerta1] = useState(false);
-  const productDelete = useSelector((state) => state.productDelete); //sacado del store.js
-  const productCreate = useSelector((state) => state.productCreate); //sacado del store.js
-  const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
-
-  //AQuí lo llamo
-  var obj = useSelector((state) => state.productDetails); //sacado del store.js
-  //const [product, setProduct] = useState({});
-  const productList = useSelector((state) => state.productList);
+  
+  const { loading, loadingModal, products, error } = useSelector(
+    (state) => state.productSlice
+  );
   const dispatch = useDispatch();
-const [brand, setBrand] = useState("")
-const [description, setDescription] = useState("");
-const [price, setPrice] = useState("");
-const [category, setCategory] = useState("");
-const [quantity, setQuantity] = useState(0);
-const [name, setName] = useState("");
-const [id, setId] = useState("");
-const [image, setImage] = useState("");
-/*
-  const [product, setProduct] = useState({
-    name: "",
-    description: "",
-    price: "",
-    category: "",
-    brand: "",
-    quantity: "",
-    id: null,
-  });
-
-*/
-
+  const [brand, setBrand] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [quantity, setQuantity] = useState(0);
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     // setProduct(obj.product);
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(getAllProducts());
+  }, []);
 
   const handleInputChange2 = (e) => {
     const { name, value } = e.target;
     // Validar que solo se ingresen números y un solo punto decimal
     if (/^\d*\.?\d*$/.test(value)) {
-     // setProduct({ ...product, [name]: value });
+      // setProduct({ ...product, [name]: value });
     }
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-   // setProduct({ ...product, [name]: value });
+    // setProduct({ ...product, [name]: value });
     //product={...product, [name]: value}
   };
   const handleImageUpload = (e) => {
@@ -95,18 +81,16 @@ const [image, setImage] = useState("");
       brand: brand,
       quantity: quantity,
       id: id,
-      image:image
-    }
-   await generarSync(obj);
-   fillInputs()
-  
+      image: image,
+    };
+    await generarSync(obj);
+    fillInputs();
   };
 
-  const generarSync = async (data="") => {
-    if(data){
-     
+  const generarSync = async (data = "") => {
+    if (data) {
       dispatch(createProduct(data));
-  
+
       setMostrarAlerta(true);
       //ocultar luego de 3seg.
       setTimeout(() => {
@@ -122,36 +106,21 @@ const [image, setImage] = useState("");
     console.log(item);
     dispatch(deleteProduct(item.id));
   };
-  const fillInputs=(item={})=>{
-    setBrand(item.brand||"")
-    setCategory(item.category||"")
-    setDescription(item.description||"")
-    setPrice(item.price||"")
-    setName(item.name||"")
-    setQuantity(item.quantity||"")
-    setId(item.id||"")
-    setImage(item.image||"")
-  }
-  const editarProduct = (item)=>{
+  const fillInputs = (item = {}) => {
+    setBrand(item.brand || "");
+    setCategory(item.category || "");
+    setDescription(item.description || "");
+    setPrice(item.price || "");
+    setName(item.name || "");
+    setQuantity(item.quantity || "");
+    setId(item.id || "");
+    setImage(item.image || "");
+  };
+  const editarProduct = (item) => {
     console.log(item);
-  
-    fillInputs(item)
-    /*
-    Object.keys(item).map(e=>{
-      setProduct({ ...product, [e]: item[e] });
-    })*/
-   /* setProduct({...product,
-      name: item.name,
-      description: item.description,
-      price: item.price,
-      category: item.category,
-      brand: item.brand,
-      quantity: item.quantity,
-      id: item.id,
-    })*/
-    debugger;
-    //dispatch(updateProduct(item))
-  }
+
+    fillInputs(item);
+  };
   return (
     <div>
       {mostrarAlerta1 && (
@@ -163,7 +132,7 @@ const [image, setImage] = useState("");
           Completar los campos
         </Alert>
       )}
-      {productCreate.false && mostrarAlerta && (
+      {/* {productCreate.false && mostrarAlerta && (
         <Alert
           variant="danger"
           onClose={() => disabledAlert(false)}
@@ -189,7 +158,7 @@ const [image, setImage] = useState("");
         >
           Producto eliminado exitosamente
         </Alert>
-      )}
+      )} */}
 
       <Container>
         <h2>Administrador de productos</h2>
@@ -202,7 +171,7 @@ const [image, setImage] = useState("");
               placeholder="Nombre del producto"
               name="name"
               value={name || ""}
-              onChange={e=>setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
           </Form.Group>
 
@@ -213,7 +182,7 @@ const [image, setImage] = useState("");
               placeholder="Descripción del producto"
               name="description"
               value={description || ""}
-              onChange={e=>setDescription(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
 
@@ -225,26 +194,27 @@ const [image, setImage] = useState("");
               name="price"
               min={1}
               value={price || ""}
-              onChange={e=>setPrice(e.target.value)}
-            />{/*onChange={handleInputChange2}*/}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+            {/*onChange={handleInputChange2}*/}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="category">
             <Form.Label>Categoría</Form.Label>
             <Form.Select
               aria-label="Default select example"
-              onChange={e=>setCategory(e.target.value)}
+              onChange={(e) => setCategory(e.target.value)}
               value={category || ""}
               name="category"
             >
               <option value="">Seleccione una categoria</option>
-              {categoryList.categories.map((e, i) => {
+              {/* {categoryList.categories.map((e, i) => {
                 return (
                   <option key={i} value={e.categoria}>
                     {e.categoria}
                   </option>
                 );
-              })}
+              })} */}
             </Form.Select>
           </Form.Group>
 
@@ -253,16 +223,16 @@ const [image, setImage] = useState("");
             <Form.Select
               name="brand"
               value={brand || ""}
-              onChange={e=>setBrand(e.target.value)}
+              onChange={(e) => setBrand(e.target.value)}
             >
-                 <option value="">Seleccione una marca</option>
-              {categoryList.brands.map((e, i) => {
+              <option value="">Seleccione una marca</option>
+              {/* {categoryList.brands.map((e, i) => {
                 return (
                   <option key={i} value={e.brand}>
                     {e.brand}
                   </option>
                 );
-              })}
+              })} */}
             </Form.Select>
           </Form.Group>
 
@@ -274,7 +244,7 @@ const [image, setImage] = useState("");
               name="quantity"
               min={0}
               value={quantity || ""}
-              onChange={e=>setQuantity(e.target.value)}
+              onChange={(e) => setQuantity(e.target.value)}
             />
           </Form.Group>
 
@@ -308,8 +278,8 @@ const [image, setImage] = useState("");
               </tr>
             </thead>
             <tbody>
-              {productList.products.length > 0 &&
-                productList.products.map((item, index) => (
+              {products.length > 0 &&
+                products.map((item, index) => (
                   <tr key={item.id}>
                     <td>{item.name}</td>
                     <td>{item.description}</td>
@@ -333,19 +303,16 @@ const [image, setImage] = useState("");
                       <div className="d-flex justify-content-around">
                         <button
                           className="btn btn-danger"
-                          onClick={() => eliminarItem(item)}
+                          onClick={() => deleteProducts(item)}
                         >
                           Eliminar
                         </button>
                         <button
                           className="btn btn-success"
-                          onClick={() => editarProduct(item)}
+                          onClick={() => updateProducts(item)}
                         >
                           Editar
                         </button>
-                        {/*<Link className="btn btn-info" to={`/detailProduct/${item.id}`}>
-                  Editar
-          </Link>*/}
                       </div>
                     </td>
                   </tr>
