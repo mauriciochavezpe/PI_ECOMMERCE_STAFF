@@ -61,7 +61,7 @@ const authorizateCodeAdmin = () => {
 
 const logout = () => {
   let sURL =
-    `https://pi-be-staff-domain.auth.us-east-1.amazoncognito.com/logout?client_id=${client_id_STAFF}&logout_uri=${redirect_uri_STAFF}`;
+    `https://pi-be-staff-domain.auth.us-east-1.amazoncognito.com/logout?client_id=${client_id_STAFF}&logout_uri=https://pi-ecommerce-staff.vercel.app`;
   console.log(sURL);
   localStorage.removeItem("TOKEN_COGNITO");
   window.location.href = sURL;
