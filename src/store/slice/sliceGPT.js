@@ -12,7 +12,7 @@ const initialState = {
   status:"succeeded"
 };
 
-var URL = process.env.REACT_APP_URL_STAFF + "/conversations" //?userGroup=Admins";
+var URL = process.env.REACT_APP_URL_STAFF + "/conversations"; //?userGroup=Admins";
 
 export const getAllConversations = createAsyncThunk(
   "product/getAllConversations",
