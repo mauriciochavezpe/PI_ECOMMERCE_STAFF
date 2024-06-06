@@ -9,6 +9,7 @@ const initialState = {
   loadingModal: false,
   error: "",
   value: 0,
+  report:null,
   ItemSelected: [],
 };
 
