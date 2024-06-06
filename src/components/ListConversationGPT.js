@@ -5,12 +5,12 @@ import { Table, Container, Alert } from 'react-bootstrap';
 
 const ListConversationGPT = () => {
   const dispatch = useDispatch();
-  const { conversations, status, error } = useSelector((state) => state.conversations);
+  const { conversations, status, error } = useSelector((state) => state.chatgpt);
 
   useEffect(() => {
-    if (status === 'idle') {
+    // if (status === 'idle') {
       dispatch(getAllConversations());
-    }
+    // }
   }, [status, dispatch]);
 
   return (
