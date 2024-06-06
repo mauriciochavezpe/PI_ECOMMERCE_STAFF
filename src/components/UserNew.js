@@ -192,13 +192,7 @@ const userNew = () => {
               onChange={(e) => setBrand(e.target.value)}
             >
               <option value="">Seleccione una marca</option>
-              {/* {categoryList.brands.map((e, i) => {
-                return (
-                  <option key={i} value={e.brand}>
-                    {e.brand}
-                  </option>
-                );
-              })} */}
+           
             </Form.Select>
           </Form.Group>
 
