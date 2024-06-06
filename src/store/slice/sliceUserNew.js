@@ -88,7 +88,7 @@ const userNewSlice = createSlice({
     });
     builder.addCase(getAllUser.fulfilled, (state, action) => {
       // Add user to the state array
-      state.getAllUser = action.payload.data.users;
+      state.userList = action.payload.data.users;
       // state.getAllUserTemp = action.payload.data.user;
       state.isLogin = true;
       state.loading = false;
