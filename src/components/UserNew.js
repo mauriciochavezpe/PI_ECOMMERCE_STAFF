@@ -10,8 +10,8 @@ import {
   // downloadReports
 } from "../store/slice/sliceUserNew";
 
-const userNew = () => {
-  const { userList, loading} = useSelector(
+const UserNew = () => {
+  const { userList} = useSelector(
     (state) => state.userNewSlice
   );
 
@@ -272,4 +272,4 @@ const userNew = () => {
   );
 };
 
-export default userNew;
+export default UserNew;
