@@ -17,7 +17,7 @@ const initialState = {
   isDownloadFile:false
 };
 
-var url = process.env.REACT_APP_URL_STAFF + "/orders";
+let url = process.env.REACT_APP_URL_STAFF + "/orders";
 
 export const getAllOrders = createAsyncThunk(
   "orderSlice/getAllOrders",
