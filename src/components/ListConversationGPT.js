@@ -16,9 +16,9 @@ const ListConversationGPT = () => {
   return (
     <Container className="mt-4">
       <h1 className="mb-4">Conversations</h1>
-      {status === 'loading' && <Alert variant="info">Loading...</Alert>}
-      {status === 'failed' && <Alert variant="danger">{error}</Alert>}
-      {status === 'succeeded' && (
+      {/* {status === 'loading' && <Alert variant="info">Loading...</Alert>} */}
+      {/* {status === 'failed' && <Alert variant="danger">{error}</Alert>} */}
+      {/* {status === 'succeeded' && ( */}
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -41,7 +41,7 @@ const ListConversationGPT = () => {
             ))}
           </tbody>
         </Table>
-      )}
+      {/* )} */}
     </Container>
   );
 };
