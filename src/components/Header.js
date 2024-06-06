@@ -40,15 +40,14 @@ const Header = () => {
             <Nav>
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Contacto">Contacto</Nav.Link>
-
               <NavDropdown title="Ingresar" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/user/newuser">
-                  Crear user
-                </NavDropdown.Item>
                 {isLogin && (
                   <>
                     <NavDropdown.Item href="/user/myprofile">
                       Perfil
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/newuser">
+                      Crear user
                     </NavDropdown.Item>
 
                     <NavDropdown.Item href="/order/myorders">
@@ -59,7 +58,7 @@ const Header = () => {
                     <NavDropdown.Item href="/products">
                       Productos
                     </NavDropdown.Item>
-
+                    
                     <NavDropdown.Item href="/chatgpt/conversations">
                       ChatGPT
                     </NavDropdown.Item>
