@@ -34,7 +34,7 @@ export const getAllProducts = createAsyncThunk(
     };
     const response = await axios.request(config); // Use the relative path to your API endpoint
   const data = await response;
-  return data;
+  return data.data;
   }
 );
 
