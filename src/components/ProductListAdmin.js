@@ -264,7 +264,7 @@ const ProductScreen = () => {
 
         <Row>
           <div className="flex">
-            <Button variant="primary" onClick={() => downloadReports()}>
+            <Button variant="primary" onClick={() => dispatch(downloadProducts())}>
               Obtener Productos
             </Button>
           </div>

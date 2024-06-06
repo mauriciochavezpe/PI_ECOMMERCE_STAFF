@@ -113,6 +113,25 @@ export const createImg = createAsyncThunk(
   }
 );
 
+export const downloadProducts = createAsyncThunk(
+  "orderSlice/downloadProducts",
+  async () => {
+    let sPath = process.env.REACT_APP_URL_STAFF + "/reports/products/excel";
+    let config = {
+      method: "GET",
+      url: sPath,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+
+
 const productSlice = createSlice({
   name: "productSlice",
   initialState,
@@ -190,6 +209,46 @@ const productSlice = createSlice({
       console.log("Error", action);
       state.error = JSON.stringify(action);
     });
+
+
+    
+    //downloadFiles products
+    builder.addCase(downloadReports.pending, (state, action) => {
+      // state.loading = true;
+      state.showDetail = false;
+      state.isDownloadFile = false;
+    });
+    
+    builder.addCase(downloadReports.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.statusOrder = action.payload.data.message;
+      state.report = action.payload.data.report;
+      state.successEvent = true;
+      state.isDownloadFile = true;
+    
+      const handleDownload = (url) => {
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "products.xlsx");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+    
+      
+      handleDownload(state.report);
+    
+    });
+
+    builder.addCase(downloadReports.rejected, (state, action) => {
+      // Add user to the state array
+      state.loading = false;
+      console.log("Error", action);
+      state.error = JSON.stringify(action);
+      state.showDetail = false;
+      state.isDownloadFile = false;
+    });
+    
   },
 });
 

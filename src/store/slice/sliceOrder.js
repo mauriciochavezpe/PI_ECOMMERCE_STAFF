@@ -337,6 +337,7 @@ const orderSlice = createSlice({
       state.showDetail = false;
       state.isDownloadFile = false;
     });
+    
   },
 });
 
