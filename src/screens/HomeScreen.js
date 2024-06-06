@@ -37,9 +37,7 @@ const HomeScreen = ({  history }) => {
 
       {loading ? (
         <Spinner />
-      ) : error ? (
-        <Spinner />
-      ) : (
+      )  : (
         <>
           <Container>
             <Row>
