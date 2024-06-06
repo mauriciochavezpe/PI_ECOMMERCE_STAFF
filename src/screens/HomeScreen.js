@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
 import Product from "../components/Product";
-import { getAllProducts, addProduct,changeLoadingModal } from "../store/slice/sliceProduct";
+import { getAllProducts, changeLoadingModal } from "../store/slice/sliceProduct";
 import  Modal from "../components/Modal";
 import TodoModal from "../components/TodoModal";
 import Spinner from "../components/layout/Spinner";
 import ProductCarousel from "../components/ProductCarousel";
 import FilterHome from "../components/Filter";
-import { oauth2 } from "../util/oAuth";
 
 
 const HomeScreen = ({  history }) => {
