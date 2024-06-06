@@ -2,18 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  products: [], // Tu array de productos inicial
-  product: [],
-  // {
-  // name: "",
-  // description: "",
-  // price: "",
-  // category: "",
-  // brand: "",
-  // quantity: "",
-  // image: null,
-  // id:""
-  // },
+  conversations: [], // Tu array de productos inicial
+  users: [],
   filter: "",
   loading: false,
   loadingModal: false,
@@ -21,26 +11,27 @@ const initialState = {
   value: 0,
 };
 
-var URL = process.env.REACT_APP_URL_STAFF + "/products";
+var URL = process.env.REACT_APP_URL_STAFF + "/conversations?userGroup=Admins";
 
-export const getAllProducts = createAsyncThunk(
-  "product/getAllProducts",
-  async (filter) => {
-    if (filter) {
-      URL += `?category=${filter.category || ""}&brand=${
-        filter.brand || ""
-      }&name=${filter.name || ""}&minPrice=${filter.minPrice || ""}&maxPrice=${
-        filter.maxPrice || ""
-      }`;
-    }
-    const response = await axios(URL); // Use the relative path to your API endpoint
+export const getAllConversations = createAsyncThunk(
+  "product/getAllConversations",
+  async () => {
+    let config = {
+        method: "GET",
+        url:URL,
+        headers: {
+          Authorization:
+            "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+        },
+      };
+      const response = await axios.request(config); // Use the relative path to your API endpoint
     const data = await response;
     return data.data;
   }
 );
 
-const shopSlice = createSlice({
-  name: "product",
+const chatgtpSlice = createSlice({
+  name: "chatgpt",
   initialState,
   reducers: {
     //actions
@@ -55,9 +46,6 @@ const shopSlice = createSlice({
       state.filter = action.payload;
     },
     changeLoadingModal(state, action) {
-      // state.loadingModal = !action.payload.loadingModal;
-      // state.loadingModal = !action.payload.loadingModal;
-      // if (typeof action.payload == String) {
         let aObj = state.products.filter((e) => e.id === action.payload);
         if (aObj.length == 1) {
           state.product = aObj[0];
@@ -73,16 +61,16 @@ const shopSlice = createSlice({
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(getAllProducts.pending, (state, action) => {
+    builder.addCase(getAllConversations.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(getAllProducts.fulfilled, (state, action) => {
+    builder.addCase(getAllConversations.fulfilled, (state, action) => {
       // Add user to the state array
-      state.products = action.payload.products;
+      state.conversations = action.payload.conversations;
       state.loading = false;
     });
 
-    builder.addCase(getAllProducts.rejected, (state, action) => {
+    builder.addCase(getAllConversations.rejected, (state, action) => {
       // Add user to the state array
       //state.products.push(action.payload);
       console.log("Error", action);
@@ -92,5 +80,5 @@ const shopSlice = createSlice({
 });
 
 export const { changeLoading, addFilter, changeLoadingModal, addProduct } =
-  shopSlice.actions;
-export default shopSlice.reducer;
+  chatgtpSlice.actions;
+export default chatgtpSlice.reducer;

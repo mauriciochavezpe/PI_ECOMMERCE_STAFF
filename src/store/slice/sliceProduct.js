@@ -16,7 +16,7 @@ let URL = process.env.REACT_APP_URL_STAFF + "/products";
 
 export const getAllProducts = createAsyncThunk(
   "productSlice/getAllProducts",
-  async (filter ="") => {
+  async (filter = "") => {
     if (filter) {
       URL += `?category=${filter.category || ""}&brand=${
         filter.brand || ""
@@ -26,15 +26,15 @@ export const getAllProducts = createAsyncThunk(
     }
     let config = {
       method: "GET",
-      url:URL,
+      url: URL,
       headers: {
         Authorization:
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
       },
     };
     const response = await axios.request(config); // Use the relative path to your API endpoint
-  const data = await response;
-  return data.data;
+    const data = await response;
+    return data.data;
   }
 );
 

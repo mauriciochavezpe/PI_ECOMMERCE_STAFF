@@ -12,6 +12,7 @@ import Logout from "./screens/Logout";
 import Login from "./screens/Login";
 import ChatbotComponet from "./components/ChatbotToggle";
 import Orders from "./screens/Orders";
+import ListConversationGPT from "./components/listConversationGPT";
 
 function App() {
   const [chatbotOpen, setChatbotOpen] = useState(false);
@@ -33,6 +34,7 @@ function App() {
         <Route path="/user/myprofile" element={<Myprofile />} />
         <Route path="/order/myorders" element={<Orders />} />
         <Route path="/order/createOrder" element={<OrderCreate />} />
+        <Route path="/chatgpt/conversation" element={<ListConversationGPT />} />
       </Routes>
       <Footer />
       <ChatbotComponet onToggle={toggleChatbot} isOpen={chatbotOpen} />
