@@ -16,7 +16,7 @@ var URL = process.env.REACT_APP_URL_STAFF + "/products";
 
 export const getAllProducts = createAsyncThunk(
   "productSlice/getAllProducts",
-  async (filter) => {
+  async (filter ="") => {
     if (filter) {
       URL += `?category=${filter.category || ""}&brand=${
         filter.brand || ""
