@@ -12,7 +12,7 @@ import Logout from "./screens/Logout";
 import Login from "./screens/Login";
 import ChatbotComponet from "./components/ChatbotToggle";
 import Orders from "./screens/Orders";
-import ListConversationGPT from "./components/listConversationGPT";
+import ListConversationGPT from "./components/ListConversationGPT";
 
 function App() {
   const [chatbotOpen, setChatbotOpen] = useState(false);
