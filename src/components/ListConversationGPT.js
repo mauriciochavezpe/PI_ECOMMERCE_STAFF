@@ -11,7 +11,7 @@ const ListConversationGPT = () => {
     // if (status === 'idle') {
       dispatch(getAllConversations());
     // }
-  }, [status, dispatch]);
+  }, []);
 
   return (
     <Container className="mt-4">
