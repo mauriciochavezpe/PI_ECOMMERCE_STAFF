@@ -8,6 +8,7 @@ const initialState = {
   error: "",
   value: 1110,
   order: {},
+  report: null,
   orderItemsSelected: [],
   showDetail: false,
   successCreate: null,
@@ -310,6 +311,7 @@ const orderSlice = createSlice({
     builder.addCase(downloadReports.fulfilled, (state, action) => {
       // Add user to the state array
       state.statusOrder = action.payload.data.message;
+      state.report = action.payload.data.report;
       state.successEvent = true;
       state.isDownloadFile = true;
     
@@ -323,7 +325,7 @@ const orderSlice = createSlice({
       };
     
       
-      handleDownload(state.order.bill);
+      handleDownload(state.report);
     
     });
 
