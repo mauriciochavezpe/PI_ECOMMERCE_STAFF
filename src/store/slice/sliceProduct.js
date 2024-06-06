@@ -41,7 +41,7 @@ export const getAllProducts = createAsyncThunk(
 export const deleteProducts = createAsyncThunk(
   "userLogin/deleteProducts",
   async (id) => {
-    let sPath = URL + +"/" + id;
+    let sPath = URL + "/" + id;
     let config = {
       method: "DELETE",
       url: sPath,
