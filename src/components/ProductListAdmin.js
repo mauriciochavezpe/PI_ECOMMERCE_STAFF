@@ -304,13 +304,13 @@ const ProductScreen = () => {
                       <div className="d-flex justify-content-around">
                         <button
                           className="btn btn-danger"
-                          onClick={() => deleteProducts(item.id)}
+                          onClick={() => dispatch(deleteProducts(item.id))}
                         >
                           Eliminar
                         </button>
                         <button
                           className="btn btn-success"
-                          onClick={() => updateProducts(item)}
+                          onClick={() => dispatch(updateProducts(item))}
                         >
                         Editar
                         </button>

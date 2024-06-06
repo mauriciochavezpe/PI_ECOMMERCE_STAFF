@@ -55,6 +55,10 @@ const Header = () => {
                     <NavDropdown.Item href="/products">
                       Productos
                     </NavDropdown.Item>
+                    
+                    <NavDropdown.Item href="/conversation/chatgpt">
+                      ChatGPT
+                    </NavDropdown.Item>
                   </>
                 )}
 
