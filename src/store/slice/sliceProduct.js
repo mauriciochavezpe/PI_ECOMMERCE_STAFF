@@ -24,9 +24,17 @@ export const getAllProducts = createAsyncThunk(
         filter.maxPrice || ""
       }`;
     }
-    const response = await axios(URL); // Use the relative path to your API endpoint
-    const data = await response;
-    return data.data;
+    let config = {
+      method: "GET",
+      url:URL,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+  const data = await response;
+  return data;
   }
 );
 

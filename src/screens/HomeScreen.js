@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
 import Product from "../components/Product";
-import { getAllProducts, addProduct,changeLoadingModal } from "../store/slice/sliceProduct";
-import  Modal from "../components/Modal";
-import TodoModal from "../components/TodoModal";
+import { getAllProducts, changeLoadingModal } from "../store/slice/sliceProduct";
 import Spinner from "../components/layout/Spinner";
 import ProductCarousel from "../components/ProductCarousel";
 import FilterHome from "../components/Filter";
-import { oauth2 } from "../util/oAuth";
 
 
 const HomeScreen = ({  history }) => {
@@ -16,29 +13,7 @@ const HomeScreen = ({  history }) => {
   const { loading, loadingModal, products, error } = useSelector(
     (state) => state.productSlice
   );
- const { isLogin,userData } = useSelector((state) => state.userLogin);
-
-  
-
-  // const url = window.location.href;
-
-  // const urlObj = new URL(url);
-
-  // const code = urlObj.searchParams.get("code");
-
-  // let objCurrent = {};
-  // if (code) {
-  //   if (!localStorage.getItem("TOKEN_COGNITO")) {
-  //     objCurrent.code = code;
-  //   } else {
-  //     let data = localStorage.getItem("TOKEN_COGNITO");
-  //     objCurrent = JSON.parse(data);
-  //     objCurrent.code = code;
-  //   }
-  //   localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-  // }
-  // console.log("isLogin", isLogin);
-  // console.log("userData", userData);
+ 
 
   const onToggle = (id) => {
     dispatch(changeLoadingModal(id));
@@ -91,11 +66,11 @@ const HomeScreen = ({  history }) => {
               )}
             </Row>
           </Container>
-          {loadingModal && (
+          {/* {loadingModal && (
             <Modal>
               <TodoModal onToggle={onToggle} isOpen={loadingModal} ></TodoModal>
             </Modal>
-          )}
+          )} */}
           
         </>
       )}
