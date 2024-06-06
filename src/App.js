@@ -13,6 +13,7 @@ import Login from "./screens/Login";
 import ChatbotComponet from "./components/ChatbotToggle";
 import Orders from "./screens/Orders";
 import ListConversationGPT from "./components/ListConversationGPT";
+import UserNew from "./components/UserNew";
 
 function App() {
   const [chatbotOpen, setChatbotOpen] = useState(false);
@@ -32,6 +33,7 @@ function App() {
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/products" element={<ProductListAdmin />} />
         <Route path="/user/myprofile" element={<Myprofile />} />
+        <Route path="/user/newuser" element={<UserNew />} />
         <Route path="/order/myorders" element={<Orders />} />
         <Route path="/order/createOrder" element={<OrderCreate />} />
         <Route path="/chatgpt/conversations" element={<ListConversationGPT />} />

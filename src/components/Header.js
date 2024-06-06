@@ -46,6 +46,9 @@ const Header = () => {
                     <NavDropdown.Item href="/user/myprofile">
                       Perfil
                     </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/newuser">
+                      Crear user
+                    </NavDropdown.Item>
 
                     <NavDropdown.Item href="/order/myorders">
                       Ordenes
