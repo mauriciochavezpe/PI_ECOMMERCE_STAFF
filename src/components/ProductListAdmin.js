@@ -10,7 +10,6 @@ import {
 } from "../store/slice/sliceProduct";
 
 const ProductScreen = () => {
-  
   const { loading, loadingModal, products, error } = useSelector(
     (state) => state.productSlice
   );
@@ -264,6 +263,11 @@ const ProductScreen = () => {
         </Form>
 
         <Row>
+          <div className="flex">
+            <Button variant="primary" onClick={() => downloadReports()}>
+              Obtener Productos
+            </Button>
+          </div>
           {/* <TablaProducts products={productList.products} />*/}
           <Table striped bordered hover>
             <thead>
@@ -312,7 +316,7 @@ const ProductScreen = () => {
                           className="btn btn-success"
                           onClick={() => dispatch(updateProducts(item))}
                         >
-                        Editar
+                          Editar
                         </button>
                       </div>
                     </td>
