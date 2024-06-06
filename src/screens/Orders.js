@@ -40,7 +40,7 @@ const Orders = () => {
 
     console.log(order);
   };
-  const downloadReports = () => {
+  const downloadReport2 = () => {
     dispatch(downloadReports());
 
     console.log(order);
@@ -56,7 +56,7 @@ const Orders = () => {
           handleShowDetail={handleShowDetail}
           handleCancelOrder={handleCancelOrder}
           handleUpdateOrder={handleUpdateOrder}
-          downloadReports={downloadReports}
+          downloadReports={downloadReport2}
         />
       )}
     </>
