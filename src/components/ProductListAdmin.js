@@ -304,7 +304,7 @@ const ProductScreen = () => {
                       <div className="d-flex justify-content-around">
                         <button
                           className="btn btn-danger"
-                          onClick={() => deleteProducts(item)}
+                          onClick={() => deleteProducts(item.id)}
                         >
                           Eliminar
                         </button>

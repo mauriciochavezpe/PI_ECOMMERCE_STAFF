@@ -79,7 +79,7 @@ export const updateProducts = createAsyncThunk(
   async (body) => {
     let sPath = URL + "/" + body.id;
     let config = {
-      method: "POST",
+      method: "PATCH",
       url: sPath,
       headers: {
         Authorization:
