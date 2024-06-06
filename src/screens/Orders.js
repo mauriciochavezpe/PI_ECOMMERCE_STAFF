@@ -22,7 +22,7 @@ const Orders = () => {
 
   useEffect(() => {
     dispatch(getAllOrders());
-  }, [dispatch]);
+  }, []);
 
   const handleShowDetail = (item) => {
     dispatch(getOrderbyID(item.id));
