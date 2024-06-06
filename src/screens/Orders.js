@@ -40,7 +40,7 @@ const Orders = () => {
 
     console.log(order);
   };
-  const downloadReports = (item) => {
+  const downloadReports = () => {
     dispatch(downloadReports());
 
     console.log(order);

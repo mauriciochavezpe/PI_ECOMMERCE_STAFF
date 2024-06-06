@@ -28,8 +28,7 @@ const ProductScreen = () => {
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    // setProduct(obj.product);
-    dispatch(getAllProducts(""));
+    dispatch(getAllProducts());
   }, []);
 
   const handleInputChange2 = (e) => {
@@ -125,7 +124,7 @@ const ProductScreen = () => {
   };
   return (
     <div>
-      {mostrarAlerta1 && (
+      {/* {mostrarAlerta1 && (
         <Alert
           variant="danger"
           onClose={() => disabledAlert(false)}
@@ -133,7 +132,7 @@ const ProductScreen = () => {
         >
           Completar los campos
         </Alert>
-      )}
+      )} */}
       {/* {productCreate.false && mostrarAlerta && (
         <Alert
           variant="danger"
@@ -313,7 +312,7 @@ const ProductScreen = () => {
                           className="btn btn-success"
                           onClick={() => updateProducts(item)}
                         >
-                          Editar
+                        Editar
                         </button>
                       </div>
                     </td>
