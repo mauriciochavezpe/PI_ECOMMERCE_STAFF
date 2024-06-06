@@ -7,6 +7,7 @@ import {
   getAllProducts,
   deleteProducts,
   updateProducts,
+  downloadReports
 } from "../store/slice/sliceProduct";
 
 const ProductScreen = () => {
@@ -264,7 +265,7 @@ const ProductScreen = () => {
 
         <Row>
           <div className="flex">
-            <Button variant="primary" onClick={() => dispatch(downloadProducts())}>
+            <Button variant="primary" onClick={() => dispatch(downloadReports())}>
               Obtener Productos
             </Button>
           </div>

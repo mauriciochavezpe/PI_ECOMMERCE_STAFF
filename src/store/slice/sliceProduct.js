@@ -114,8 +114,8 @@ export const createImg = createAsyncThunk(
   }
 );
 
-export const downloadProducts = createAsyncThunk(
-  "orderSlice/downloadProducts",
+export const downloadReports = createAsyncThunk(
+  "orderSlice/downloadReports",
   async () => {
     let sPath = process.env.REACT_APP_URL_STAFF + "/reports/products/excel";
     let config = {
