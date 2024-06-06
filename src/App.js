@@ -34,7 +34,7 @@ function App() {
         <Route path="/user/myprofile" element={<Myprofile />} />
         <Route path="/order/myorders" element={<Orders />} />
         <Route path="/order/createOrder" element={<OrderCreate />} />
-        <Route path="/chatgpt/conversation" element={<ListConversationGPT />} />
+        <Route path="/chatgpt/conversations" element={<ListConversationGPT />} />
       </Routes>
       <Footer />
       <ChatbotComponet onToggle={toggleChatbot} isOpen={chatbotOpen} />

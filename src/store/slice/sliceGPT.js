@@ -9,6 +9,7 @@ const initialState = {
   loadingModal: false,
   error: "",
   value: 0,
+  status:"succeeded"
 };
 
 var URL = process.env.REACT_APP_URL_STAFF + "/conversations?userGroup=Admins";
