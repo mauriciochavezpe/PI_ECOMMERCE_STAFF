@@ -13,7 +13,7 @@ const Myprofile = () => {
   // Obtener la URL actual
   const [edit, setEdit] = useState(true);
   const { userData, loading } = useSelector((state) => state.userLogin);
-  console.log(departamento_list);
+  const { departamento_list } = useSelector((state) => state.utilSlice);
   useEffect(() => {
     // setProduct(obj.product);
     dispatch(getMyUser());
@@ -106,7 +106,7 @@ const Myprofile = () => {
                   onChange={handleChange}
                   disabled={edit}
                 /> */}
-                {/* <Form.Control
+                <Form.Control
                 as="select"
                   name="department"
                   disabled={edit}
@@ -120,7 +120,7 @@ const Myprofile = () => {
                       </option>
                     );
                   })}
-                </Form.Control> */}
+                </Form.Control>
               </Form.Group>
               <Form.Group controlId="name">
                 <Form.Label>Provincia</Form.Label>

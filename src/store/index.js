@@ -4,6 +4,7 @@ import userLogin from "./slice/sliceUserLogin";
 import orderSlice from "./slice/sliceOrder";
 import chatgtpSlice from "./slice/sliceGPT";
 import userNewSlice from "./slice/sliceUserNew";
+import utilSlice from "./slice/sliceUtil";
 import { persistStore, persistReducer } from "redux-persist";
 import AsyncStorage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
@@ -12,7 +13,8 @@ let reducer = combineReducers({
   userLogin,
   orderSlice,
   chatgtpSlice,
-  userNewSlice
+  userNewSlice,
+  utilSlice
 });
 const persistConfig = {
   key: "root",
