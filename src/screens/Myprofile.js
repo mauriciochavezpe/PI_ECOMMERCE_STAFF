@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { updateMyuserData, updateMyUser, getMyUser } from "../store/slice/sliceUserLogin";
 import Spinner from "../components/layout/Spinner";
-
+import {departamento_list} from "../util/util"
 const Myprofile = () => {
   const dispatch = useDispatch();
   // Obtener la URL actual
@@ -95,13 +95,21 @@ const Myprofile = () => {
             <Col sm={6}>
               <Form.Group controlId="name">
                 <Form.Label>Departamento</Form.Label>
-                <Form.Control
+                {/* <Form.Control
                   type="text"
                   name="department"
                   value={userData.department}
                   onChange={handleChange}
                   disabled={edit}
-                />
+                /> */}
+          <Form.Select aria-label="Default select example"  name="department"  disabled={edit}
+          value={userData.department} onChange={handleChange}>
+              {departamento_list.map((e,i)=>{
+                <option key={i} value={e}>{e}</option>
+
+              })}
+            </Form.Select>
+
               </Form.Group>
               <Form.Group controlId="name">
                 <Form.Label>Provincia</Form.Label>
