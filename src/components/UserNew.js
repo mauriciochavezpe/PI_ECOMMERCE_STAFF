@@ -11,7 +11,7 @@ import {
 } from "../store/slice/sliceUserNew";
 
 const UserNew = () => {
-  const { userList} = useSelector(
+  const { userList, downloadReports} = useSelector(
     (state) => state.userNewSlice
   );
 
@@ -128,7 +128,11 @@ const UserNew = () => {
 
       <Container>
         <h2>Lista de usuarios en el sistmea</h2>
-
+        <div className="flex">
+        <Button variant="primary" onClick={() => downloadReports()}>
+          Obtener reporte
+        </Button>
+      </div>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Nombre</Form.Label>
@@ -261,6 +265,7 @@ const UserNew = () => {
                 <td>
                   <Button variant="primary" className="mr-2">View</Button>
                   <Button variant="secondary">Edit</Button>
+                  <Button variant="secondary">Delete</Button>
                 </td>
               </tr>
             ))}

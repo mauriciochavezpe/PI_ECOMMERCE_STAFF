@@ -6,12 +6,30 @@ const initialState = {
   userDataTemp: {},
   isLogin: false,
   loading: true,
-  isUserAdmin:false,
+  isUserAdmin: false,
   error: "",
   value: 0,
+  report:""
 };
 
 let url = process.env.REACT_APP_URL_STAFF + "/users";
+export const downloadReports = createAsyncThunk(
+  "userNew/downloadReports",
+  async () => {
+    let sPath = process.env.REACT_APP_URL_STAFF + "/reports/users/excel";
+    let config = {
+      method: "GET",
+      url: sPath,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
 export const getAllUser = createAsyncThunk("userNew/getAllUser", async () => {
   let config = {
     method: "GET",
@@ -134,13 +152,47 @@ const userNewSlice = createSlice({
       state.loading = true;
       state.error = JSON.stringify(action);
     });
+
+    
+    //downloadFiles
+    builder.addCase(downloadReports.pending, (state, action) => {
+      // state.loading = true;
+      state.showDetail = false;
+      state.isDownloadFile = false;
+    });
+    
+    builder.addCase(downloadReports.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.statusOrder = action.payload.data.message;
+      state.report = action.payload.data.report;
+      state.successEvent = true;
+      state.isDownloadFile = true;
+    
+      const handleDownload = (url) => {
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "users.xlsx");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+    
+      
+      handleDownload(state.report);
+    
+    });
+
+    builder.addCase(downloadReports.rejected, (state, action) => {
+      // Add user to the state array
+      state.loading = false;
+      console.log("Error", action);
+      state.error = JSON.stringify(action);
+      state.showDetail = false;
+      state.isDownloadFile = false;
+    });
   },
 });
 
-export const {
-  updateMyuserData,
-  addFilter,
-  addProduct,
-  IsLogin,
-} = userNewSlice.actions;
+export const { updateMyuserData, addFilter, addProduct, IsLogin } =
+  userNewSlice.actions;
 export default userNewSlice.reducer;
