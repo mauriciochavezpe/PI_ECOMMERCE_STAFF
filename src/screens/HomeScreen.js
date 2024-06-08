@@ -21,7 +21,7 @@ const HomeScreen = ({  history }) => {
   };
 
   useEffect(() => {
-    dispatch(getAllProducts());
+    // dispatch(getAllProducts());
   }, []);
 
   return (
@@ -40,35 +40,9 @@ const HomeScreen = ({  history }) => {
       )  : (
         <>
           <Container>
-            <Row>
-              {products.length > 0 ? (
-                products.map((product) => (
-                  <Col key={product.id} sm={12} md={6} lg={4} xl={3}>
-                    <Product
-                      product={product}
-                      onToggle={()=>{onToggle(product.id)}}
-                      isOpen={loadingModal}
-                    />
-                  </Col>
-                ))
-              ) : (
-                <>
-                  <h3 className="mr-3">
-                    <span
-                      style={{ color: "#AAAAAA" }}
-                      className="link"
-                      onClick={() => history.push("/")}
-                    ></span>
-                  </h3>
-                </>
-              )}
-            </Row>
+            <p>Panel administrador</p>
           </Container>
-          {/* {loadingModal && (
-            <Modal>
-              <TodoModal onToggle={onToggle} isOpen={loadingModal} ></TodoModal>
-            </Modal>
-          )} */}
+       
           
         </>
       )}
