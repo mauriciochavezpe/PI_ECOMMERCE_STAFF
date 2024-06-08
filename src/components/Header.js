@@ -41,11 +41,11 @@ const Header = () => {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Contacto">Contacto</Nav.Link>
               <NavDropdown title="Ingresar" id="basic-nav-dropdown">
+                {isLogin && (
+                  <>
                     <NavDropdown.Item href="/user/myprofile">
                       Perfil
                     </NavDropdown.Item>
-                {isLogin && (
-                  <>
                     <NavDropdown.Item href="/user/newuser">
                       Crear user
                     </NavDropdown.Item>
@@ -63,22 +63,19 @@ const Header = () => {
                       ChatGPT
                     </NavDropdown.Item>
                   </>
-                )}
+                )} 
 
-                {/* <NavDropdown.Item onClick={logoutHandler}>
-                  Cliente
-                </NavDropdown.Item> */}
-                <NavDropdown.Item onClick={logoutHandler}>
-                  Usuario admininistrador
-                </NavDropdown.Item>
                 {isUserAdmin ||
-                  (isLogin && (
+                  (isLogin ? (
                     <NavDropdown.Item onClick={logoutHandler}>
                       Salir
                     </NavDropdown.Item>
-                  ))}
+                  ) : (<> <NavDropdown.Item onClick={logoutHandler}>
+                    Usuario admininistrador
+                  </NavDropdown.Item>
+                  </>)
+                  )}
               </NavDropdown>
-              {/* )} */}
             </Nav>
             <Button variant="outline-primary" onClick={() => setShow(!show)}>
               <FaShoppingCart />
