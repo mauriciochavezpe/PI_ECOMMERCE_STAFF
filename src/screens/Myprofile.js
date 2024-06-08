@@ -106,8 +106,8 @@ const Myprofile = () => {
                   onChange={handleChange}
                   disabled={edit}
                 /> */}
-                <Form.Select
-                  aria-label="Default select example"
+                <Form.Control
+                as="select"
                   name="department"
                   disabled={edit}
                   value={userData.department}
@@ -120,7 +120,7 @@ const Myprofile = () => {
                       </option>
                     );
                   })}
-                </Form.Select>
+                </Form.Control>
               </Form.Group>
               <Form.Group controlId="name">
                 <Form.Label>Provincia</Form.Label>
