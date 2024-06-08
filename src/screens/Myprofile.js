@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
-import { updateMyuserData, updateMyUser, getMyUser } from "../store/slice/sliceUserLogin";
+import {
+  updateMyuserData,
+  updateMyUser,
+  getMyUser,
+} from "../store/slice/sliceUserLogin";
 import Spinner from "../components/layout/Spinner";
-import {departamento_list} from "../util/util"
+import { departamento_list } from "../util/util";
 const Myprofile = () => {
   const dispatch = useDispatch();
   // Obtener la URL actual
@@ -22,7 +26,7 @@ const Myprofile = () => {
 
   const actualizarDatos = (e) => {
     // e.preventDefault();
-    let objTemp = {...userData};
+    let objTemp = { ...userData };
 
     console.log(userData);
     delete objTemp.updatedAt;
@@ -102,14 +106,21 @@ const Myprofile = () => {
                   onChange={handleChange}
                   disabled={edit}
                 /> */}
-          <Form.Select aria-label="Default select example"  name="department"  disabled={edit}
-          value={userData.department} onChange={handleChange}>
-              {departamento_list.map((e,i)=>{
-                <option key={i} value={e}>{e}</option>
-
-              })}
-            </Form.Select>
-
+                <Form.Select
+                  aria-label="Default select example"
+                  name="department"
+                  disabled={edit}
+                  value={userData.department}
+                  onChange={handleChange}
+                >
+                  {departamento_list.map((e, i) => {
+                    return (
+                      <option key={i} value={e}>
+                        {e}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
               </Form.Group>
               <Form.Group controlId="name">
                 <Form.Label>Provincia</Form.Label>
@@ -171,7 +182,7 @@ const Myprofile = () => {
             {edit ? "Editar" : "Cancelar"}
           </Button>
           <Button
-           className="ml-2"
+            className="ml-2"
             variant="danger"
             onClick={() => {
               setEdit(!edit);
