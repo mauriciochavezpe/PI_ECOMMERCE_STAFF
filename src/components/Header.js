@@ -41,11 +41,11 @@ const Header = () => {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Contacto">Contacto</Nav.Link>
               <NavDropdown title="Ingresar" id="basic-nav-dropdown">
-                {isLogin && (
-                  <>
                     <NavDropdown.Item href="/user/myprofile">
                       Perfil
                     </NavDropdown.Item>
+                {isLogin && (
+                  <>
                     <NavDropdown.Item href="/user/newuser">
                       Crear user
                     </NavDropdown.Item>
