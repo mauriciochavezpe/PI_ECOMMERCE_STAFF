@@ -28,18 +28,7 @@ class ActionProvider {
   async handleHello(message = "") {
     let sURL = process.env.REACT_APP_URL_STAFF + "/chat";
     let obj = { question: message };
-    /*let config = {
-      method: "POST",
-      sURL,
-      headers: {
-        "Content-type": "application/json",
-        Authorization:
-          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
-      },
-      data: obj,
-    };*/
  
-
     let response = await axios.post(sURL, obj, {
       headers: {
         "Content-type": "application/json",
@@ -47,6 +36,7 @@ class ActionProvider {
           "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
       },
     });
+
     // const response = await axios.request(config); // Use the relative path to your API endpoint
     const data = await response;
     console.log(data);
@@ -64,27 +54,5 @@ class ActionProvider {
   }
 }
 
-{
-  /*
-const ActionProvider = ({ createChatBotMessage, setState, children }) => {
-  const handleHello = () => {
-    const botMessage = createChatBotMessage('Hello. Nice to meet you.');
-
-    setState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, botMessage],
-    }));
-  };
-  return (
-    <div>
-      {React.Children.map(children, (child) => {
-        return React.cloneElement(child, {
-          actions: {},
-        });
-      })}
-    </div>
-  );
-};*/
-}
 
 export default ActionProvider;

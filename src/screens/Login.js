@@ -31,10 +31,8 @@ const Login = () => {
         objCurrent = JSON.parse(data);
         objCurrent.code = code;
       }
-      // if (!objCurrent.oauth2) {
       localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
       oauth2();
-      // }
     }
   };
 
