@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   departamento_list: [
@@ -28,8 +27,8 @@ const initialState = {
     "Tacna",
     "Tumbes",
     "Ucayali",
-  ], // Tu array de productos inicial
-  tipodocumentos: ["DNI", "CARNET DE EXTRANJERIA", "RUC", "PASAPORTE"],
+  ],
+  tipodocumentos: ["DNI", "CARNET DE JERIA", "RUC", "PASAPORTE"],
   status: "success",
 };
 

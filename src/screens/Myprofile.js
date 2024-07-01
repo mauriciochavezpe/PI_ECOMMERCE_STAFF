@@ -7,7 +7,7 @@ import {
   getMyUser,
 } from "../store/slice/sliceUserLogin";
 import Spinner from "../components/layout/Spinner";
-import { departamento_list } from "../util/util";
+// import { departamento_list } from "../util/util";
 const Myprofile = () => {
   const dispatch = useDispatch();
   // Obtener la URL actual
